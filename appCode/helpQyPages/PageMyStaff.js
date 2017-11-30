@@ -207,15 +207,15 @@ export default class PageMyStaff extends Component {
 
     _onRefreshNo = () => {
 
-        if (this.state.dataSourceNo.length<200){
+        if (this.state.dataSourceNo.length < 200) {
             this.setState(
-            {
-                page:  1, refreshingNo: true
-            },
-            () => {
-                this.makeRemoteRequestNo();
-            })
-        }else {
+                {
+                    page: 1, refreshingNo: true
+                },
+                () => {
+                    this.makeRemoteRequestNo();
+                })
+        } else {
             this.setState(
                 {
                     page: this.state.page + 1,
@@ -230,16 +230,16 @@ export default class PageMyStaff extends Component {
     };
 
     _onRefreshYes = () => {     //
-        if (this.state.dataSourceYes.length<200){
+        if (this.state.dataSourceYes.length < 200) {
             this.setState(
                 {
-                    pageYes:  1,
+                    pageYes: 1,
                     refreshingYes: true
                 },
                 () => {
                     this.makeRemoteRequestYes();
                 })
-        }else {
+        } else {
             this.setState(
                 {
                     pageYes: this.state.pageYes + 1,
@@ -444,15 +444,16 @@ export default class PageMyStaff extends Component {
                             </View>
                             :
                             <View style={styles.noredmoney}>
-                                <Image source={require('./img/NotHappy.png')} resizeMode={'contain'} style={{width: 80, height: 80}}/>
-                                <Text style={{color:'#a4a4a4',marginTop:10}}>暂时无人申请!</Text>
+                                <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
+                                       style={{width: 80, height: 80}}/>
+                                <Text style={{color: '#a4a4a4', marginTop: 10}}>暂时无人申请!</Text>
                             </View>
                         }
                     </View>
                     :
                     <View>
                         {!!this.state.haveDataOrNoData2 ?
-                            <View>
+                            <View style={{height: height - 115}}>
                                 <View style={styles.PageMyStaffTitleViewMax}>
                                     <View style={styles.PageMyStaffTitleView}>
                                         <Text>姓名</Text></View>
@@ -463,19 +464,31 @@ export default class PageMyStaff extends Component {
                                         <Text>等待期</Text>
                                     </View>
                                 </View>
-                                <FlatList  //第二级运算符  用于判断是否存在红包数据
-                                    ref="listview"
-                                    data={this.state.dataSourceYes}
-                                    refreshing={this.state.refreshingYes}
-                                    renderItem={this._renderItemYes}
-                                    keyExtractor={this._keyExtractorYes}
-                                    onRefresh={this._onRefreshYes}
-                                />
+                                <View style={{height: 200, flex: 1}}>
+                                    <FlatList
+                                        ref="listview"
+                                        data={this.state.dataSourceYes}
+                                        refreshing={this.state.refreshingYes}
+                                        renderItem={this._renderItemYes}
+                                        keyExtractor={this._keyExtractorYes}
+                                        onRefresh={this._onRefreshYes}
+                                        ListFooterComponent={this.renderFooter}
+                                    />
+                                </View>
+                                <View style={styles.ButtonView}>
+                                    <View style={styles.ButtonOne}>
+                                        <Text style={{color: '#4A4A4A'}}>共{this.state.dataSourceNo.length}人</Text>
+                                    </View>
+                                    <TouchableOpacity onPress={this._submitStaffs.bind(this)} style={styles.ButtonTwo}>
+                                        <Text style={{color: '#fff'}}>确认</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                             :
                             <View style={styles.noredmoney}>
-                                <Image source={require('./img/NotHappy.png')} resizeMode={'contain'} style={{width: 80, height: 80}}/>
-                                <Text style={{color:'#a4a4a4',marginTop:10}}>无已加入员工!</Text>
+                                <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
+                                       style={{width: 80, height: 80}}/>
+                                <Text style={{color: '#a4a4a4', marginTop: 10}}>无已加入员工!</Text>
                             </View>
                         }
                     </View>
@@ -495,9 +508,9 @@ let styles = StyleSheet.create({
         backgroundColor: 'white',
 
     },
-    noredmoney:{
-        width:width,
-        height:height-140,
+    noredmoney: {
+        width: width,
+        height: height - 140,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
