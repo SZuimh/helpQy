@@ -19,7 +19,7 @@ import PageRegister from '../helpQyPages/PageRegister';
 import PageJoin from '../helpQyPages/PageJoin';
 import PageZhuYe from '../helpQyPages/PageZhuYe'; //主页
 import PageRulesLittle from '../helpQyPages/webView/PageRulesLittle';
-import PageLittle from '../helpQyPages/webView/PageLittle';
+import PageLittle from '../helpQyPages/img/PageLittle';
 import PageRulesYoung from '../helpQyPages/webView/PageRulesYoung';
 import PageYoung from '../helpQyPages/webView/PageYoung';
 import PageRulesOld from '../helpQyPages/webView/PageRulesOld';
@@ -43,6 +43,13 @@ import PagePayForStaff from '../helpQyPages/PagePayForStaff'
 import PageWechatBindPhone from '../helpQyPages/PageWechatBindPhone'
 import PageShare from '../helpQyPages/PageShare'
 import PageRulesofPlans from '../helpQyPages/PageRulesofPlans'
+import PageQiyeShimingShowData from '../helpQyPages/PageQiyeShimingShowData'
+import PageQiyeShimingFromZhuye from '../helpQyPages/PageQiyeShimingFromZhuye'
+import PageWoMyEmployeeFromZhuye from '../helpQyPages/PageWoMyEmployeeFromZhuye'
+import PageMyStaffFromZhuye from '../helpQyPages/PageMyStaffFromZhuye'
+import PageMyStaffHarmFromZhuye from '../helpQyPages/PageMyStaffHarmFromZhuye'
+import PagePayForStaffFromZhuye from '../helpQyPages/PagePayForStaffFromZhuye'
+import PagePayForStaffInZhuye from '../helpQyPages/PagePayForStaffInZhuye'
 //import  PageFind from '../helpQyPages/PageFindAndroid'; //
 import RedMoneyList from "../helpQyPages/RedMoneyList";
 import PageDescriptionOfGongshi from '../helpQyPages/PageDescriptionOfGongshi';
@@ -53,6 +60,7 @@ import PageWoNew from '../helpQyPages/PageWoNew'
 import PagePayForHomer from '../helpQyPages/PagePayForHomer'
 import NewsContent from "../helpQyPages/webView/NewsContent";
 import PageFindPasswordFromSetting from "../helpQyPages/PageFindPasswordFromSetting";
+import EmployeePlansFromZhuyeItem from "../helpQyPages/EmployeePlansFromZhuyeItem";
 //import  TestiOS from  '../helpQyPages/TestiOS'
 var height = Dimensions.get('window').height - 70;
 const TabNav = TabNavigator(
@@ -95,10 +103,10 @@ const TabNav = TabNavigator(
                         <View style={{width:10,height:10,borderRadius:5,backgroundColor:tintColor}}></View>
                     </Image>
                 ),
-                headerStyle: {//StackNavigator下面的Screen Navigation Options找到的文档
-                    backgroundColor: '#fff',
-                    height: 10
-                }
+                // headerStyle: {//StackNavigator下面的Screen Navigation Options找到的文档
+                //     backgroundColor: '#fff',
+                //     height: 10
+                // }
             },
         },
 
@@ -110,7 +118,6 @@ const TabNav = TabNavigator(
 
                 tabBarLabel: '发现',
                 tabBarVisible: true,
-                headerTintColor: '#fff', //管头部颜色的
                 style: {
                     backgroundColor: '#000'
                 },
@@ -129,10 +136,10 @@ const TabNav = TabNavigator(
                 //         onPress={() =>{console.log(this,props)}}
                 //     />
                 // ),
-                headerStyle: {//StackNavigator下面的Screen Navigation Options找到的文档
-                    backgroundColor: '#fff',
-                    height: 10
-                }
+                // headerStyle: {//StackNavigator下面的Screen Navigation Options找到的文档
+                //     backgroundColor: '#fff',
+                //     height: 10
+                // }
 
             },
         },
@@ -342,6 +349,30 @@ const HomeScreen = StackNavigator({
     },
     PageRulesofPlans:{
         screen:PageRulesofPlans
+    },
+    PageQiyeShimingShowData:{
+        screen:PageQiyeShimingShowData
+    },
+    PageQiyeShimingFromZhuye:{
+        screen:PageQiyeShimingFromZhuye
+    },
+    PageWoMyEmployeeFromZhuye:{
+        screen:PageWoMyEmployeeFromZhuye
+    },
+    PageMyStaffFromZhuye:{
+        screen:PageMyStaffFromZhuye
+    },
+    PageMyStaffHarmFromZhuye:{
+        screen:PageMyStaffHarmFromZhuye
+    },
+    PagePayForStaffFromZhuye:{
+        screen:PagePayForStaffFromZhuye
+    },
+    EmployeePlansFromZhuyeItem:{
+        screen:EmployeePlansFromZhuyeItem
+    },
+    PagePayForStaffInZhuye:{
+        screen:PagePayForStaffInZhuye
     },
 }, {
     headerMode: 'screen',

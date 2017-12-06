@@ -14,7 +14,7 @@ import UploadFile from '../utils/uploadFile';
 import {UrlGetPayMessage} from '../utils/url';
 let {width,height}=Dimensions.get('window');
 
-export default class EmployeePlansItem extends Component{
+export default class EmployeePlansFromZhuyeItem extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -43,25 +43,25 @@ export default class EmployeePlansItem extends Component{
 
         if (type=='employee'){
             //跳转到我的员工对应计划的界面
-            this.props.navigation.navigate('PageMyStaffHarm',
+            this.props.navigation.navigate('PageMyStaffHarmFromZhuye',
                 {
                     helpType:this.props.row.helptype,
                     useruuid:this.props.navigation.state.params.useruuid,
                     token:this.props.navigation.state.params.token,
                     payMoneyCallBack:this.props.payMoneyCallBack,
-                    HelpTypeMessage:this.props.row,
-                    PageMyEmployeeKey:this.props.navigation.state.key
+                    PageZhuYeKey:this.props.PageZhuYeKey,
+                    HelpTypeMessage:this.props.row
                 })
         }else {
             //跳转到我的员工对应计划的界面
-            this.props.navigation.navigate('PageMyStaff',
+            this.props.navigation.navigate('PageMyStaffFromZhuye',
                 {
                     helpType:this.props.row.helptype,
                     useruuid:this.props.navigation.state.params.useruuid,
                     token:this.props.navigation.state.params.token,
                     payMoneyCallBack:this.props.payMoneyCallBack,
-                    HelpTypeMessage:this.props.row,
-                    PageMyEmployeeKey:this.props.navigation.state.key
+                    PageZhuYeKey:this.props.PageZhuYeKey,
+                    HelpTypeMessage:this.props.row
                 })
         }
     }
@@ -76,7 +76,6 @@ export default class EmployeePlansItem extends Component{
     }
 
     goPagePayForStaff(){
-        //充值
         let formDataTemp = new FormData();
         formDataTemp.append("useruuid", this.props.navigation.state.params.useruuid);
         formDataTemp.append("helptype", this.props.row.helptype);
@@ -87,15 +86,14 @@ export default class EmployeePlansItem extends Component{
         let responseR = UploadFile(option);
         responseR.then(resp => {
             setTimeout(()=>{
-                this.props.navigation.navigate('PagePayForStaff',{HelpTypeMessage:this.props.row,
+                this.props.navigation.navigate('PagePayForStaffFromZhuye',{HelpTypeMessage:this.props.row,
                     payMoneyCallBack:this.props.payMoneyCallBack,
                     FirstPay:resp.result,//是否是首次充值
+                    PageZhuYeKey:this.props.PageZhuYeKey,
                 })
 
             },500)
         })
-
-
     }
 
     render(){

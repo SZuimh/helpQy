@@ -193,7 +193,7 @@ export default class PageJoin extends Component {
                     tipsModal:true,
                     failSucessTips:"对不起，充值失败",
                     failSucessImage:require('./img/joinFail.png'),
-                    respMessage:"服务返回异常，你联网了吗",
+                    respMessage:"服务返回异常，十大打死阿萨德",
                     retcode:2003
                 })
                 return ;

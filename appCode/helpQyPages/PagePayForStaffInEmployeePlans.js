@@ -1,5 +1,5 @@
 /**
- *为公司员工充值
+ *为公司员工充值，从两个计划的页面进入的充值页面
  */
 import {
     StyleSheet,
@@ -23,7 +23,7 @@ import fetchTool from '../utils/fetchTool';
 import {UrlalipayOrder} from '../utils/url';
 import LoadingInPage from "../loading/LoadingInPage";
 
-export default class PagePayForStaff extends Component {
+export default class PagePayForStaffInEmployeePlans extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -186,7 +186,7 @@ export default class PagePayForStaff extends Component {
 
     goToParentPage() {
         //直接返回就行
-        this.props.navigation.goBack(this.props.navigation.state.params.PageMyEmployeeKey)
+        this.props.navigation.goBack()
     }
 
     render() {

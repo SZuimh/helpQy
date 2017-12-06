@@ -138,13 +138,7 @@ export default class MyHomerList extends Component {
     }
 
     _onRefreshLoading = () => {
-        this.setState({
-            isRefreshing:true
-        })
-        console.log("刷新触发");
-        this.setState({
-            isRefreshing:false
-        })
+       this.makeRemoteRequest();
 
     }
     static navigationOptions = {

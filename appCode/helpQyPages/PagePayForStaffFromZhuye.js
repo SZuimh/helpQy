@@ -23,7 +23,7 @@ import fetchTool from '../utils/fetchTool';
 import {UrlalipayOrder} from '../utils/url';
 import LoadingInPage from "../loading/LoadingInPage";
 
-export default class PagePayForStaff extends Component {
+export default class PagePayForStaffFromZhuye extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -186,7 +186,7 @@ export default class PagePayForStaff extends Component {
 
     goToParentPage() {
         //直接返回就行
-        this.props.navigation.goBack(this.props.navigation.state.params.PageMyEmployeeKey)
+        this.props.navigation.goBack(this.props.navigation.state.params.PageZhuYeKey)
     }
 
     render() {
@@ -256,13 +256,13 @@ export default class PagePayForStaff extends Component {
                             <Text style={{color: color4}}>100元</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor5,borderColor:borderColor5}]}
-                            onPress={() => {this.changeMoney(150, this)}}>
+                                          style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor5,borderColor:borderColor5}]}
+                                          onPress={() => {this.changeMoney(150, this)}}>
                             <Text style={{color: color5}}>150元</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor6,borderColor:borderColor6}]}
-                            onPress={() => {this.changeMoney(180, this)}}>
+                                          style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor6,borderColor:borderColor6}]}
+                                          onPress={() => {this.changeMoney(180, this)}}>
                             <Text style={{color: color6}}>180元</Text>
                         </TouchableOpacity>
                     </View>

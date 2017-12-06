@@ -9,12 +9,12 @@ import {
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 import React, {Component,} from 'react';
-import EmployeePlansItem from './EmployeePlansItem'
 import {UrlGetCompanyHelp} from '../utils/url';
 import UploadFile from '../utils/uploadFile';
 import LoadingInPage from "../loading/LoadingInPage";
+import EmployeePlansFromZhuyeItem from "./EmployeePlansFromZhuyeItem";
 
-export default class PageWoMyEmployee extends Component {
+export default class PageWoMyEmployeeFromZhuye extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -151,13 +151,16 @@ export default class PageWoMyEmployee extends Component {
 
     _renderItem = ({item}) => (      //页面list的一个对象的生成 和属性定义
 
-        <EmployeePlansItem
+        <EmployeePlansFromZhuyeItem
             key={item.useraccountuuid}
             row={item}
             ave={item.average}
             useruuid={this.props.navigation.state.params.useruuid}
             token={this.props.navigation.state.params.token}
             payMoneyCallBack={this.payMoneyCallBack}
+            PageZhuYeKey={this.props.navigation.state.params.PageZhuYeKey}
+            //                        PageZhuYeKey:this.props.navigation.state.params.PageZhuYeKey,
+
             {...this.props}
         />
     );

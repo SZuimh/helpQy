@@ -1,6 +1,3 @@
-/*
-从我的页面进入  然后进入具体的计划之后  也就是在已经加入里面  的支付入口
- */
 import {
     View,
     Dimensions,
@@ -10,7 +7,7 @@ import {
     TouchableOpacity,
     Image,
     ScrollView,
-    RefreshControl,
+    RefreshControl
 } from 'react-native';
 
 let width = Dimensions.get('window').width;
@@ -19,13 +16,13 @@ import React, {Component,} from 'react';
 import MyStaffWaitingItem from './MyStaffWaitingItem';
 import MyStaffJoinedItem from './MyStaffJoinedItem';
 import fetchTool from '../utils/fetchTool';
-import {UrlGetAllStaff, Urlsubmitstaffs,UrlGetPayMessage} from '../utils/url';
+import {UrlGetAllStaff, Urlsubmitstaffs, UrlGetPayMessage} from '../utils/url';
 import UploadFile from '../utils/uploadFile';
 import LoadingInPage from "../loading/LoadingInPage";
 import {NativeModules} from 'react-native';
 
 var WeChat = NativeModules.WeChat;  //iOS平台微信，王后涛封装
-export default class PageMyStaff extends Component {
+export default class PageMyStaffHarmFromZhuye extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,9 +40,13 @@ export default class PageMyStaff extends Component {
             haveDataOrNoData1: false,
             haveDataOrNoData2: false,
             changeToyesTag: true,
-            isRefreshing:false
+            isRefreshing: false,
         };
     }
+
+    static navigationOptions = {
+        title: '员工综合意外',
+    };
 
     componentDidMount() {
 
@@ -66,7 +67,7 @@ export default class PageMyStaff extends Component {
         formData.append("token", this.props.navigation.state.params.token);
         formData.append("uuid", this.props.navigation.state.params.useruuid);
         formData.append("affirm", "yes");
-        formData.append("helptype", "staff");
+        formData.append("helptype", "employee");
         formData.append("page", pageYes);
 
         let option = {
@@ -76,6 +77,7 @@ export default class PageMyStaff extends Component {
         let responseR = UploadFile(option);
 
         responseR.then(resp => {
+
             //服务不可用，
             if (typeof(resp) == "undefined") {
                 this.setState({
@@ -84,6 +86,7 @@ export default class PageMyStaff extends Component {
                 });
                 return
             }
+
             if (resp.retcode == 2000) {
                 this.setState({
                     dataSourceYes: pageYes == 1 ? resp.result : [...this.state.dataSourceYes, ...resp.result],//后台必须保证UUID不同，否则报错
@@ -97,7 +100,6 @@ export default class PageMyStaff extends Component {
                     loading: false,
                 })
             }
-
 
         }).catch(err => {
             this.setState({
@@ -117,7 +119,7 @@ export default class PageMyStaff extends Component {
         formData.append("token", this.props.navigation.state.params.token);
         formData.append("uuid", this.props.navigation.state.params.useruuid);
         formData.append("affirm", "no");
-        formData.append("helptype", "staff");
+        formData.append("helptype", "employee");
         formData.append("page", page);
 
         let option = {
@@ -126,8 +128,8 @@ export default class PageMyStaff extends Component {
         };
         let responseR = UploadFile(option);
         responseR.then(resp => {
-            //服务不可用，
 
+            //服务不可用，
             if (typeof(resp) == "undefined") {
                 this.setState({
                     refreshingNo: false,
@@ -135,7 +137,6 @@ export default class PageMyStaff extends Component {
                 });
                 return
             }
-
             if (resp.retcode == 2000) {
                 this.setState({
                     dataSourceNo: page == 1 ? resp.result : [...this.state.dataSourceNo, ...resp.result],//后台必须保证UUID不同，否则报错
@@ -179,7 +180,7 @@ export default class PageMyStaff extends Component {
         let params = {
             "token": this.props.navigation.state.params.token,
             "useruuid": this.props.navigation.state.params.useruuid,
-            "helptype": "staff",
+            "helptype": "employee",
             "stuffsUserUUIDList": temp,
         }
         let options = {
@@ -196,12 +197,11 @@ export default class PageMyStaff extends Component {
                 });
                 return
             }
-
             this.setState({
                 loading: false,
                 dataSourceNo: []
             })
-            const {payMoneyCallBack} = this.props.navigation.state.params;     // 重新加载 我的两个计划的 员工数据  回调方法
+            const {payMoneyCallBack} = this.props.navigation.state.params;   //确认员工之后  我的员工两个计划 页面重新加载数据的回调方法
             payMoneyCallBack();
         }).catch(err => {
             this.setState({
@@ -212,6 +212,7 @@ export default class PageMyStaff extends Component {
 
 
     _onRefreshNo = () => {
+
 
         if (this.state.dataSourceNo.length < 200) {
             this.setState(
@@ -231,8 +232,6 @@ export default class PageMyStaff extends Component {
                     this.makeRemoteRequestNo();
                 })
         }
-
-
     };
 
     _onRefreshYes = () => {     //
@@ -255,18 +254,19 @@ export default class PageMyStaff extends Component {
                     this.makeRemoteRequestYes();
                 })
         }
-
     };
 
-    _onRefreshLoadingNo(){
+    _onRefreshLoadingNo() {
         this.makeRemoteRequestNo();
     }
 
-    _onRefreshLoadingYes(){
+    _onRefreshLoadingYes() {
         this.makeRemoteRequestYes();
     }
 
-    goPayForStaff(){
+    goPayForStaff() {
+
+
         let formDataTemp = new FormData();
         formDataTemp.append("useruuid", this.props.navigation.state.params.useruuid);
         formDataTemp.append("helptype", this.props.navigation.state.params.HelpTypeMessage.helptype);
@@ -276,18 +276,19 @@ export default class PageMyStaff extends Component {
         };
         let responseR = UploadFile(option);
         responseR.then(resp => {
+            console.log(resp)
             console.log(this.props)
-            setTimeout(()=>{
-                this.props.navigation.navigate('PagePayForStaff',{HelpTypeMessage:this.props.navigation.state.params.HelpTypeMessage,
-                    payMoneyCallBack:this.props.navigation.state.params.payMoneyCallBack,PageMyEmployeeKey:this.props.navigation.state.key,
-                    FirstPay:resp.result,//是否是首次充值
-                })
 
-            },500)
+            this.props.navigation.navigate('PagePayForStaffInZhuye', {
+                HelpTypeMessage: this.props.navigation.state.params.HelpTypeMessage,
+                payMoneyCallBack: this.props.navigation.state.params.payMoneyCallBack,
+                PageZhuYeKey: this.props.navigation.state.params.PageZhuYeKey,
+                FirstPay: resp.result,//是否是首次充值
+            })
         })
+        // 跳转支付页面
+        // 传入首页的key值 PageZhuYeKey  this.props.navigation.state.params.PageZhuYeKey
     }
-
-
 
     deleteWaitItem_callBack = (staffid) => {
 
@@ -340,6 +341,12 @@ export default class PageMyStaff extends Component {
 
     }
 
+    shareToWeChat() {
+        WeChat.webShareWeXinWithScene(0, '葡萄互助', '员工点击加入公司', 'http://oztdsemro.bkt.clouddn.com/putaohuzhu/grapelogo.png',
+            'http://www.putaohuzhu.cn/glove/grape/staffjoin.do?useruuid=' + this.props.navigation.state.params.useruuid + '&helptype=staff', (err, sendOK) => {
+
+            })
+    }
 
     changeWaitingItem() { //点击切换到未加入
         this.setState({
@@ -360,9 +367,6 @@ export default class PageMyStaff extends Component {
 
     }
 
-    static navigationOptions = {
-        title: '员工大病列表',
-    };
 
     uuid() {  //为keyExtractor产生一个uuid  用来标识id、
 
@@ -404,13 +408,6 @@ export default class PageMyStaff extends Component {
             {...this.props}
         />
     );
-
-    shareToWeChat() {
-        WeChat.webShareWeXinWithScene(0, '葡萄互助', '员工点击加入公司', 'http://oztdsemro.bkt.clouddn.com/putaohuzhu/grapelogo.png',
-            'http://www.putaohuzhu.cn/glove/grape/staffjoin.do?useruuid=' + this.props.navigation.state.params.useruuid + '&helptype=staff', (err, sendOK) => {
-
-            })
-    }
 
     renderSeparator = () => {
         return (
@@ -515,14 +512,13 @@ export default class PageMyStaff extends Component {
                                     </View>
                                 </View>
                                 <View style={{height: 200, flex: 1}}>
-                                    <FlatList
+                                    <FlatList  //第二级运算符  用于判断是否存在红包数据
                                         ref="listview"
                                         data={this.state.dataSourceYes}
                                         refreshing={this.state.refreshingYes}
                                         renderItem={this._renderItemYes}
                                         keyExtractor={this._keyExtractorYes}
                                         onRefresh={this._onRefreshYes}
-                                        ListFooterComponent={this.renderFooter}
                                     />
                                 </View>
                                 <View style={styles.ButtonView}>
@@ -547,11 +543,11 @@ export default class PageMyStaff extends Component {
                                         progressBackgroundColor="#1296db"
                                     />
                                 }>
-                            <View style={styles.noredmoney}>
-                                <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
-                                       style={{width: 80, height: 80}}/>
-                                <Text style={{color: '#a4a4a4', marginTop: 10}}>无已加入员工!</Text>
-                            </View>
+                                <View style={styles.noredmoney}>
+                                    <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
+                                           style={{width: 80, height: 80}}/>
+                                    <Text style={{color: '#a4a4a4', marginTop: 10}}>无已加入员工!</Text>
+                                </View>
                             </ScrollView>
                         }
                     </View>

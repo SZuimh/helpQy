@@ -16,6 +16,8 @@ import {
 
 import React, {Component} from 'react';
 import Swiper from 'react-native-swiper';
+import UploadFile from '../utils/uploadFile';
+import {UrlGetPayMessage} from '../utils/url';
 // 屏幕宽度
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;

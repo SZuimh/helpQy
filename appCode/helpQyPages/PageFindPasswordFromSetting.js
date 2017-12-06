@@ -298,6 +298,7 @@ export default class PageFindPasswordFromSetting extends Component {
                                     clearButtonMode='always'
                                     clearTextOnFocus={false}
                                     autoCorrect={false}
+                                    password={true}
                                     onChange={this.handlePasswordChange.bind(this)}/>
                             </View>
                         </View>

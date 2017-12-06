@@ -324,6 +324,7 @@ export default class PageRegister extends Component {
                                     clearButtonMode='always'
                                     clearTextOnFocus={false}
                                     autoCorrect={false}
+                                    password={true}
                                     onChange={this.handlePasswordChange.bind(this)}
                                 />
                             </View>

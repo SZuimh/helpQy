@@ -12,6 +12,8 @@ import {
     Alert
 } from 'react-native';
 import React, {Component} from 'react';
+import {UrlGetShimingInfo} from '../utils/url';
+import UploadFile from '../utils/uploadFile';
 
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
@@ -85,10 +87,10 @@ export default class PageWo extends Component {
 
     }
 
-    changeUserNameCallBack=(newUserName)=>{
+    changeUserNameCallBack = (newUserName) => {
 
         this.setState({
-            usernickname:newUserName
+            usernickname: newUserName
         })
         console.log(this.state.usernickname)
     }
@@ -139,7 +141,7 @@ export default class PageWo extends Component {
                 token: this.state.token, useruuid: this.state.useruuid,
                 signOutCallBack: this.signOut_callBack,
                 isLogin: this.state.isLogin, phone: this.state.userphone,
-                changeUserNameCallBack:this.changeUserNameCallBack,
+                changeUserNameCallBack: this.changeUserNameCallBack,
             })
         }
         else {
@@ -163,33 +165,83 @@ export default class PageWo extends Component {
 
     goShiming() {
         if (this.state.isLogin) {
-            if (this.state.usertype == 2) {
-                return Alert.alert(
-                    '您已认证过了!',
-                    '无需重复认证',
-                    [
-                        {text: '好的'}
+            // if (this.state.usertype == 2) {
+            //     return Alert.alert(
+            //         '您已认证过了!',
+            //         '无需重复认证',
+            //         [
+            //             {text: '好的'}
+            //
+            //         ]
+            //     );
+            // }
+            // else if (this.state.usertype == 3) {
+            //     return Alert.alert(
+            //         '您的资料正在审核中!',
+            //         '请耐心等待',
+            //         [
+            //             {text: '好的'}
+            //
+            //         ]
+            //     );
+            // } else {
+            //     this.props.navigation.navigate('PageQiyeShimingShowData', {
+            //         useruuid: this.state.useruuid,
+            //         token: this.state.token
+            //     })
+            //
+            // }
+            let formData = new FormData();
+            formData.append("token", this.state.token);
+            formData.append("useruuid", this.state.useruuid);
+            let option = {
+                url: UrlGetShimingInfo,
+                body: formData
+            };
+            let responseR = UploadFile(option);
+            responseR.then(resp => {
+                console.log(resp)
+                if (resp.retcode == 2001) {
+                    //未查到数据 说明没有进行审核信息的提交
+                    this.props.navigation.navigate('PageQiyeShiming', {
+                        useruuid: this.state.useruuid,
+                        token: this.state.token,
+                        Status:'nostart'
+                    })
+                }
+                else if (resp.retcode == 2000) {
+                    if (resp.result.confirmif == 'unhandle') {
+                        //还在审核中
+                        this.props.navigation.navigate('PageQiyeShimingShowData', {
+                            useruuid: this.state.useruuid,
+                            token: this.state.token,
+                            ShimingInfo:resp.result,
+                            Status:'unhandle'
+                        })
+                    }
+                    else if (resp.result.confirmif == 'pass') {
+                        // 审核信息已经通过了
+                        this.props.navigation.navigate('PageQiyeShimingShowData', {
+                            useruuid: this.state.useruuid,
+                            token: this.state.token,
+                            ShimingInfo:resp.result,
+                            Status:'pass'
+                        })
+                    }
+                    else if (resp.result.confirmif == 'refused') {
+                        console.log("ssss")
+                        //审核信息有误，被拒绝
+                        this.props.navigation.navigate('PageQiyeShiming',{
+                            useruuid: this.state.useruuid,
+                            token: this.state.token,
+                            ShimingInfo:resp.result,
+                            Status:'refused'
+                        })
+                    }
+                }
+            }).catch(err => {
 
-                    ]
-                );
-            }
-            else if (this.state.usertype == 3) {
-                return Alert.alert(
-                    '您的资料正在审核中!',
-                    '请耐心等待',
-                    [
-                        {text: '好的'}
-
-                    ]
-                );
-            } else {
-                this.props.navigation.navigate('PageQiyeShiming', {
-                    useruuid: this.state.useruuid,
-                    token: this.state.token
-                })
-
-            }
-
+            });
         }
         else {
             this.props.navigation.navigate('PageLogin')
@@ -282,7 +334,7 @@ export default class PageWo extends Component {
                     </View>
                     <View style={styles.PageWoNewChoiceView}>
                         <TouchableOpacity style={styles.PageWoNewChoice} onPress={this.goShiming.bind(this)}>
-                            <Text style={styles.PageWoNewChoiceFont}>实名认证</Text>
+                            <Text style={styles.PageWoNewChoiceFont}>企业认证</Text>
                             <Image source={require('./img/shiMingInWo.png')}/>
                         </TouchableOpacity>
                         <View style={styles.PageWoNewEmptyViewForLine}></View>

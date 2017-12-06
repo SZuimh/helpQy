@@ -1,6 +1,3 @@
-/*
-从我的页面进入  然后进入具体的计划之后  也就是在已经加入里面  的支付入口
- */
 import {
     View,
     Dimensions,
@@ -25,7 +22,7 @@ import LoadingInPage from "../loading/LoadingInPage";
 import {NativeModules} from 'react-native';
 
 var WeChat = NativeModules.WeChat;  //iOS平台微信，王后涛封装
-export default class PageMyStaff extends Component {
+export default class PageMyStaffFromZhuye extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -267,6 +264,7 @@ export default class PageMyStaff extends Component {
     }
 
     goPayForStaff(){
+
         let formDataTemp = new FormData();
         formDataTemp.append("useruuid", this.props.navigation.state.params.useruuid);
         formDataTemp.append("helptype", this.props.navigation.state.params.HelpTypeMessage.helptype);
@@ -278,16 +276,14 @@ export default class PageMyStaff extends Component {
         responseR.then(resp => {
             console.log(this.props)
             setTimeout(()=>{
-                this.props.navigation.navigate('PagePayForStaff',{HelpTypeMessage:this.props.navigation.state.params.HelpTypeMessage,
-                    payMoneyCallBack:this.props.navigation.state.params.payMoneyCallBack,PageMyEmployeeKey:this.props.navigation.state.key,
+                this.props.navigation.navigate('PagePayForStaffInZhuye',{HelpTypeMessage:this.props.navigation.state.params.HelpTypeMessage,
+                    payMoneyCallBack:this.props.navigation.state.params.payMoneyCallBack,PageZhuYeKey:this.props.navigation.state.params.PageZhuYeKey,
                     FirstPay:resp.result,//是否是首次充值
                 })
 
             },500)
         })
     }
-
-
 
     deleteWaitItem_callBack = (staffid) => {
 
@@ -547,11 +543,11 @@ export default class PageMyStaff extends Component {
                                         progressBackgroundColor="#1296db"
                                     />
                                 }>
-                            <View style={styles.noredmoney}>
-                                <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
-                                       style={{width: 80, height: 80}}/>
-                                <Text style={{color: '#a4a4a4', marginTop: 10}}>无已加入员工!</Text>
-                            </View>
+                                <View style={styles.noredmoney}>
+                                    <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
+                                           style={{width: 80, height: 80}}/>
+                                    <Text style={{color: '#a4a4a4', marginTop: 10}}>无已加入员工!</Text>
+                                </View>
                             </ScrollView>
                         }
                     </View>

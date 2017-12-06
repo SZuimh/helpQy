@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import React, {Component} from 'react';
 let width = Dimensions.get('window').width;
+import {UrlGetShimingInfo} from '../../utils/url';
+import UploadFile from '../../utils/uploadFile';
 var loginEmitterEvent;
 export default class PageRulesQiyeDabing extends Component {
     constructor(props) {
@@ -24,30 +26,56 @@ export default class PageRulesQiyeDabing extends Component {
 
     goJoin() {
         if (this.state.isLogin) {
-            if (this.state.usertype == '2') {
-                //公司用户
-                this.props.navigation.navigate('PageShare', {
-                    helptype: this.props.navigation.state.params.categorytype,
-                })
-            }
-            else if (this.state.usertype == '3') {
-                //个人用户 提交申请公司 认证审核中
-                return Alert.alert(
-                    '您的账户不是企业账户',
-                    '认证资料审核中',
-                    [
-                        {
-                            text: '好的'
-                        }
-                    ]
-                );
-            }
-            else {
-                this.props.navigation.navigate('PageQiyeShiming',
-                    {useruuid:this.state.useruuid,token:this.state.token})
-            }
+            let formData = new FormData();
+            formData.append("token", this.state.token);
+            formData.append("useruuid", this.state.useruuid);
+            let option = {
+                url: UrlGetShimingInfo,
+                body: formData
+            };
+            let responseR = UploadFile(option);
+            responseR.then(resp => {
+                console.log(resp)
+                if (resp.retcode == 2001) {
+                    //未查到数据 说明没有进行审核信息的提交
+                    this.props.navigation.navigate('PageQiyeShiming', {
+                        useruuid: this.state.useruuid,
+                        token: this.state.token,
+                        Status:'nostart'
+                    })
+                }
+                else if (resp.retcode == 2000) {
+                    if (resp.result.confirmif == 'unhandle') {
+                        //还在审核中
+                        this.props.navigation.navigate('PageQiyeShimingShowData', {
+                            useruuid: this.state.useruuid,
+                            token: this.state.token,
+                            ShimingInfo:resp.result,
+                            Status:'unhandle'
+                        })
+                    }
+                    else if (resp.result.confirmif == 'pass') {
+                        // 审核信息已经通过了
+                        this.props.navigation.navigate('PageShare', {
+                            helptype: this.props.navigation.state.params.categorytype,
+                            PageZhuYeKey:this.props.navigation.state.params.PageZhuYeKey,
 
+                        })
+                    }
+                    else if (resp.result.confirmif == 'refused') {
+                        console.log("ssss")
+                        //审核信息有误，被拒绝
+                        this.props.navigation.navigate('PageQiyeShiming',{
+                            useruuid: this.state.useruuid,
+                            token: this.state.token,
+                            ShimingInfo:resp.result,
+                            Status:'refused'
+                        })
+                    }
+                }
+            }).catch(err => {
 
+            });
         }
         else {
             this.props.navigation.navigate('PageLogin')

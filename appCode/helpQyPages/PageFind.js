@@ -121,7 +121,7 @@ export default class PageFind extends Component {
 
     _shareToWechatSession() { // 分享到微信会话
         if (!!this.state.isLogin) {
-            WeChat.webShareWeXinWithScene(0, '葡萄互助', '点击加入葡萄互助，得5元红包', 'http://oztdsemro.bkt.clouddn.com/putaoLogo@2x.png',
+            WeChat.webShareWeXinWithScene(0, '葡萄互助', '您的好友邀请您加入葡萄互助，注册成为会员最高享30万元健康保障', 'http://oztdsemro.bkt.clouddn.com/putaoLogo@2x.png',
                 'http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + this.state.useruuid, (err, sendOK) => {
                     console.log(sendOK)
                 });
@@ -132,7 +132,7 @@ export default class PageFind extends Component {
 
     _shareToWechatPengyouQuan() { //分享到朋友圈
         if (!!this.state.isLogin) {
-            WeChat.webShareWeXinWithScene(1, '葡萄互助', '点击加入葡萄互助，得5元红包', 'http://oztdsemro.bkt.clouddn.com/putaoLogo@2x.png', 'http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + this.state.useruuid, (err, sendOK) => {
+            WeChat.webShareWeXinWithScene(1, '葡萄互助', '您的好友邀请您加入葡萄互助，注册成为会员最高享30万元健康保障', 'http://oztdsemro.bkt.clouddn.com/putaoLogo@2x.png', 'http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + this.state.useruuid, (err, sendOK) => {
                 console.log(sendOK)
             });
         } else {
@@ -142,7 +142,7 @@ export default class PageFind extends Component {
 
     _shareToqqSession() { //分享到qq会话
         if (!!this.state.isLogin) {
-            QQSDK.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + this.state.useruuid, resolveAssetSource(require('./img/putaoLogo@3x.png')).uri, '葡萄互助', '点击加入葡萄互助，得5元红包', shareScene.QQ)
+            QQSDK.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + this.state.useruuid, resolveAssetSource(require('./img/putaoLogo@3x.png')).uri, '葡萄互助', '您的好友邀请您加入葡萄互助，注册成为会员最高享30万元健康保障', shareScene.QQ)
                 .then((result) => {
                     console.log('result is', result)
                 })
@@ -156,7 +156,7 @@ export default class PageFind extends Component {
 
     _shareToqqzone() { //分享到qqzone
         if (!!this.state.isLogin) {
-            QQSDK.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + this.state.useruuid, resolveAssetSource(require('./img/putaoLogo@3x.png')).uri, '葡萄互助', '点击加入葡萄互助，得5元红包', shareScene.QQZone)
+            QQSDK.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + this.state.useruuid, resolveAssetSource(require('./img/putaoLogo@3x.png')).uri, '葡萄互助', '您的好友邀请您加入葡萄互助，注册成为会员最高享30万元健康保障', shareScene.QQZone)
                 .then((result) => {
                     console.log('result is', result)
                 })

@@ -6,6 +6,8 @@ import {
     Text,
     TouchableOpacity,
     Image,
+    ScrollView,
+    RefreshControl
 } from 'react-native';
 
 let width = Dimensions.get('window').width;
@@ -14,7 +16,7 @@ import React, {Component,} from 'react';
 import MyStaffWaitingItem from './MyStaffWaitingItem';
 import MyStaffJoinedItem from './MyStaffJoinedItem';
 import fetchTool from '../utils/fetchTool';
-import {UrlGetAllStaff,Urlsubmitstaffs} from '../utils/url';
+import {UrlGetAllStaff,Urlsubmitstaffs,UrlGetPayMessage} from '../utils/url';
 import UploadFile from '../utils/uploadFile';
 import LoadingInPage from "../loading/LoadingInPage";
 import {NativeModules} from 'react-native';
@@ -37,6 +39,7 @@ export default class PageMyStaffHarm extends Component {
             haveDataOrNoData1: false,
             haveDataOrNoData2: false,
             changeToyesTag: true,
+            isRefreshing:false,
         };
     }
     static navigationOptions = {
@@ -250,6 +253,35 @@ export default class PageMyStaffHarm extends Component {
         }
     };
 
+    _onRefreshLoadingNo(){
+        this.makeRemoteRequestNo();
+    }
+
+    _onRefreshLoadingYes(){
+        this.makeRemoteRequestYes();
+    }
+
+    goPayForStaff(){
+        let formDataTemp = new FormData();
+        formDataTemp.append("useruuid", this.props.navigation.state.params.useruuid);
+        formDataTemp.append("helptype", this.props.navigation.state.params.HelpTypeMessage.helptype);
+        let option = {
+            url: UrlGetPayMessage,
+            body: formDataTemp
+        };
+        let responseR = UploadFile(option);
+        responseR.then(resp => {
+            console.log(this.props)
+            setTimeout(()=>{
+                this.props.navigation.navigate('PagePayForStaff',{HelpTypeMessage:this.props.navigation.state.params.HelpTypeMessage,
+                    payMoneyCallBack:this.props.navigation.state.params.payMoneyCallBack,PageMyEmployeeKey:this.props.navigation.state.key,
+                    FirstPay:resp.result,//是否是首次充值
+                })
+
+            },500)
+        })
+    }
+
     deleteWaitItem_callBack = (staffid) => {
 
         let tempData = this.state.dataSourceNo;
@@ -436,17 +468,31 @@ export default class PageMyStaffHarm extends Component {
                                 </View>
                             </View>
                             :
-                            <View style={styles.noredmoney}>
-                                <Image source={require('./img/NotHappy.png')} resizeMode={'contain'} style={{width: 80, height: 80}}/>
-                                <Text style={{color:'#a4a4a4',marginTop:10}}>无已加入员工!</Text>
-                            </View>
+                            <ScrollView
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={this.state.isRefreshing}
+                                        onRefresh={this._onRefreshLoadingNo.bind(this)}
+                                        tintColor="#000000"      //loading 转圈圈的颜色
+                                        title="Loading..."       //标题
+                                        titleColor="#000000"     //Loading 颜色
+                                        colors={['#000000']}
+                                        progressBackgroundColor="#1296db"
+                                    />
+                                }>
+                                <View style={styles.noredmoney}>
+                                    <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
+                                           style={{width: 80, height: 80}}/>
+                                    <Text style={{color: '#a4a4a4', marginTop: 10}}>无已加入员工!</Text>
+                                </View>
+                            </ScrollView>
                         }
                     </View>
                     :
                     <View>
                         {!!this.state.haveDataOrNoData2 ?
-                            <View>
-                                <View style={styles.PageMyStaffTitleViewMax}>
+                            <View style={{height: height - 115}}>
+                            <View style={styles.PageMyStaffTitleViewMax}>
                                     <View style={styles.PageMyStaffTitleView}>
                                         <Text>姓名</Text></View>
                                     <View style={[styles.PageMyStaffTitleView, {width: width * 0.5}]}>
@@ -456,6 +502,7 @@ export default class PageMyStaffHarm extends Component {
                                         <Text>等待期</Text>
                                     </View>
                                 </View>
+                                <View style={{height: 200, flex: 1}}>
                                 <FlatList  //第二级运算符  用于判断是否存在红包数据
                                     ref="listview"
                                     data={this.state.dataSourceYes}
@@ -464,12 +511,35 @@ export default class PageMyStaffHarm extends Component {
                                     keyExtractor={this._keyExtractorYes}
                                     onRefresh={this._onRefreshYes}
                                 />
+                                </View>
+                                <View style={styles.ButtonView}>
+                                    <View style={styles.ButtonOne}>
+                                        <Text style={{color: '#4A4A4A'}}>共{this.state.dataSourceYes.length}人</Text>
+                                    </View>
+                                    <TouchableOpacity onPress={this.goPayForStaff.bind(this)} style={styles.ButtonTwo}>
+                                        <Text style={{color: '#fff'}}>充值</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                             :
-                            <View style={styles.noredmoney}>
-                                <Image source={require('./img/NotHappy.png')} resizeMode={'contain'} style={{width: 80, height: 80}}/>
-                                <Text style={{color:'#a4a4a4',marginTop:10}}>无已加入员工!</Text>
-                            </View>
+                            <ScrollView
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={this.state.isRefreshing}
+                                        onRefresh={this._onRefreshLoadingYes.bind(this)}
+                                        tintColor="#000000"      //loading 转圈圈的颜色
+                                        title="Loading..."       //标题
+                                        titleColor="#000000"     //Loading 颜色
+                                        colors={['#000000']}
+                                        progressBackgroundColor="#1296db"
+                                    />
+                                }>
+                                <View style={styles.noredmoney}>
+                                    <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
+                                           style={{width: 80, height: 80}}/>
+                                    <Text style={{color: '#a4a4a4', marginTop: 10}}>无已加入员工!</Text>
+                                </View>
+                            </ScrollView>
                         }
                     </View>
                 }
