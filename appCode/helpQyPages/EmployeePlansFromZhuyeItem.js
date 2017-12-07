@@ -72,7 +72,7 @@ export default class EmployeePlansFromZhuyeItem extends Component{
         //分享页面 员工点击加入
 
         this.props.navigation.navigate('PageShare',{useruuid:this.props.row.useruuid,
-            helptype:this.props.row.helptype})
+            helptype:this.props.row.helptype,CompanyName:this.props.CompanyName})
     }
 
     goPagePayForStaff(){

@@ -93,6 +93,7 @@ export default class PageWoMyEmployee extends Component {
         responseR.then(resp => {
             this.setState({
                 loading:false,
+                refreshing:false,
             })
             //服务不可用，
             if(typeof(resp)=="undefined"){

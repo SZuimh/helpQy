@@ -175,7 +175,6 @@ export default class RedMoneyList extends Component {
                             onRefresh={this._onRefresh}
                             ListHeaderComponent={this.renderHeader}
                             ListFooterComponent={this.renderFooter}
-                            ItemSeparatorComponent={this.renderSeparator}
                         /> :
                         <ScrollView
                             refreshControl={

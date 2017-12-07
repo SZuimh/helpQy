@@ -9,7 +9,8 @@ import {
     View,
     PixelRatio,
     AsyncStorage,
-    Image
+    Image,
+    Alert
 } from 'react-native';
 import React, {Component} from 'react';
 import {NativeModules} from 'react-native';
@@ -79,6 +80,18 @@ export default class PagePayForStaffInEmployeePlans extends Component {
     }
 
     goforPay() { //调用支付宝支付
+        if (this.state.amount == 0) {
+            return Alert.alert(
+                '请检查所选金额',
+                '充值金额必须大于0元',
+                [
+                    {
+                        text: '好的'
+                    }
+                ]
+            );
+        }
+
         let params = {
             "token": this.state.token,
             "amount": 0.01,
@@ -197,16 +210,16 @@ export default class PagePayForStaffInEmployeePlans extends Component {
         let backgroundColor4 = this.state.checked == 100 ? '#1296db' : 'white';
         let backgroundColor5 = this.state.checked == 150 ? '#1296db' : 'white';
         let backgroundColor6 = this.state.checked == 180 ? '#1296db' : 'white';
-        let borderColor1=this.props.navigation.state.params.FirstPay?this.state.checked == 10 ? '#ffffff' : '#1296db':'grey';
-        let borderColor2=this.props.navigation.state.params.FirstPay?this.state.checked == 30 ? '#ffffff' : '#1296db':'grey';
-        let borderColor3=this.props.navigation.state.params.FirstPay?this.state.checked == 50 ? '#ffffff' : '#1296db':'grey';
-        let borderColor4=this.props.navigation.state.params.FirstPay?this.state.checked == 100 ? '#ffffff' : '#1296db':'grey';
-        let borderColor5=this.state.checked == 150 ? '#ffffff' : '#1296db';
-        let borderColor6=this.state.checked == 180 ? '#ffffff' : '#1296db';
-        let color1 = this.props.navigation.state.params.FirstPay?this.state.checked == 10 ? '#ffffff' : '#1296db':'grey';
-        let color2 = this.props.navigation.state.params.FirstPay?this.state.checked == 30 ? '#ffffff' : '#1296db':'grey';
-        let color3 = this.props.navigation.state.params.FirstPay?this.state.checked == 50 ? '#ffffff' : '#1296db':'grey';
-        let color4 = this.props.navigation.state.params.FirstPay?this.state.checked == 100 ? '#ffffff' : '#1296db':'grey';
+        let borderColor1 = this.props.navigation.state.params.FirstPay ? this.state.checked == 10 ? '#ffffff' : '#1296db' : 'grey';
+        let borderColor2 = this.props.navigation.state.params.FirstPay ? this.state.checked == 30 ? '#ffffff' : '#1296db' : 'grey';
+        let borderColor3 = this.props.navigation.state.params.FirstPay ? this.state.checked == 50 ? '#ffffff' : '#1296db' : 'grey';
+        let borderColor4 = this.props.navigation.state.params.FirstPay ? this.state.checked == 100 ? '#ffffff' : '#1296db' : 'grey';
+        let borderColor5 = this.state.checked == 150 ? '#ffffff' : '#1296db';
+        let borderColor6 = this.state.checked == 180 ? '#ffffff' : '#1296db';
+        let color1 = this.props.navigation.state.params.FirstPay ? this.state.checked == 10 ? '#ffffff' : '#1296db' : 'grey';
+        let color2 = this.props.navigation.state.params.FirstPay ? this.state.checked == 30 ? '#ffffff' : '#1296db' : 'grey';
+        let color3 = this.props.navigation.state.params.FirstPay ? this.state.checked == 50 ? '#ffffff' : '#1296db' : 'grey';
+        let color4 = this.props.navigation.state.params.FirstPay ? this.state.checked == 100 ? '#ffffff' : '#1296db' : 'grey';
         let color5 = this.state.checked == 150 ? '#ffffff' : '#1296db';
         let color6 = this.state.checked == 180 ? '#ffffff' : '#1296db';
         return (
@@ -232,37 +245,65 @@ export default class PagePayForStaffInEmployeePlans extends Component {
                     <View style={styles.PagePayForStaffEmptyLine}></View>
                     <View style={styles.PagePayForStaffChongzhiView}>
                         <TouchableOpacity disabled={!this.props.navigation.state.params.FirstPay}
-                                          style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor1,borderColor:borderColor1}]}
-                                          onPress={() => {this.changeMoney(10, this)}}>
+                                          style={[styles.PagePayForStaffChongzhi, {
+                                              backgroundColor: backgroundColor1,
+                                              borderColor: borderColor1
+                                          }]}
+                                          onPress={() => {
+                                              this.changeMoney(10, this)
+                                          }}>
                             <Text style={{color: color1}}>10元</Text>
                         </TouchableOpacity>
                         <TouchableOpacity disabled={!this.props.navigation.state.params.FirstPay}
-                                          style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor2,borderColor:borderColor2}]}
+                                          style={[styles.PagePayForStaffChongzhi, {
+                                              backgroundColor: backgroundColor2,
+                                              borderColor: borderColor2
+                                          }]}
                                           onPress={() => {
                                               this.changeMoney(30, this)
                                           }}>
                             <Text style={{color: color2}}>30元</Text>
                         </TouchableOpacity>
                         <TouchableOpacity disabled={!this.props.navigation.state.params.FirstPay}
-                                          style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor3,borderColor:borderColor3}]}
-                                          onPress={() => {this.changeMoney(50, this)}}>
+                                          style={[styles.PagePayForStaffChongzhi, {
+                                              backgroundColor: backgroundColor3,
+                                              borderColor: borderColor3
+                                          }]}
+                                          onPress={() => {
+                                              this.changeMoney(50, this)
+                                          }}>
                             <Text style={{color: color3}}>50元</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.PagePayForStaffChongzhiView}>
                         <TouchableOpacity disabled={!this.props.navigation.state.params.FirstPay}
-                                          style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor4,borderColor:borderColor4}]}
-                                          onPress={() => {this.changeMoney(100, this)}}>
+                                          style={[styles.PagePayForStaffChongzhi, {
+                                              backgroundColor: backgroundColor4,
+                                              borderColor: borderColor4
+                                          }]}
+                                          onPress={() => {
+                                              this.changeMoney(100, this)
+                                          }}>
                             <Text style={{color: color4}}>100元</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor5,borderColor:borderColor5}]}
-                            onPress={() => {this.changeMoney(150, this)}}>
+                            style={[styles.PagePayForStaffChongzhi, {
+                                backgroundColor: backgroundColor5,
+                                borderColor: borderColor5
+                            }]}
+                            onPress={() => {
+                                this.changeMoney(150, this)
+                            }}>
                             <Text style={{color: color5}}>150元</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor6,borderColor:borderColor6}]}
-                            onPress={() => {this.changeMoney(180, this)}}>
+                            style={[styles.PagePayForStaffChongzhi, {
+                                backgroundColor: backgroundColor6,
+                                borderColor: borderColor6
+                            }]}
+                            onPress={() => {
+                                this.changeMoney(180, this)
+                            }}>
                             <Text style={{color: color6}}>180元</Text>
                         </TouchableOpacity>
                     </View>

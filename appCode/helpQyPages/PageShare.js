@@ -50,7 +50,7 @@ export default class PageShare extends Component {
 
     _shareToWechatSession() { // 分享到微信会话
 
-        WeChat.webShareWeXinWithScene(0, '葡萄互助', '【山东米粒电子商务公司】邀请您加入葡萄互助企业员工互助计划', 'http://oztdsemro.bkt.clouddn.com/putaohuzhu/grapelogo.png',
+        WeChat.webShareWeXinWithScene(0, '葡萄互助', '【山东米粒电子商务】邀请您加入葡萄互助企业员工互助计划', 'http://oztdsemro.bkt.clouddn.com/putaohuzhu/grapelogo.png',
             'http://www.putaohuzhu.cn/glove/grape/staffjoin.do?useruuid='+this.state.useruuid+'&helptype='+this.props.navigation.state.params.helptype, (err, sendOK) => {
             this.props.navigation.navigate("PageWoMyEmployeeFromZhuye",{
                 useruuid:this.state.useruuid,

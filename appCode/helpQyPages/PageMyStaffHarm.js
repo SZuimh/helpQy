@@ -496,7 +496,7 @@ export default class PageMyStaffHarm extends Component {
                                     <View style={styles.PageMyStaffTitleView}>
                                         <Text>姓名</Text></View>
                                     <View style={[styles.PageMyStaffTitleView, {width: width * 0.5}]}>
-                                        <Text>平均金额</Text>
+                                        <Text>身份证号</Text>
                                     </View>
                                     <View style={styles.PageMyStaffTitleView}>
                                         <Text>等待期</Text>

@@ -9,7 +9,8 @@ import{
     View,
     PixelRatio,
     AsyncStorage,
-    Image
+    Image,
+    Alert
 } from 'react-native';
 import React,{Component} from 'react';
 import { NativeModules } from 'react-native';
@@ -68,7 +69,17 @@ export default class PagePayForStaff extends  Component{
         })
     }
     goforPay(){ //调用支付宝支付
-
+        if (this.state.amount == 0) {
+            return Alert.alert(
+                '请检查所选金额',
+                '充值金额必须大于0元',
+                [
+                    {
+                        text: '好的'
+                    }
+                ]
+            );
+        }
         let params={
             "token":this.state.token,
             "amount":0.01,

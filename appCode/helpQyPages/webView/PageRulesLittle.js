@@ -23,6 +23,7 @@ export default class PageRulesLittle extends Component {
         if (this.state.isLogin) {
             this.props.navigation.navigate('PageJoin', {
                 categorytype: this.props.navigation.state.params.categorytype,
+                PageZhuYeKey:this.props.navigation.state.params.PageZhuYeKey
             })
         }
         else {

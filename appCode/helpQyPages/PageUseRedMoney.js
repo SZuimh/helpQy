@@ -149,63 +149,7 @@ export default class PageUseRedMoney extends Component {
             );
         }
 
-        if (this.state.checked == 5) {
-            // 调用使用红包的接口
-            let formData = new FormData();
-            formData.append("token", this.state.token);
-            formData.append("useruuid", this.state.useruuid);
-            formData.append("userName", this.state.userName);
-            formData.append("redmoneyuuid", this.state.redmoneyuuid);
-            formData.append("account", this.state.accountUUID);
-            formData.append("name", this.state.name);
-            formData.append("categorytype", this.state.helptype);
-            let option = {
-                url: UrluseMyRedMoney,
-                body: formData
-            };
-            let responseR = UploadFile(option);
-            responseR.then(resp => {
-                this.setState({
-                    modalVisible: false
-                })
-                if (typeof(resp) == "undefined") {
-                    //弹出框
-                    this.setState({
-                        tipsModal: true,
-                        failSucessTips: "对不起，使用失败",
-                        failSucessImage: require('./img/joinFail.png'),
-                        respMessage: "服务返回异常，你联网了吗",
-                        retcode: 2003
-                    })
-                    return;
-                }
-                if (resp.retcode === 2000) {
-                    this.setState({
-                        tipsModal: true,
-                        failSucessTips: "恭喜你，使用成功",
-                        failSucessImage: require('./img/joinSuccess.png'),
-                        respMessage: null,
-                        retcode: 9000
-                    })
-
-                    const {changeMoneyStatusCallBack} = this.props.navigation.state.params;
-                    changeMoneyStatusCallBack();
-                } else {
-                    this.setState({
-                        tipsModal: true,
-                        failSucessTips: "对不起，充值失败",
-                        failSucessImage: require('./img/joinFail.png'),
-                        respMessage: null,
-                        retcode: 9001
-                    })
-                }
-            }).catch(err => {
-                this.setState({
-                    modalVisible: false
-                });
-            });
-        } else if (this.state.checked > 5) {
-            let params = {
+             let params = {
                 "token": this.state.token,
                 "amount": 0.01,
                 // "amount":this.state.amount,   //PayTest
@@ -289,7 +233,6 @@ export default class PageUseRedMoney extends Component {
                     retcode: 2003
                 })
             });
-        }
 
     }
     choosePlans=(plans)=>{
@@ -316,13 +259,13 @@ export default class PageUseRedMoney extends Component {
     }
 
     render() {
-        let backgroundColor1 = this.state.checked == 5 ? '#5EB5ED' : 'white';
+        let backgroundColor1 = this.state.checked == 10 ? '#5EB5ED' : 'white';
         let backgroundColor2 = this.state.checked == 30 ? '#5EB5ED' : 'white';
         let backgroundColor3 = this.state.checked == 50 ? '#5EB5ED' : 'white';
         let backgroundColor4 = this.state.checked == 100 ? '#5EB5ED' : 'white';
         let backgroundColor5 = this.state.checked == 300 ? '#5EB5ED' : 'white';
         let backgroundColor6 = this.state.checked == 500 ? '#5EB5ED' : 'white';
-        let color1 = this.state.checked == 5 ? '#ffffff' : '#5EB5ED';
+        let color1 = this.state.checked == 10 ? '#ffffff' : '#5EB5ED';
         let color2 = this.state.checked == 30 ? '#ffffff' : '#5EB5ED';
         let color3 = this.state.checked == 50 ? '#ffffff' : '#5EB5ED';
         let color4 = this.state.checked == 100 ? '#ffffff' : '#5EB5ED';
@@ -379,9 +322,9 @@ export default class PageUseRedMoney extends Component {
                     <View style={styles.PagePayForStaffChongzhiView}>
                         <TouchableOpacity style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor1}]}
                                           onPress={() => {
-                                              this.changeMoney(5, this)
+                                              this.changeMoney(10, this)
                                           }}>
-                            <Text style={{color: color1}}>5元</Text>
+                            <Text style={{color: color1}}>10元</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor2}]}
                                           onPress={() => {

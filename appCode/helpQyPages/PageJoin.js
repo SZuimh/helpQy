@@ -13,7 +13,6 @@ import {
     FlatList,
     Image,
     AsyncStorage,
-    ScrollView
 } from 'react-native';
 import React, {Component} from 'react';
 import {UrlGetOrderSet} from "../utils/url";
@@ -273,7 +272,7 @@ export default class PageJoin extends Component {
     }
     goToParentPage(){
         //直接返回就行
-        this.props.navigation.goBack()
+        this.props.navigation.goBack(this.props.navigation.state.params.PageZhuYeKey)
     }
     _keyExtractor = (item, index) => item.number + this.uuid();
 
@@ -319,7 +318,7 @@ export default class PageJoin extends Component {
                             <View style={styles.DownButtonView}>
                                 <TouchableOpacity onPress={this.goToParentPage.bind(this)}
                                                   style={[styles.DownButton, {width: 115,}]}>
-                                    <Text>返回</Text>
+                                    <Text>返回浏览</Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity onPress={this.hideTips.bind(this)}

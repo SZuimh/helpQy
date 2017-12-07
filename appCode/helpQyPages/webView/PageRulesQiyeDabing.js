@@ -59,11 +59,9 @@ export default class PageRulesQiyeDabing extends Component {
                         this.props.navigation.navigate('PageShare', {
                             helptype: this.props.navigation.state.params.categorytype,
                             PageZhuYeKey:this.props.navigation.state.params.PageZhuYeKey,
-
                         })
                     }
                     else if (resp.result.confirmif == 'refused') {
-                        console.log("ssss")
                         //审核信息有误，被拒绝
                         this.props.navigation.navigate('PageQiyeShiming',{
                             useruuid: this.state.useruuid,
