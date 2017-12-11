@@ -10,7 +10,6 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     Image
-
 } from 'react-native';
 import React, {Component,} from 'react';
 import {UrlResetPass, UrlGetCode} from '../utils/url';

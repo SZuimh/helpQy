@@ -29,17 +29,19 @@ export default class PageShare extends Component {
         this.state = {
             useruuid:null,
             token:null,
+            companyname:null,
         }
     }
 
     componentDidMount() {
-        AsyncStorage.multiGet(["token", "useruuid",], (errros, result) => {
+        AsyncStorage.multiGet(["token", "useruuid","companyname"], (errros, result) => {
             if (result[0][1] == null) {
                 return
             }
             this.setState({
                 token: result[0][1],
                 useruuid: result[1][1],
+                companyname:result[2][1],
             })
         })
         //这里要获取已经加入的人数
@@ -47,10 +49,17 @@ export default class PageShare extends Component {
             //iOS版本注册到微信
         });
     }
-
+    getPlansName(helptype){
+        if(helptype=='employee'){
+            return '企业员工综合意外互助'
+        }
+        else if(helptype=='staff'){
+            return '企业员工大病互助'
+        }
+    }
     _shareToWechatSession() { // 分享到微信会话
 
-        WeChat.webShareWeXinWithScene(0, '葡萄互助', '【山东米粒电子商务】邀请您加入葡萄互助企业员工互助计划', 'http://oztdsemro.bkt.clouddn.com/putaohuzhu/grapelogo.png',
+        WeChat.webShareWeXinWithScene(0, '葡萄互助', '【'+this.state.companyname+'】邀请您加入葡萄互助【'+this.getPlansName(this.props.navigation.state.params.helptype)+'】', 'http://oztdsemro.bkt.clouddn.com/putaohuzhu/grapelogo.png',
             'http://www.putaohuzhu.cn/glove/grape/staffjoin.do?useruuid='+this.state.useruuid+'&helptype='+this.props.navigation.state.params.helptype, (err, sendOK) => {
             this.props.navigation.navigate("PageWoMyEmployeeFromZhuye",{
                 useruuid:this.state.useruuid,

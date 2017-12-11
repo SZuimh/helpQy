@@ -9,16 +9,26 @@ import {
     PixelRatio,
     NativeAppEventEmitter,
     AsyncStorage,
-    Alert
+    Alert,
+    Platform
 } from 'react-native';
 import React, {Component} from 'react';
 import {UrlGetShimingInfo} from '../utils/url';
 import UploadFile from '../utils/uploadFile';
 
+import  PageWoNewiOS from  './iOSStyle/PageWoNewiOS';
+import  PageWoNewAndroid  from  './AndroidStyle/PageWoNewAndroid';
+let styles=null;
+if (Platform.OS==='android') {
+    styles=PageWoNewAndroid;
+
+}else{
+    styles=PageWoNewiOS;
+}
+
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 let ratio = PixelRatio.get();
-
 var loginEmitterEvent;
 var loginOutEmitterEvent;
 export default class PageWo extends Component {
@@ -357,120 +367,3 @@ export default class PageWo extends Component {
     }
 
 }
-let styles = StyleSheet.create({
-    PageWoNewMaxView: {
-        width: width,
-        height: 300,
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        backgroundColor: 'white'
-    },
-    PageWoNewMaxHeader: {
-        width: width,
-        height: 90,
-        backgroundColor: 'white',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-end'
-    },
-    PageWoNewUserPhotoView: {
-        width: 80,
-        height: 80,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    PageWoNewHeader: {
-        width: width - 15,
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        marginTop: 10
-    },
-    userPhoto: {
-        width: 60,
-        height: 60,
-        borderRadius: 30
-    },
-    PageWoNewImageAndUserName: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start'
-    },
-    PageWoNewUserNameView: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-start'
-    },
-    PageWoNewTongzhi: {
-        flexDirection: 'column',
-        alignItems: 'center'
-    },
-    PageWoNewUserNameAndTongzhiView: {
-        height: 40,
-        width: width - 110,
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
-    PageWoNewTongzhiImage: {},
-    PageWoNewUserName: {
-        alignSelf: 'flex-start',
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    PageWoNewMyAccount: {
-        height: 20,
-        width: width - 110,
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    PageWoNewTurnRight: {
-        marginRight: 20
-    },
-    PageWoNewMyAccountFont: {
-        fontSize: 12,
-    },
-    PageWoNewMyChoice: {
-        width: width,
-        marginTop: 40,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    PageWoNewChoiceView: {
-        width: width - 70,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    PageWoNewChoice: {
-        width: width - 70,
-        height: 50,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    PageWoNewEmptyViewForLine: {
-        width: width - 70,
-        height: 1 / ratio,
-        backgroundColor: '#E0DCDC'
-    },
-    PageWoNewChoiceFont: {
-        fontSize: 14,
-        fontWeight: 'bold'
-    },
-    PageWoNewTiShi: {
-        position: 'absolute',
-        left: 0,
-        bottom: 0,
-        width: width,
-        height: 50,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});

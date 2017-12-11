@@ -82,6 +82,7 @@ export default class PageLogin extends Component {
                             ['phonebind', resp.result.phonebind || ""],
                             ['usertype', resp.result.usertype.toString() || ""],
                             ['userphone', resp.result.userphone || ""],
+                            ['companyname', resp.result.usernickname || ""],
                         ], (errors) => {
                         });
 
@@ -207,6 +208,7 @@ export default class PageLogin extends Component {
                     ['phonebind', resp.data.phonebind || ""],
                     ['usertype', resp.data.usertype.toString() || ""],
                     ['userphone', resp.data.userphone || ""],
+                    ['companyname', resp.data.usernickname || ""],
                 ], (errors) => {
                 });
                 loginEmitterEvent = NativeAppEventEmitter.emit('loginEmitter', {});

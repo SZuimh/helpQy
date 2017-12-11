@@ -82,8 +82,8 @@ export default class PagePayForStaff extends  Component{
         }
         let params={
             "token":this.state.token,
-            "amount":0.01,
-            // "amount":this.state.amount,    //  PayTest
+            // "amount":0.01,
+            "amount":this.state.amount,    //  PayTest
             "userUUID":this.state.useruuid, //对于公司充值来说是固定值company
             "categoryType":this.state.helptype,
             "userName":this.state.username, //公司充值用不到此字段，

@@ -167,8 +167,8 @@ export default class PageJoin extends Component {
             alipayorderuserlist.push({
                 "username": dataSource[i].nickName,
                 "accountuuid": dataSource[i].IDCard,
-                // "money": dataSource[i].moneyNumber
-                "money": 0.01    //PayTest
+                "money": dataSource[i].moneyNumber
+                // "money": 0.01    //PayTest
             })
         }
         let alipayOrderSetParam = {};

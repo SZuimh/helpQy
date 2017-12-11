@@ -200,6 +200,7 @@ export default class PageMyStaffHarm extends Component {
             })
             const {payMoneyCallBack} = this.props.navigation.state.params;   //确认员工之后  我的员工两个计划 页面重新加载数据的回调方法
             payMoneyCallBack();
+            this.changeJoinedItem();
         }).catch(err => {
             this.setState({
                 loading: false
@@ -273,9 +274,10 @@ export default class PageMyStaffHarm extends Component {
         responseR.then(resp => {
             console.log(this.props)
             setTimeout(()=>{
+                let FirstPay= resp.retcode==2000?true:false;
                 this.props.navigation.navigate('PagePayForStaff',{HelpTypeMessage:this.props.navigation.state.params.HelpTypeMessage,
                     payMoneyCallBack:this.props.navigation.state.params.payMoneyCallBack,PageMyEmployeeKey:this.props.navigation.state.key,
-                    FirstPay:resp.result,//是否是首次充值
+                    FirstPay:FirstPay,//是否是首次充值
                 })
 
             },500)

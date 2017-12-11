@@ -9,7 +9,8 @@ import {
     PixelRatio,
     NativeAppEventEmitter,
     ScrollView,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Image,
 } from 'react-native';
 import React, {Component,} from 'react';
 

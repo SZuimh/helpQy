@@ -50,8 +50,8 @@ export default class PageWechatBindPhone extends Component {
     }
 
     componentWillUnmount() {
-        this.timergo && clearInterval(this.timergo);
-        this.timer && clearTimeout(this.timer)
+        this.timer && clearInterval(this.timer);
+        this.timergo && clearTimeout(this.timer)
     }
 
     verify() { //检验邮箱密码是不是符合要求
@@ -149,11 +149,12 @@ export default class PageWechatBindPhone extends Component {
                         ['phonebind', resp.result.phonebind || ""],
                         ['usertype', resp.result.usertype.toString() || ""],
                         ['userphone', resp.result.userphone || ""],
+                        ['companyname', resp.result.usernickname || ""],
                     ],
                     (errors) => {
                     });
                 loginEmitterEvent = NativeAppEventEmitter.emit('loginEmitter', {});
-                this.timer = setTimeout(() => {
+                this.timergo = setTimeout(() => {
                     this.props.navigation.goBack(this.props.navigation.state.params.PageWoNewKey);
                 }, 500)
 

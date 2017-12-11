@@ -203,6 +203,7 @@ export default class PageMyStaffHarmFromZhuye extends Component {
             })
             const {payMoneyCallBack} = this.props.navigation.state.params;   //确认员工之后  我的员工两个计划 页面重新加载数据的回调方法
             payMoneyCallBack();
+            this.changeJoinedItem();
         }).catch(err => {
             this.setState({
                 loading: false
@@ -276,14 +277,12 @@ export default class PageMyStaffHarmFromZhuye extends Component {
         };
         let responseR = UploadFile(option);
         responseR.then(resp => {
-            console.log(resp)
-            console.log(this.props)
-
+            let FirstPay= resp.retcode==2000?true:false;
             this.props.navigation.navigate('PagePayForStaffInZhuye', {
                 HelpTypeMessage: this.props.navigation.state.params.HelpTypeMessage,
                 payMoneyCallBack: this.props.navigation.state.params.payMoneyCallBack,
                 PageZhuYeKey: this.props.navigation.state.params.PageZhuYeKey,
-                FirstPay: resp.result,//是否是首次充值
+                FirstPay: FirstPay,//是否是首次充值
             })
         })
         // 跳转支付页面

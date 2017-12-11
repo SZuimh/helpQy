@@ -200,6 +200,7 @@ export default class PageMyStaffFromZhuye extends Component {
             })
             const {payMoneyCallBack} = this.props.navigation.state.params;     // 重新加载 我的两个计划的 员工数据  回调方法
             payMoneyCallBack();
+            this.changeJoinedItem();
         }).catch(err => {
             this.setState({
                 loading: false
@@ -276,9 +277,10 @@ export default class PageMyStaffFromZhuye extends Component {
         responseR.then(resp => {
             console.log(this.props)
             setTimeout(()=>{
+                let FirstPay= resp.retcode==2000?true:false;
                 this.props.navigation.navigate('PagePayForStaffInZhuye',{HelpTypeMessage:this.props.navigation.state.params.HelpTypeMessage,
                     payMoneyCallBack:this.props.navigation.state.params.payMoneyCallBack,PageZhuYeKey:this.props.navigation.state.params.PageZhuYeKey,
-                    FirstPay:resp.result,//是否是首次充值
+                    FirstPay:FirstPay,//是否是首次充值
                 })
 
             },500)

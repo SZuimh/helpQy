@@ -5,6 +5,8 @@ import {
     StyleSheet,
     Image,
     Text,
+    ScrollView,
+    RefreshControl
 } from 'react-native';
 
 import React, {Component,} from 'react';
@@ -76,15 +78,27 @@ export default class PageZixun extends Component {
         });
     }
 
-    _onRefresh=()=> {
-        this.setState(
-            {
-                page: this.state.page+1,
-                refreshing: true
-            },
-            () => {
-                this.makeRemoteRequest();
-            })
+    _onRefreshLoading=()=> {
+        if(this.state.dataSource<200){
+            this.setState(
+                {
+                    page: 1,
+                    refreshing: true
+                },
+                () => {
+                    this.makeRemoteRequest();
+                })
+        }
+        else{
+            this.setState(
+                {
+                    page: this.state.page+1,
+                    refreshing: true
+                },
+                () => {
+                    this.makeRemoteRequest();
+                })
+        }
     }
     static navigationOptions = {
         title: '发现',
@@ -99,7 +113,6 @@ export default class PageZixun extends Component {
             {...this.props}
         />
     );
-
     renderSeparator = () => {
         return (
             <View />
@@ -126,16 +139,25 @@ export default class PageZixun extends Component {
 
     render() {
         return (
-            <View style={{flex: 1, backgroundColor: '#fff'}}>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this._onRefreshLoading.bind(this)}
+                        tintColor="#000000"      //loading 转圈圈的颜色
+                        title="Loading..."       //标题
+                        titleColor="#000000"     //Loading 颜色
+                        colors={['#000000']}
+                        progressBackgroundColor="#1296db"
+                    />
+                }style={{flex: 1, backgroundColor: '#fff'}}>
                 {
                     !!this.state.haveDataOrNoData ?
                         <FlatList
                             ref="listview"
                             data={this.state.dataSource}
-                            refreshing={this.state.refreshing}
                             renderItem={this._renderItem}
                             keyExtractor={this._keyExtractor}
-                            onRefresh={this._onRefresh}
                             ListHeaderComponent={this.renderHeader}
                             ListFooterComponent={this.renderFooter}
                             ItemSeparatorComponent={this.renderSeparator}
@@ -148,7 +170,7 @@ export default class PageZixun extends Component {
                 }
                 <Loading visible={this.state.loading}/>
 
-            </View>
+            </ScrollView>
         );
     }
 }

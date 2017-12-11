@@ -7,12 +7,23 @@ import{
     Text,
     View,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 import React,{ Component } from 'react';
 import UploadFile from '../utils/uploadFile';
 import {UrlGetPayMessage} from '../utils/url';
 let {width,height}=Dimensions.get('window');
+
+import  EmployeePlansFromZhuyeItemAndroid from  './AndroidStyle/EmployeePlansFromZhuyeItemAndroid';
+import  EmployeePlansFromZhuyeItemiOS  from  './iOSStyle/EmployeePlansFromZhuyeItemiOS';
+let styles=null;
+if (Platform.OS==='android') {
+    styles=EmployeePlansFromZhuyeItemAndroid;
+
+}else{
+    styles=EmployeePlansFromZhuyeItemiOS;
+}
 
 export default class EmployeePlansFromZhuyeItem extends Component{
     constructor(props){
@@ -72,7 +83,7 @@ export default class EmployeePlansFromZhuyeItem extends Component{
         //分享页面 员工点击加入
 
         this.props.navigation.navigate('PageShare',{useruuid:this.props.row.useruuid,
-            helptype:this.props.row.helptype,CompanyName:this.props.CompanyName})
+            helptype:this.props.row.helptype})
     }
 
     goPagePayForStaff(){
@@ -86,9 +97,11 @@ export default class EmployeePlansFromZhuyeItem extends Component{
         let responseR = UploadFile(option);
         responseR.then(resp => {
             setTimeout(()=>{
+                let FirstPay= resp.retcode==2000?true:false;
+
                 this.props.navigation.navigate('PagePayForStaffFromZhuye',{HelpTypeMessage:this.props.row,
                     payMoneyCallBack:this.props.payMoneyCallBack,
-                    FirstPay:resp.result,//是否是首次充值
+                    FirstPay:FirstPay,//是否是首次充值
                     PageZhuYeKey:this.props.PageZhuYeKey,
                 })
 
@@ -125,48 +138,6 @@ export default class EmployeePlansFromZhuyeItem extends Component{
     }
 }
 
-let styles=StyleSheet.create({
-    PageWoMyEmployeeView:{
-        width:width,
-        height:150,
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'white',
-        marginTop:15,
-        marginBottom:5
-    },
-    PageWoMyEmployeeViewContent:{
-        width:width-30,
-        height:150,
-        flexDirection:'column',
-        alignItems:'center'
-    },
-    PlansFontView:{
-        width:width-30,
-        height:50,
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'space-between'
-    },
-    PlansNumberAndMoney:{
-        width:width-50,
-        height:25,
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'space-between',
-        marginBottom:15,
-    },
-    PageWoMyEmployeeButton:{
-        width:45,
-        height:25,
-        backgroundColor:'#1296db',
-        borderRadius:2,
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center'
-    },
-});
 
 
 

@@ -391,26 +391,55 @@ export default class PageQiyeShimingShowData extends Component {
                         }
                         <View style={{width:width,height:5,backgroundColor:'#fafafa'}}></View>
                         <View style={styles.TextinputView}>
-                            <Text style={styles.passwordinput}>{params.ShimingInfo.name}</Text>
+                            <View  style={styles.passwordinputTitleView}>
+                                <Text>公司</Text>
+                            </View>
+                            <View  style={styles.passwordinput}>
+                                <Text>{params.ShimingInfo.name}</Text>
+                            </View>
                         </View>
                         <View style={styles.emptyViewForLine}></View>
                         <View style={styles.TextinputView}>
-                            <Text style={styles.passwordinput}>{params.ShimingInfo.numberid}</Text>
-                        </View>
-                        <View style={styles.emptyViewForLine}></View>
-                        <View style={styles.TextinputView}>
-                            <Text style={styles.passwordinput}>{params.ShimingInfo.legalperson}</Text>
-                        </View>
-                        <View style={styles.emptyViewForLine}></View>
-                        <View style={styles.TextinputView}>
-                            <Text style={styles.passwordinput}>{params.ShimingInfo.phone}</Text>
-                        </View>
-                        <View style={styles.emptyViewForLine}></View>
-                        <View style={styles.TextinputView}>
-                            <Text style={styles.passwordinput}>{params.ShimingInfo.email}</Text>
+                            <View  style={styles.passwordinputTitleView}>
+                                <Text>统一征信码</Text>
+                            </View>
+                            <View  style={styles.passwordinput}>
+                                <Text>{params.ShimingInfo.numberid}</Text>
+                            </View>
                         </View>
 
                         <View style={styles.emptyViewForLine}></View>
+                        <View style={styles.TextinputView}>
+                            <View  style={styles.passwordinputTitleView}>
+                                <Text>法人</Text>
+                            </View>
+                            <View  style={styles.passwordinput}>
+                                <Text>{params.ShimingInfo.legalperson}</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.emptyViewForLine}></View>
+                        <View style={styles.TextinputView}>
+                            <View  style={styles.passwordinputTitleView}>
+                                <Text>手机</Text>
+                            </View>
+                            <View  style={styles.passwordinput}>
+                                <Text>{params.ShimingInfo.phone}</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.emptyViewForLine}></View>
+                        <View style={styles.TextinputView}>
+                            <View  style={styles.passwordinputTitleView}>
+                                <Text>邮箱</Text>
+                            </View>
+                            <View  style={styles.passwordinput}>
+                                <Text>{params.ShimingInfo.email}</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.emptyViewForLine}></View>
+
                         <View style={styles.uploadImgView}>
                             <View style={styles.uploadImageOneView}>
                                 <View onPress={this.goCompleteProfile.bind(this, 1)}
@@ -590,16 +619,30 @@ let styles = StyleSheet.create({
         alignItems: 'center'
     },
     passwordinput: {
-
-        fontSize: 15,
         paddingLeft: 10,
-        textAlign: 'center',
-        color: '#4a4a4a'
+        width:width*0.6,
+        height:40,
+        flexDirection:'row',
+        alignItems:'center'
+    },
+    passwordinputTitleView:{
+        paddingLeft: 10,
+        width:width*0.25,
+        height:40,
+        flexDirection:'row',
+        alignItems:'center'
     },
     TextinputView: {
         marginTop: 15,
         height: 40,
         width: width * 0.8,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    TextinputViewTitle:{
+        width:width*0.2,
+        marginTop: 15,
+        height: 40,
         flexDirection: 'row',
         alignItems: 'center',
     },

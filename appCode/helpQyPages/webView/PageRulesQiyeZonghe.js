@@ -55,11 +55,9 @@ export default class PageRulesQiyeZonghe extends Component {
                     }
                     else if (resp.result.confirmif == 'pass') {
                         // 审核信息已经通过了
-                        this.props.navigation.navigate('PageQiyeShimingShowData', {
-                            useruuid: this.state.useruuid,
-                            token: this.state.token,
-                            ShimingInfo:resp.result,
-                            Status:'pass'
+                        this.props.navigation.navigate('PageShare', {
+                            helptype: this.props.navigation.state.params.categorytype,
+                            PageZhuYeKey:this.props.navigation.state.params.PageZhuYeKey,
                         })
                     }
                     else if (resp.result.confirmif == 'refused') {
