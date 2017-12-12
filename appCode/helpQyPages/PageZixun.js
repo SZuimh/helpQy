@@ -164,8 +164,9 @@ export default class PageZixun extends Component {
                             removeClippedSubviews={false}
                         /> :
                         <View style={styles.noredmoney}>
-                            <Image source={require('./img/NotHappy.png')} style={{width: 80, height: 80}}/>
-                            <Text >暂时还没有咨讯!</Text>
+                            <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
+                                   style={{width: width*0.3, height:width*0.3,marginTop:-height*0.40}}/>
+                            <Text style={{color: '#a4a4a4', marginTop: 10}}>暂无资讯!</Text>
                         </View>
                 }
                 <Loading visible={this.state.loading}/>

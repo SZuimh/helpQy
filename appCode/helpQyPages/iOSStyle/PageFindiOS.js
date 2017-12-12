@@ -25,7 +25,7 @@ const PageFindiOS= StyleSheet.create({
     },
     YaoqingImage:{
         width: width,
-        height: 120+heightPixel
+        height: 150+heightPixel
     },
     RulesText:{
         fontSize: 12+addPixel,
@@ -39,7 +39,7 @@ const PageFindiOS= StyleSheet.create({
     },
     MingdanGongshi: {
         color: '#ffffff',
-        fontSize: 14+addPixel
+        fontSize: 10+addPixel
     },
     MyRedMoney: {
         fontSize: 12+addPixel,
@@ -89,6 +89,7 @@ const PageFindiOS= StyleSheet.create({
         marginRight: 12,
         height: 30+heightPixel,
         width: 70,
+        borderRadius:5,
         backgroundColor: '#0093EC',
     },
     inviteFriendContain: {

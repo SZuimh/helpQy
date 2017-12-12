@@ -149,9 +149,9 @@ export default class PageZhuYe extends Component {
                 <StatusBar
                     animated={true}
                     hidden={false}
-                    backgroundColor={'white'}
+                    backgroundColor={'blue'}
                     translucent={false}
-                    barStyle={'default'}
+                    barStyle={'dark-content'}
                     networkActivityIndicatorVisible={false}
                     showHideTransition={'fade'}/>
                 <View style={{backgroundColor: '#fff',}}>
@@ -176,7 +176,7 @@ export default class PageZhuYe extends Component {
                         <Text style={{
                             color: '#4A4A4A',
                             fontSize: 11
-                        }}>{this.state.sumQiye}公司已加入/{this.state.sumStaff}员工已加入</Text>
+                        }}>{this.state.sumQiye}公司/{this.state.sumStaff}员工已加入</Text>
                     </View>
                     <View style={styles.planItem}>
                         <TouchableOpacity onPress={this.goPageQiyeDabing.bind(this)}>
@@ -186,7 +186,7 @@ export default class PageZhuYe extends Component {
                         <TouchableOpacity onPress={this.goPageQiyeDabing.bind(this)} style={styles.planItemMiddle}>
                             <Text style={styles.planItemText}>企业员工大病互助</Text>
                             <Text style={styles.planItemtxt}>18-65周岁</Text>
-                            <Text style={styles.planItemtxt}>最高获配30万元互助金</Text>
+                            <Text style={styles.planItemtxt}>最高获赔30万元互助金</Text>
                             <Text style={styles.planItemtxt}>胃癌、肝癌等各种大病</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.goPageQiyeDabing.bind(this, 'employee')}
@@ -198,13 +198,13 @@ export default class PageZhuYe extends Component {
                     </View>
                     <View style={styles.planItem}>
                         <TouchableOpacity onPress={this.goPageQiyeZonghe.bind(this)}>
-                            <Image source={require('./img/yuangongzonghe.png')} style={styles.bigImg}
-                                   resizeMode={'contain'}/>
+                            <Image source={require('./img/zongheyiwai.png')} style={styles.bigImg}
+                                   />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.goPageQiyeZonghe.bind(this)} style={styles.planItemMiddle}>
                             <Text style={styles.planItemText}>企业员工综合意外互助</Text>
                             <Text style={styles.planItemtxt}>18-65周岁</Text>
-                            <Text style={styles.planItemtxt}>最高获配30万元互助金</Text>
+                            <Text style={styles.planItemtxt}>最高获赔30万元互助金</Text>
                             <Text style={styles.planItemtxt}>意外身故、身外伤残</Text>
 
                         </TouchableOpacity>
@@ -226,7 +226,7 @@ export default class PageZhuYe extends Component {
                         <TouchableOpacity onPress={this.goPageLittle.bind(this)} style={styles.planItemMiddle}>
                             <Text style={styles.planItemText}>少儿大病互助</Text>
                             <Text style={styles.planItemtxt}>出生后30天-17周岁</Text>
-                            <Text style={styles.planItemtxt}>最高获配30万元互助金</Text>
+                            <Text style={styles.planItemtxt}>最高获赔30万元互助金</Text>
                             <Text style={styles.planItemtxt}>全面覆盖癌症等30种大病</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.goPageLittle.bind(this, 'children')}
@@ -245,7 +245,7 @@ export default class PageZhuYe extends Component {
                         <TouchableOpacity onPress={this.goPageYoung.bind(this)} style={styles.planItemMiddle}>
                             <Text style={styles.planItemText}>中青年抗癌互助</Text>
                             <Text style={styles.planItemtxt}>18-50周岁</Text>
-                            <Text style={styles.planItemtxt}>最高获配30万元互助金</Text>
+                            <Text style={styles.planItemtxt}>最高获赔30万元互助金</Text>
                             <Text style={styles.planItemtxt}>全面覆盖癌症等30种大病</Text>
 
                         </TouchableOpacity>
@@ -262,7 +262,7 @@ export default class PageZhuYe extends Component {
                         <TouchableOpacity onPress={this.goPageOld.bind(this)} style={styles.planItemMiddle}>
                             <Text style={[styles.planItemText, {fontWeight: 'bold'}]}>中老年抗癌互助</Text>
                             <Text style={styles.planItemtxt}>50-65周岁</Text>
-                            <Text style={styles.planItemtxt}>最高获配30万元互助金</Text>
+                            <Text style={styles.planItemtxt}>最高获赔30万元互助金</Text>
                             <Text style={styles.planItemtxt}>全面覆盖癌症等30种大病</Text>
 
                         </TouchableOpacity>
@@ -279,7 +279,7 @@ export default class PageZhuYe extends Component {
                         <TouchableOpacity onPress={this.goPageZonghe.bind(this)} style={styles.planItemMiddle}>
                             <Text style={styles.planItemText}>综合意外互助</Text>
                             <Text style={styles.planItemtxt}>1-66周岁</Text>
-                            <Text style={styles.planItemtxt}>最高获配30万元互助金</Text>
+                            <Text style={styles.planItemtxt}>最高获赔30万元互助金</Text>
                             <Text style={styles.planItemtxt}>意外身故、意外伤残</Text>
 
                         </TouchableOpacity>

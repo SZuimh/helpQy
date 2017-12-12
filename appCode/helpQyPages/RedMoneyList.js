@@ -190,7 +190,7 @@ export default class RedMoneyList extends Component {
                             }>
                             <View style={styles.noredmoney}>
                                 <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
-                                       style={{width: 80, height: 80}}/>
+                                       style={{width: width*0.3, height:width*0.3,marginTop:-height*0.40}}/>
                                 <Text style={{color: '#a4a4a4', marginTop: 10}}>您还没有红包哦!</Text>
                             </View>
                         </ScrollView>

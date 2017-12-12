@@ -484,8 +484,8 @@ export default class PageMyStaffHarm extends Component {
                                 }>
                                 <View style={styles.noredmoney}>
                                     <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
-                                           style={{width: 80, height: 80}}/>
-                                    <Text style={{color: '#a4a4a4', marginTop: 10}}>无已加入员工!</Text>
+                                           style={{width: width * 0.3, height: width * 0.3, marginTop: -height * 0.40}}/>
+                                    <Text style={{color: '#a4a4a4', marginTop: 10}}>暂无员工加入!</Text>
                                 </View>
                             </ScrollView>
                         }
@@ -538,8 +538,8 @@ export default class PageMyStaffHarm extends Component {
                                 }>
                                 <View style={styles.noredmoney}>
                                     <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
-                                           style={{width: 80, height: 80}}/>
-                                    <Text style={{color: '#a4a4a4', marginTop: 10}}>无已加入员工!</Text>
+                                           style={{width: width * 0.3, height: width * 0.3, marginTop: -height * 0.40}}/>
+                                    <Text style={{color: '#a4a4a4', marginTop: 10}}>暂无员工加入!</Text>
                                 </View>
                             </ScrollView>
                         }

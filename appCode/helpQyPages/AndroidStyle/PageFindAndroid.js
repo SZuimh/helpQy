@@ -25,7 +25,7 @@ const PageFindAndroid= StyleSheet.create({
     },
     YaoqingImage:{
         width: width,
-        height: 120+heightPixel
+        height: 150+heightPixel
     },
     RulesText:{
         fontSize: 12+addPixel,

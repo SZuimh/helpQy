@@ -5,7 +5,10 @@ import {
     StyleSheet,
     Image,
     Text,
+    ScrollView,
+    RefreshControl
 } from 'react-native';
+
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 import React, {Component,} from 'react';
@@ -19,12 +22,13 @@ export default class PageSystemNotificationList extends Component {
         super(props);
         this.state = {
             loading: true,
-            page:1,
+            page: 1,
             refreshing: false,
             dataSource: [],
             hasLoad: false,
             animating: false,  //loading动画的显示与否
             haveDataOrNoData: false,
+            isRefreshing: false,
         };
     }
 
@@ -32,12 +36,13 @@ export default class PageSystemNotificationList extends Component {
         this.makeRemoteRequest();
 
     }
+
     // 获取数据
     makeRemoteRequest = () => {
         this.setState({
             loading: true
         })
-        const { page} = this.state;
+        const {page} = this.state;
         let formData = new FormData();
         formData.append("token", this.props.navigation.state.params.token);
         formData.append("uuid", this.props.navigation.state.params.useruuid);
@@ -49,41 +54,43 @@ export default class PageSystemNotificationList extends Component {
         let responseR = UploadFile(option);
         responseR.then(resp => {
             //服务不可用，
-            if(typeof(resp)=="undefined"){
+            if (typeof(resp) == "undefined") {
                 this.setState({
-                    refreshing:false,
-                    loading: false
+                    refreshing: false,
+                    loading: false,
+                    isRefreshing: false
                 });
                 return
             }
             this.setState({
-                dataSource: page==1? resp.result :[ ...this.state.dataSource,...resp.result],//后台必须保证UUID不同，否则报错
+                dataSource: page == 1 ? resp.result : [...this.state.dataSource, ...resp.result],//后台必须保证UUID不同，否则报错
                 haveDataOrNoData: true,
-                refreshing:false,
+                refreshing: false,
                 loading: false,
-            },()=>{
+                isRefreshing: false
+            }, () => {
 
-                if (this.state.dataSource==null || this.state.dataSource.length==0){
+                if (this.state.dataSource == null || this.state.dataSource.length == 0) {
                     this.setState({
-                        haveDataOrNoData:false
+                        haveDataOrNoData: false
                     })
                 }
             })
         }).catch(err => {
             this.setState({
-                refreshing:false,
-                loading: false
+                refreshing: false,
+                loading: false,
+                isRefreshing: false
             });
 
         });
     }
 
 
-
-    _onRefresh=()=> {
+    _onRefresh = () => {
         this.setState(
             {
-                page: this.state.page+1,
+                page: this.state.page + 1,
                 refreshing: true
             },
             () => {
@@ -93,6 +100,7 @@ export default class PageSystemNotificationList extends Component {
     static navigationOptions = {
         title: '系统通知',
     };
+
     uuid() {  //为keyExtractor产生一个uuid  用来标识id、
 
         var s = [];
@@ -108,7 +116,7 @@ export default class PageSystemNotificationList extends Component {
         return uuid;
     }
 
-    _keyExtractor = (item, index) => item.notifyuuid+Math.floor(Math.random()*10) ; //用于为item对象生成一个唯一的标识id  用来区分
+    _keyExtractor = (item, index) => item.notifyuuid + Math.floor(Math.random() * 10); //用于为item对象生成一个唯一的标识id  用来区分
 
     _renderItem = ({item}) => (      //页面list的一个对象的生成 和属性定义
         <SystemNotification
@@ -120,11 +128,11 @@ export default class PageSystemNotificationList extends Component {
 
     renderSeparator = () => {
         return (
-            <View />
+            <View/>
         );
     };
     renderHeader = () => {
-        return <View />;
+        return <View/>;
     };
     renderFooter = () => {
         if (!this.state.loading) return null;
@@ -140,6 +148,10 @@ export default class PageSystemNotificationList extends Component {
             </View>
         );
     };
+
+    _onRefreshLoading() {
+        this.makeRemoteRequest()
+    }
 
 
     render() {
@@ -159,10 +171,24 @@ export default class PageSystemNotificationList extends Component {
                             ItemSeparatorComponent={this.renderSeparator}
 
                         /> :
-                        <View style={styles.noredmoney}>
-                            <Image source={require('./img/NotHappy.png')} style={{width: 80, height: 80}}/>
-                            <Text >您还没通知哦!</Text>
-                        </View>
+                        <ScrollView
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={this.state.isRefreshing}
+                                    onRefresh={this._onRefreshLoading.bind(this)}
+                                    tintColor="#000000"      //loading 转圈圈的颜色
+                                    title="Loading..."       //标题
+                                    titleColor="#000000"     //Loading 颜色
+                                    colors={['#000000']}
+                                    progressBackgroundColor="#1296db"
+                                />
+                            }>
+                            <View style={styles.noredmoney}>
+                                <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
+                                       style={{width: width * 0.3, height: width * 0.3, marginTop: -height * 0.40}}/>
+                                <Text style={{color: '#a4a4a4', marginTop: 10}}>您还没有消息哦!</Text>
+                            </View>
+                        </ScrollView>
                 }
                 <LoadingInPage modalVisible={this.state.loading}/>
             </View>
@@ -176,16 +202,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 8,
     },
-    PageWoMyEmployeeMaxView:{
+    PageWoMyEmployeeMaxView: {
+        width: width,
+        height: height,
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#ffffff'
+    },
+    noredmoney: {
         width:width,
         height:height,
-        flex:1,
-        flexDirection:'column',
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'#ffffff'
-    },
-    noredmoney:{
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'

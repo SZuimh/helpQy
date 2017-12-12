@@ -103,8 +103,8 @@ const PageZhuYeiOS = StyleSheet.create({
         marginTop: 5
     },
     bigImg: {
-        width: 70+heightPixel,
-        height: 70+heightPixel
+        width: 75+heightPixel*5,
+        height: 65+heightPixel*4
     },
     planItemMiddle: {
         flex: 1,
@@ -125,7 +125,8 @@ const PageZhuYeiOS = StyleSheet.create({
         height: 30+heightPixel,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius:5
     }
 });
 export  default PageZhuYeiOS;

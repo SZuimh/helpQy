@@ -46,9 +46,10 @@ const EmployeePlansFromZhuyeItemiOS=StyleSheet.create({
         marginBottom:15,
     },
     PageWoMyEmployeeButton:{
-        width:45,
-        height:25,
-        backgroundColor:'#1296db',
+        width: 60,
+        height: 28,
+        borderRadius:5,
+        backgroundColor: '#008BE6',
         borderRadius:2,
         flexDirection:'row',
         justifyContent:'center',

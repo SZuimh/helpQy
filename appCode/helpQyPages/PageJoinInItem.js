@@ -199,10 +199,10 @@ export default class PageJoinInItem extends Component {
                             {/*充值金额*/}
                             <View style={styles.itemMoneyS}>
                                 <TouchableOpacity onPress={() => {
-                                    this.checkMoney(0.01)
+                                    this.checkMoney(10)
                                 }} style={styles.itemMoney}>
                                     <View>
-                                        <Text>0.01元</Text>
+                                        <Text>10元</Text>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => {

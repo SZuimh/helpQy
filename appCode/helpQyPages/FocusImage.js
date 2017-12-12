@@ -38,7 +38,7 @@ class FocusImage extends Component {
         for (let i = 0; i < 3; i++) {
             switch (i) {
                 case 0: {
-                    item = require('./img/Lunbo.png');
+                    item = require('./img/LunboFri.png');
                     break;
                 }
                 case 1: {

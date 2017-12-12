@@ -187,8 +187,6 @@ export default class PageFind extends Component {
                         console.log('error is', error)
                     });
             })
-
-
         } else {
             this.props.navigation.navigate('PageLogin')
         }
