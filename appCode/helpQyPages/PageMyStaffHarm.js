@@ -272,7 +272,7 @@ export default class PageMyStaffHarm extends Component {
         };
         let responseR = UploadFile(option);
         responseR.then(resp => {
-            console.log(this.props)
+            // console.log(this.props)
             setTimeout(()=>{
                 let FirstPay= resp.retcode==2000?true:false;
                 this.props.navigation.navigate('PagePayForStaff',{HelpTypeMessage:this.props.navigation.state.params.HelpTypeMessage,

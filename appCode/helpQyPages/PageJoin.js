@@ -182,7 +182,7 @@ export default class PageJoin extends Component {
         };
         let response = fetchTool(options);
         response.then(resp => {
-            console.log(resp)
+            // console.log(resp)
             this.setState({
                 modalVisible:false
             })

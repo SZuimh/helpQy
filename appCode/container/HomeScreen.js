@@ -19,7 +19,7 @@ import PageRegister from '../helpQyPages/PageRegister';
 import PageJoin from '../helpQyPages/PageJoin';
 import PageZhuYe from '../helpQyPages/PageZhuYe'; //主页
 import PageRulesLittle from '../helpQyPages/webView/PageRulesLittle';
-import PageLittle from '../helpQyPages/img/PageLittle';
+import PageLittle from '../helpQyPages/webView/PageLittle';
 import PageRulesYoung from '../helpQyPages/webView/PageRulesYoung';
 import PageYoung from '../helpQyPages/webView/PageYoung';
 import PageRulesOld from '../helpQyPages/webView/PageRulesOld';

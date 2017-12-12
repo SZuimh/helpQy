@@ -130,7 +130,8 @@ export default class PageSetting extends Component {
 
     changeModalVisible(modalVisible) {
         this.setState({
-            modalVisible: modalVisible
+            modalVisible: modalVisible,
+            errMsg:''
         })
 
     }
@@ -147,11 +148,11 @@ export default class PageSetting extends Component {
 
                 <TouchableOpacity onPress={this.changeModalVisible.bind(this, !this.state.modalVisible)}
                                   style={styles.commonStyle}>
-                    <Text>修改昵称</Text>
+                    <Text style={styles.changeUserNameText}>修改昵称</Text>
                     <Image source={require('./img/turnRight.png')} resizeMode={'contain'} style={styles.wrapperImage}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.goResetPassword.bind(this)} style={styles.commonStyle}>
-                    <Text>修改密码</Text>
+                    <Text style={styles.changeUserNameText}>修改密码</Text>
                     <Image source={require('./img/turnRight.png')} resizeMode={'contain'} style={styles.wrapperImage}/>
                 </TouchableOpacity>
                 <View style={styles.tipsStyle}>
@@ -218,6 +219,9 @@ let styles = StyleSheet.create({
         fontSize: 10,
         color: 'red'
     },
+    changeUserNameText:{
+        fontSize:16
+    },
     TextinputForChange: {
         height: 80,
         flexDirection: 'column',
@@ -259,11 +263,11 @@ let styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        height: 40,
+        height: 60,
         backgroundColor: '#ffffff',
         borderBottomWidth: 1 / ratio,
         borderBottomColor: '#F4F4F4',
-        paddingLeft: 10
+        paddingLeft: 10,
     },
     wrapperImage: {
         width: 15,
@@ -282,7 +286,7 @@ let styles = StyleSheet.create({
     chongzhi: {
         width: width,
         backgroundColor: '#008BE6',
-        height: 40,
+        height: 50,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
@@ -306,7 +310,7 @@ let styles = StyleSheet.create({
         zIndex: 1000
     },
     PageSettingChanegNameView: {
-        width: 200,
+        width: width*0.6,
         height: 160,
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -316,8 +320,8 @@ let styles = StyleSheet.create({
         marginTop: -50
     },
     PageSettingInput: {
-        height: 25,
-        width: 180,
+        height: 30,
+        width: width*0.6-40,
         fontSize: 10,
         color: '#4a4a4a',
         borderWidth: 1 / ratio,
@@ -328,7 +332,7 @@ let styles = StyleSheet.create({
         marginTop: 20
     },
     PageSettingChanegNameButtonView: {
-        width: 200,
+        width: width*0.6,
         height: 40,
         flexDirection: 'row',
         alignItems: 'center',
@@ -337,7 +341,7 @@ let styles = StyleSheet.create({
         borderTopColor: '#4a4a4a'
     },
     PageSettingChanegNameButton: {
-        width: 100,
+        width: width*0.3,
         height: 40,
         flexDirection: 'row',
         justifyContent: 'center',

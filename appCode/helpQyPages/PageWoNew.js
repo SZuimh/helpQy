@@ -75,7 +75,7 @@ export default class PageWo extends Component {
             })
 
         });
-        console.log(this.state.usertype)
+        // console.log(this.state.usertype)
         loginOutEmitterEvent = NativeAppEventEmitter.addListener('loginOutEmitter', (data) => {
             this.setState({
                 token: null,
@@ -89,7 +89,7 @@ export default class PageWo extends Component {
                 userphoto: "http://oztdsemro.bkt.clouddn.com/putaoLogo@2x.png"
             })
             AsyncStorage.clear().catch(err => {
-                console.log(err);
+                // console.log(err);
             });
         });
 
@@ -102,7 +102,7 @@ export default class PageWo extends Component {
         this.setState({
             usernickname: newUserName
         })
-        console.log(this.state.usernickname)
+        // console.log(this.state.usernickname)
     }
 
     getUserMessage() {
@@ -210,7 +210,7 @@ export default class PageWo extends Component {
             };
             let responseR = UploadFile(option);
             responseR.then(resp => {
-                console.log(resp)
+                // console.log(resp)
                 if (resp.retcode == 2001) {
                     //未查到数据 说明没有进行审核信息的提交
                     this.props.navigation.navigate('PageQiyeShiming', {
@@ -239,7 +239,6 @@ export default class PageWo extends Component {
                         })
                     }
                     else if (resp.result.confirmif == 'refused') {
-                        console.log("ssss")
                         //审核信息有误，被拒绝
                         this.props.navigation.navigate('PageQiyeShiming',{
                             useruuid: this.state.useruuid,

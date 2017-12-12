@@ -146,8 +146,8 @@ export default class PageJoinInItem extends Component {
                             }}>
                                 <View style={[styles.inputWrap, {borderBottomColor: '#FFFFFF', width: width - 106}]}>
                                     <Text style={{
-                                        fontSize: 18,
-                                        color: 'black'
+                                        fontSize: 13,
+                                        color: '#666666'
                                     }}>{this.state.moneyNumber}(元)</Text>
                                     <Image source={require('./img/turnDown.png')}/>
                                 </View>

@@ -381,18 +381,18 @@ export default class PageQiyeShimingShowData extends Component {
                         {params.Status == 'unhandle' ?
                             <View style={styles.QiyeShimingStatus}>
                                 <Text style={{height:20,color:'#F5A623',fontSize:15,marginTop:10}}>审核中</Text>
-                                <Text style={{height:20,fontSize:15}}>您的资料正在审核中</Text>
+                                <Text style={{height:20,fontSize:15,marginTop:10,marginBottom:10}}>您的资料正在审核中</Text>
                             </View>
                             :
                             <View style={styles.QiyeShimingStatus}>
                                 <Text style={{height:20,color:'#1296db',fontSize:15,marginTop:10}}>审核已通过</Text>
-                                <Text style={{height:20,fontSize:15}}>您提交的资料已经审核通过</Text>
+                                <Text style={{height:20,fontSize:15,marginTop:10,marginBottom:10}}>您提交的资料已经审核通过</Text>
                             </View>
                         }
                         <View style={{width:width,height:5,backgroundColor:'#fafafa'}}></View>
                         <View style={styles.TextinputView}>
                             <View  style={styles.passwordinputTitleView}>
-                                <Text>公司</Text>
+                                <Text style={styles.inputName}>公司</Text>
                             </View>
                             <View  style={styles.passwordinput}>
                                 <Text>{params.ShimingInfo.name}</Text>
@@ -401,7 +401,7 @@ export default class PageQiyeShimingShowData extends Component {
                         <View style={styles.emptyViewForLine}></View>
                         <View style={styles.TextinputView}>
                             <View  style={styles.passwordinputTitleView}>
-                                <Text>统一征信码</Text>
+                                <Text style={styles.inputName}>统一征信码</Text>
                             </View>
                             <View  style={styles.passwordinput}>
                                 <Text>{params.ShimingInfo.numberid}</Text>
@@ -411,7 +411,7 @@ export default class PageQiyeShimingShowData extends Component {
                         <View style={styles.emptyViewForLine}></View>
                         <View style={styles.TextinputView}>
                             <View  style={styles.passwordinputTitleView}>
-                                <Text>法人</Text>
+                                <Text style={styles.inputName}>法人</Text>
                             </View>
                             <View  style={styles.passwordinput}>
                                 <Text>{params.ShimingInfo.legalperson}</Text>
@@ -421,7 +421,7 @@ export default class PageQiyeShimingShowData extends Component {
                         <View style={styles.emptyViewForLine}></View>
                         <View style={styles.TextinputView}>
                             <View  style={styles.passwordinputTitleView}>
-                                <Text>手机</Text>
+                                <Text style={styles.inputName}>手机</Text>
                             </View>
                             <View  style={styles.passwordinput}>
                                 <Text>{params.ShimingInfo.phone}</Text>
@@ -431,7 +431,7 @@ export default class PageQiyeShimingShowData extends Component {
                         <View style={styles.emptyViewForLine}></View>
                         <View style={styles.TextinputView}>
                             <View  style={styles.passwordinputTitleView}>
-                                <Text>邮箱</Text>
+                                <Text style={styles.inputName}>邮箱</Text>
                             </View>
                             <View  style={styles.passwordinput}>
                                 <Text>{params.ShimingInfo.email}</Text>
@@ -482,12 +482,16 @@ let styles = StyleSheet.create({
         width: width,
         flex: 1
     },
+    inputName:{
+        fontWeight:'bold',
+        fontSize:14,
+    },
     QiyeShimingStatus:{
-        width:width,
+        width:width*0.8,
         height:60,
         flexDirection:'column',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'flex-start'
     },
     ShiMingTips: {
         marginTop: 20,

@@ -378,21 +378,19 @@ export default class PageQiyeShimingFromZhuye extends Component {
                     {params.Status == 'refused' ?
                         <View style={styles.QiyeShimingMaxView}>
                             <View style={styles.QiyeShimingStatus}>
-                                <Text style={{
-                                    height: 20,
-                                    color: 'red',
-                                    fontSize: 15,
-                                    marginTop: 10
-                                }}>审核未通过</Text>
-                                <Text style={{height: 20, fontSize: 15}}>原因:{params.comment}</Text>
+                                <Text style={{height: 20, color: 'red', fontSize: 15, marginTop: 10}}>审核未通过</Text>
+                                <Text style={{height:20,fontSize:15,marginTop:10,marginBottom:10}}>原因:{params.comment}</Text>
                             </View>
                             <View style={{width: width, height: 5, backgroundColor: '#fafafa'}}></View>
                             <View style={styles.QiyeShimingTitleView}>
                                 <Text style={{fontSize: 16, color: '#4a4a4a'}}>重新填写企业信息</Text>
                             </View>
                             <View style={styles.TextinputView}>
+                                <View style={styles.passwordinputTitle}>
+                                    <Text style={styles.inputName}>公司</Text>
+                                </View>
                                 <TextInput
-                                    style={styles.passwordinput}
+                                    style={styles.passwordinputAndTitle}
                                     placeholder='企业名称'
                                     keyboardType='email-address'
                                     maxLength={30}
@@ -408,8 +406,11 @@ export default class PageQiyeShimingFromZhuye extends Component {
                             </View>
                             <View style={styles.emptyViewForLine}></View>
                             <View style={styles.TextinputView}>
+                                <View style={styles.passwordinputTitle}>
+                                    <Text  style={styles.inputName}>统一征信码</Text>
+                                </View>
                                 <TextInput
-                                    style={styles.passwordinput}
+                                    style={styles.passwordinputAndTitle}
                                     placeholder='统一社会征信代码'
                                     keyboardType='email-address'
                                     maxLength={30}
@@ -425,8 +426,11 @@ export default class PageQiyeShimingFromZhuye extends Component {
                             </View>
                             <View style={styles.emptyViewForLine}></View>
                             <View style={styles.TextinputView}>
+                                <View style={styles.passwordinputTitle}>
+                                    <Text style={styles.inputName}>法人</Text>
+                                </View>
                                 <TextInput
-                                    style={styles.passwordinput}
+                                    style={styles.passwordinputAndTitle}
                                     placeholder='法定代表人'
                                     keyboardType='email-address'
                                     maxLength={30}
@@ -442,8 +446,11 @@ export default class PageQiyeShimingFromZhuye extends Component {
                             </View>
                             <View style={styles.emptyViewForLine}></View>
                             <View style={styles.TextinputView}>
+                                <View style={styles.passwordinputTitle}>
+                                    <Text  style={styles.inputName}>手机</Text>
+                                </View>
                                 <TextInput
-                                    style={styles.passwordinput}
+                                    style={styles.passwordinputAndTitle}
                                     placeholder='联系人手机号'
                                     keyboardType='email-address'
                                     maxLength={30}
@@ -460,8 +467,11 @@ export default class PageQiyeShimingFromZhuye extends Component {
                             <View style={styles.emptyViewForLine}></View>
                             <View style={styles.password}>
                                 <View style={styles.inputWrap}>
+                                    <View style={styles.passwordinputTitle}>
+                                        <Text style={styles.inputName}>验证码</Text>
+                                    </View>
                                     <TextInput
-                                        style={[styles.passwordinput, {width: width * 0.55}]}
+                                        style={[styles.passwordinput, {width: width * 0.35}]}
                                         ref='refpass'
                                         maxLength={18}
                                         placeholder={'输入验证码'}
@@ -493,8 +503,11 @@ export default class PageQiyeShimingFromZhuye extends Component {
                             </View>
                             <View style={styles.emptyViewForLine}></View>
                             <View style={styles.TextinputView}>
+                                <View style={styles.passwordinputTitle}>
+                                    <Text style={styles.inputName}>邮箱</Text>
+                                </View>
                                 <TextInput
-                                    style={styles.passwordinput}
+                                    style={styles.passwordinputAndTitle}
                                     placeholder='公司邮箱'
                                     keyboardType='email-address'
                                     maxLength={30}
@@ -515,21 +528,24 @@ export default class PageQiyeShimingFromZhuye extends Component {
                                 <View style={styles.uploadImageOneView}>
                                     <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 1)}
                                                       style={styles.imgButton}>
-                                        <Image key={1} source={this.state.imgOneUrl} style={{width: 60, height: 60}}
+                                        <Image key={1} source={this.state.imgOneUrl}
+                                               style={{width: 60, height: 60}}
                                                resizeMode={'cover'}/>
                                         <Text style={styles.uploadText}>公司执照</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.uploadImageOneView}>
                                     <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 2)}>
-                                        <Image key={2} source={this.state.imgTwoUrl} style={{width: 60, height: 60}}
+                                        <Image key={2} source={this.state.imgTwoUrl}
+                                               style={{width: 60, height: 60}}
                                                resizeMode={'cover'}/>
                                     </TouchableOpacity>
                                     <Text style={styles.uploadText}>法人身份证</Text>
                                 </View>
                                 <View style={styles.uploadImageOneView}>
                                     <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 3)}>
-                                        <Image key={3} source={this.state.imgThreeUrl} style={{width: 60, height: 60}}
+                                        <Image key={3} source={this.state.imgThreeUrl}
+                                               style={{width: 60, height: 60}}
                                                resizeMode={'cover'}/>
                                     </TouchableOpacity>
                                     <Text style={styles.uploadText}>法人手持身份证</Text>
@@ -538,7 +554,7 @@ export default class PageQiyeShimingFromZhuye extends Component {
                             <View style={styles.ShiMingTips}>
                                 <Text style={styles.ShiMingTipsText}>请根据提示，务必上传真实资料,以上选项皆为必填项</Text>
                             </View>
-                            <View style={{width: width, height: 50}}></View>
+                            <View style={{width: width, height: 250}}></View>
                         </View>
                         :        //上面的view是提交信息被拒绝   下面的是  还未提交过审核信息
                         <View style={styles.QiyeShimingMaxView}>
@@ -733,6 +749,10 @@ let styles = StyleSheet.create({
         width: width,
         flex: 1
     },
+    inputName:{
+        fontWeight:'bold',
+        fontSize:14,
+    },
     ShiMingTips: {
         marginTop: 20,
         width: width,
@@ -745,6 +765,13 @@ let styles = StyleSheet.create({
         fontSize: 10,
         color: '#b9b9b9',
         textAlign: 'center'
+    },
+    QiyeShimingStatus:{
+        width:width*0.8,
+        height:60,
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'flex-start'
     },
     uploadImageOneView: {
         width: width * 0.22,

@@ -115,7 +115,7 @@ let styles = StyleSheet.create({
     },
     plansName:{
         fontSize: 15,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         color: 'black'
     },
     waitingDate:{
@@ -124,7 +124,7 @@ let styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     userName: {
-        fontSize: 15,
+        fontSize: 14,
         color: '#000000',
         fontWeight: 'bold',
     },

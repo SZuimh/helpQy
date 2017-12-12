@@ -225,7 +225,7 @@ export default class PageLittle extends Component {
                             <View style={styles.emptyForLineForRules}></View>
                             <View style={styles.PlansRulesZiView}>
                                 <View style={styles.PlansRulesTitlteView}><Text
-                                    style={styles.PlansRulesTitlte}>将康要求</Text></View>
+                                    style={styles.PlansRulesTitlte}>健康要求</Text></View>
                                 <View style={styles.PlansRulesContentView}><Text style={styles.PlansRulesContent}>加入本互助计划时，需无重大疾病病史以及相关症状就诊记录，无慢性病史</Text></View>
                             </View>
                             <View style={styles.emptyForLineForRules}></View>
@@ -341,7 +341,7 @@ export default class PageLittle extends Component {
                         <View style={{width: width - 50}}>
                             <TouchableOpacity style={styles.PagePlansQiyeDabingQuestions}
                                               onPress={this.changeDisplay2.bind(this)}>
-                                <Text style={{fontSize: 14, fontWeight: 'bold', color: '#4a4a4a'}}>1.什么是互助行动</Text>
+                                <Text style={{fontSize: 14, fontWeight: 'bold', color: '#4a4a4a'}}>2.什么是互助行动</Text>
                                 {this.state.display2 == 'none' ?
                                     <Image source={require('../img/turnDown.png')}/> :   //显示方式为none的时候 箭头向下
                                     <Image source={require('../img/turnUp.png')}/>    //显示方式为flex的时候 箭头向上
@@ -357,7 +357,7 @@ export default class PageLittle extends Component {
                         <View style={{width: width - 50}}>
                             <TouchableOpacity style={styles.PagePlansQiyeDabingQuestions}
                                               onPress={this.changeDisplay3.bind(this)}>
-                                <Text style={{fontSize: 14, fontWeight: 'bold', color: '#4a4a4a'}}>1.什么是互助行动</Text>
+                                <Text style={{fontSize: 14, fontWeight: 'bold', color: '#4a4a4a'}}>3.什么是互助行动</Text>
                                 {this.state.display3 == 'none' ?
                                     <Image source={require('../img/turnDown.png')}/> :   //显示方式为none的时候 箭头向下
                                     <Image source={require('../img/turnUp.png')}/>    //显示方式为flex的时候 箭头向上
@@ -513,7 +513,8 @@ let styles = StyleSheet.create({
     },
     PlansRulesContent: {
         fontSize: 11,
-        color:'#4A4A4A'
+        color:'#4A4A4A',
+        lineHeight:14
     },
     emptyForLineForRules: {
         width: width - 40,

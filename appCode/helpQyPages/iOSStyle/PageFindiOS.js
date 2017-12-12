@@ -25,7 +25,7 @@ const PageFindiOS= StyleSheet.create({
     },
     YaoqingImage:{
         width: width,
-        height: 150+heightPixel
+        height: 110+heightPixel*11
     },
     RulesText:{
         fontSize: 12+addPixel,

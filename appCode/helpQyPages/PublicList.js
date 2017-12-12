@@ -187,8 +187,9 @@ export  default  class PublicList extends React.PureComponent{
                         />
                         :
                         <View style={styles.noredmoney}>
-                            <Image source={require('./img/NotHappy.png')} style={{width: 80, height: 80}}/>
-                            <Text style={{color:'#a4a4a4',marginTop:10}}>暂无公示人员!</Text>
+                            <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
+                                   style={{width: width*0.3, height:width*0.3,marginTop:-height*0.40}}/>
+                            <Text style={{color: '#a4a4a4', marginTop: 10}}>暂无公示人员!</Text>
                         </View>
                 }
             <LoadingInPage modalVisible={this.state.loading}/>

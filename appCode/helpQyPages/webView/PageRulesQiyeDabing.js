@@ -35,7 +35,6 @@ export default class PageRulesQiyeDabing extends Component {
             };
             let responseR = UploadFile(option);
             responseR.then(resp => {
-                console.log(resp)
                 if (resp.retcode == 2001) {
                     //未查到数据 说明没有进行审核信息的提交
                     this.props.navigation.navigate('PageQiyeShiming', {
@@ -185,11 +184,13 @@ let styles = StyleSheet.create({
     },
     HuzhuTishiFont: {
         fontSize: 12,
-        color: '#9B9B9B'
+        color: '#9B9B9B',
+        lineHeight:16
     },
     HuzhuTishiContentFont: {
         fontSize: 12,
-        color: '#4A4A4A'
+        color: '#4A4A4A',
+        lineHeight:15,
     },
     DabingChongzhiButtonView: {
         position: 'absolute',

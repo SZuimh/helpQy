@@ -82,7 +82,7 @@ const PageWoNewiOS = StyleSheet.create({
         PageWoNewTongzhiImage: {},
         PageWoNewUserName: {
             alignSelf: 'flex-start',
-            fontSize: 20+addPixel,
+            fontSize: 18+addPixel,
             fontWeight: 'bold'
         },
         PageWoNewMyAccount: {
@@ -97,7 +97,7 @@ const PageWoNewiOS = StyleSheet.create({
             marginRight: 20
         },
         PageWoNewMyAccountFont: {
-            fontSize: 12+addPixel,
+            fontSize: 10+addPixel,
         },
         PageWoNewMyChoice: {
             width: width,
@@ -125,7 +125,7 @@ const PageWoNewiOS = StyleSheet.create({
             backgroundColor: '#E0DCDC'
         },
         PageWoNewChoiceFont: {
-            fontSize: 16+addPixel,
+            fontSize: 14+addPixel,
             fontWeight: 'bold'
         },
         PageWoNewTiShi: {

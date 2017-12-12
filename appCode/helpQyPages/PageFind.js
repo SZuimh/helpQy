@@ -226,7 +226,7 @@ export default class PageFind extends Component {
                 <View style={styles.publicContain}>
                     <View style={styles.publicLeft}>
                         <Text style={styles.huzhuPeople}>互助人员公示</Text>
-                        <Text style={styles.huzhuDate}>公式周期一个月，每次公式10天</Text>
+                        <Text style={styles.huzhuDate}>公示周期一个月，每次公示10天</Text>
                     </View>
                     <View style={styles.publicRight}>
                         <Text onPress={this.goPublicList.bind(this)}

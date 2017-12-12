@@ -54,11 +54,6 @@ export default class PageRulesofPlans extends Component {
                             <Text style={styles.txt}>5、葡萄互助保留对此活动的最终解释权；</Text>
                         </View>
                     </View>
-                    <View style={styles.closeWrapper}>
-                        <TouchableOpacity style={styles.close}>
-                            <Text style={{width: 46, color: '#fff'}}>关闭</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             </View>
         );
@@ -88,6 +83,6 @@ let styles = StyleSheet.create({
     txt:{
         color:'#4a4a4a',
         fontSize:14,
-
+        lineHeight:20
     },
 });

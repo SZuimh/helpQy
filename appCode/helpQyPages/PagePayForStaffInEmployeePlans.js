@@ -45,7 +45,7 @@ export default class PagePayForStaffInEmployeePlans extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
+        // console.log(this.props)
         //这里要获取已经加入的人数
         const {params} = this.props.navigation.state;
         this.setState({

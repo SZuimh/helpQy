@@ -67,13 +67,13 @@ export default class PageFind extends  React.PureComponent{
 
     _shareToWechatSession(){ // 分享到微信会话
         WeChat.sendReq(webpageOptions,(err,sendOK) => {
-            console.log(sendOK)
+            // console.log(sendOK)
         });
     }
     _shareToWechatPengyouQuan(){ //分享到朋友圈
         webpageOptions.scene=0;
         WeChat.sendReq(webpageOptions,(err,sendOK) => {
-            console.log(sendOK)
+            // console.log(sendOK)
         });
     }
     _shareToqqSession(){ //分享到qq会话

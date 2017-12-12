@@ -108,7 +108,7 @@ export default class MyHomerList extends Component {
 
         responseR.then(resp => {
             //服务不可用，
-            console.log(resp)
+            // console.log(resp)
             if (typeof(resp) == "undefined") {
                 this.setState({
                     refreshing: false,
@@ -172,7 +172,7 @@ export default class MyHomerList extends Component {
     );
 
     _onRefresh() {
-        console.log("我的家人界面刷新")
+        // console.log("我的家人界面刷新")
     }
 
     renderSeparator = () => {

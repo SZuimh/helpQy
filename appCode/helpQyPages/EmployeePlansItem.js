@@ -105,16 +105,13 @@ export default class EmployeePlansItem extends Component {
         };
         let responseR = UploadFile(option);
         responseR.then(resp => {
-            setTimeout(() => {
                 let FirstPay = resp.retcode == 2000 ? true : false;
-                console.log(FirstPay)
                 this.props.navigation.navigate('PagePayForStaff', {
                     HelpTypeMessage: this.props.row,
                     payMoneyCallBack: this.props.payMoneyCallBack,
                     FirstPay: FirstPay,//是否是首次充值
                 })
 
-            }, 500)
         })
 
 

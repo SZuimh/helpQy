@@ -190,14 +190,13 @@ export default class PageLogin extends Component {
         };
         let responseR = UploadFile(option);
         responseR.then(resp => {
-            console.log(resp)
 
             this.setState({
                 modalVisible: false
             })
 
             if (resp.retcode == 2000) {
-                console.log(resp)
+                // console.log(resp)
                 AsyncStorage.multiSet([
                     ['useruuid', resp.data.useruuid || ""],
                     ['token', resp.data.token || ""],
@@ -223,7 +222,7 @@ export default class PageLogin extends Component {
                 })
             }
         }).catch(err => {
-            console.log(err)
+            // console.log(err)
             this.setState({
                 modalVisible: false,
                 tipsModal:true,
@@ -257,7 +256,7 @@ export default class PageLogin extends Component {
 
     _wechatLogin() {
         WeChat.sendAuthRequest("snsapi_userinfo", "123", (err) => {
-            console.log(err)
+            // console.log(err)
         });
     }
     hideTips(){

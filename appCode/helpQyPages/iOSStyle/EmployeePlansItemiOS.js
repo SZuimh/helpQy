@@ -49,7 +49,6 @@ const EmployeePlansItemiOS = StyleSheet.create({
         height: 28,
         borderRadius:5,
         backgroundColor: '#008BE6',
-        borderRadius: 2,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'

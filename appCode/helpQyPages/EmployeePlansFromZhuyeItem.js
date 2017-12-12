@@ -96,16 +96,12 @@ export default class EmployeePlansFromZhuyeItem extends Component{
         };
         let responseR = UploadFile(option);
         responseR.then(resp => {
-            setTimeout(()=>{
                 let FirstPay= resp.retcode==2000?true:false;
-
                 this.props.navigation.navigate('PagePayForStaffFromZhuye',{HelpTypeMessage:this.props.row,
                     payMoneyCallBack:this.props.payMoneyCallBack,
                     FirstPay:FirstPay,//是否是首次充值
                     PageZhuYeKey:this.props.PageZhuYeKey,
                 })
-
-            },500)
         })
     }
 

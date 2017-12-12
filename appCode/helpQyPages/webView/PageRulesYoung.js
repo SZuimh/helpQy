@@ -128,11 +128,13 @@ let styles = StyleSheet.create({
     },
     HuzhuTishiFont: {
         fontSize: 12,
-        color: '#9B9B9B'
+        color: '#9B9B9B',
+        lineHeight:16
     },
     HuzhuTishiContentFont: {
         fontSize: 12,
-        color: '#4A4A4A'
+        color: '#4A4A4A',
+        lineHeight:15,
     },
     DabingChongzhiButtonView: {
         position: 'absolute',
