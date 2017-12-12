@@ -82,7 +82,7 @@ export default class PageLogin extends Component {
                             ['phonebind', resp.result.phonebind || ""],
                             ['usertype', resp.result.usertype.toString() || ""],
                             ['userphone', resp.result.userphone || ""],
-                            ['companyname', resp.result.usernickname || ""],
+                            ['companyname', resp.result.company || ""],
                         ], (errors) => {
                         });
 
@@ -197,7 +197,7 @@ export default class PageLogin extends Component {
             })
 
             if (resp.retcode == 2000) {
-
+                console.log(resp)
                 AsyncStorage.multiSet([
                     ['useruuid', resp.data.useruuid || ""],
                     ['token', resp.data.token || ""],
@@ -208,7 +208,7 @@ export default class PageLogin extends Component {
                     ['phonebind', resp.data.phonebind || ""],
                     ['usertype', resp.data.usertype.toString() || ""],
                     ['userphone', resp.data.userphone || ""],
-                    ['companyname', resp.data.usernickname || ""],
+                    ['companyname', resp.data.company || ""],
                 ], (errors) => {
                 });
                 loginEmitterEvent = NativeAppEventEmitter.emit('loginEmitter', {});

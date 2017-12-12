@@ -149,7 +149,7 @@ export default class PageWechatBindPhone extends Component {
                         ['phonebind', resp.result.phonebind || ""],
                         ['usertype', resp.result.usertype.toString() || ""],
                         ['userphone', resp.result.userphone || ""],
-                        ['companyname', resp.result.usernickname || ""],
+                        ['companyname', resp.result.company || ""],
                     ],
                     (errors) => {
                     });

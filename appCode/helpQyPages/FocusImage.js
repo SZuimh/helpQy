@@ -38,16 +38,15 @@ class FocusImage extends Component {
         for (let i = 0; i < 3; i++) {
             switch (i) {
                 case 0: {
-                    item = 'http://oztdsemro.bkt.clouddn.com/LunBoFirst.png';
-
+                    item = require('./img/Lunbo.png');
                     break;
                 }
                 case 1: {
-                    item = 'http://oztdsemro.bkt.clouddn.com/LunBoSecond.png';
+                    item = require('./img/LunboSec.png');
                     break;
                 }
                 default: {
-                    item = 'http://oztdsemro.bkt.clouddn.com/LunBoThird.png';
+                    item = require('./img/LunboThr.png');
                     break;
                 }
             }
@@ -73,7 +72,7 @@ class FocusImage extends Component {
                                 this.state.items.map((item, index) => {
                                     //cover: 等比例放大; center:不变; contain:不变; stretch:填充;
                                     return (<Image style={{height: H, width: width}} key={index} resizeMode='cover'
-                                                   source={{uri: item}}/>)
+                                                   source={this.state.items[index]}/>)
 
                                 })
                             }

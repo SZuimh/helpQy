@@ -88,7 +88,7 @@ export default class EmployeePlansItem extends Component {
     goPageShare() {
         //分享页面 员工点击加入
 
-        this.props.navigation.navigate('PageShare', {
+        this.props.navigation.navigate('PageShareFromWo', {
             useruuid: this.props.row.useruuid,
             helptype: this.props.row.helptype
         })
@@ -105,9 +105,9 @@ export default class EmployeePlansItem extends Component {
         };
         let responseR = UploadFile(option);
         responseR.then(resp => {
-            console.log(resp)
             setTimeout(() => {
                 let FirstPay = resp.retcode == 2000 ? true : false;
+                console.log(FirstPay)
                 this.props.navigation.navigate('PagePayForStaff', {
                     HelpTypeMessage: this.props.row,
                     payMoneyCallBack: this.props.payMoneyCallBack,

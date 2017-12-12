@@ -179,7 +179,7 @@ export default class PageFind extends Component {
                 if (result[0][1] == null) {
                     return
                 }
-                QQSDK.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1], resolveAssetSource(require('./img/putaoLogo@3x.png')).uri, '【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障', shareScene.QQ)
+                QQSDK.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1], resolveAssetSource(require('./img/putaoLogo@3x.png')).uri,'葡萄互助', '【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障', shareScene.QQ)
                     .then((result) => {
                         console.log('result is', result)
                     })
@@ -195,6 +195,7 @@ export default class PageFind extends Component {
     }
 
     _shareToqqzone() { //分享到qqzone
+        0
         if (!!this.state.isLogin) {
             AsyncStorage.multiGet(["token","useruuid","usernickname"], (errros, result) => {
                 if (result[0][1] == null) {

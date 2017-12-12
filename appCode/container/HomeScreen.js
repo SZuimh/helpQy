@@ -42,6 +42,7 @@ import PageSystemNotificationList from '../helpQyPages/PageSystemNotificationLis
 import PagePayForStaff from '../helpQyPages/PagePayForStaff'
 import PageWechatBindPhone from '../helpQyPages/PageWechatBindPhone'
 import PageShare from '../helpQyPages/PageShare'
+import PageShareFromWo from '../helpQyPages/PageShareFromWo'
 import PageRulesofPlans from '../helpQyPages/PageRulesofPlans'
 import PageQiyeShimingShowData from '../helpQyPages/PageQiyeShimingShowData'
 import PageQiyeShimingFromZhuye from '../helpQyPages/PageQiyeShimingFromZhuye'
@@ -340,6 +341,9 @@ const HomeScreen = StackNavigator({
     },
     PageShare:{
         screen:PageShare,
+    },
+    PageShareFromWo:{
+        screen:PageShareFromWo,
     },
     NewsContent:{
         screen:NewsContent

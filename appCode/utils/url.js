@@ -1,6 +1,6 @@
 // let commonUrl='http://192.168.1.5:8080/glove';
 
-// let commonUrl='http://192.168.1.11:8080/glove';
+// let commonUrl='http://192.168.1.2:8080/glove';
  let commonUrl='http://101.200.33.138:8080/glove';
 export const URLLogin=commonUrl+'/user/login.do';
 export const URLRegister=commonUrl+'/user/register.do';
