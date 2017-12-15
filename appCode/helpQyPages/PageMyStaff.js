@@ -47,6 +47,16 @@ export default class PageMyStaff extends Component {
         };
     }
 
+    static navigationOptions = {
+        title: '企业员工大病互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     componentDidMount() {
 
         this.makeRemoteRequestNo();
@@ -436,128 +446,55 @@ export default class PageMyStaff extends Component {
 
         return (
             <View style={styles.PageMyStaffMaxView}>
-                <View style={styles.PageMyStaffHeaderView}>
-                    <TouchableOpacity style={styles.PageMyStaffTwoStateView}
-                                      onPress={this.changeWaitingItem.bind(this)}>
-                        <View></View>
-                        <Text>未加入</Text>
-                        <View style={[styles.PageMyStaffLine, {backgroundColor: backGroundColorLeft}]}></View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.PageMyStaffTwoStateView} onPress={this.changeJoinedItem.bind(this)}>
-                        <View></View>
-                        <Text>已加入</Text>
-                        <View style={[styles.PageMyStaffLine, {backgroundColor: backGroundColorRight}]}></View>
-                    </TouchableOpacity>
-                </View>
-                {this.state.joinState == 1 ?
-                    <View>
-                        {!!this.state.haveDataOrNoData1 ?
-                            <View style={{height: height - 115}}>
-                                <View style={styles.PageMyStaffTitleViewMax}>
-                                    <View style={styles.PageMyStaffTitleViewName}>
-                                        <Text>姓名</Text></View>
-                                    <View style={styles.PageMyStaffTitleViewID}>
-                                        <Text>身份证号</Text>
-                                    </View>
-                                </View>
 
-                                <View style={{height: 200, flex: 1}}>
-                                    <FlatList
-                                        ref="listview"
-                                        data={this.state.dataSourceNo}
-                                        refreshing={this.state.refreshingNo}
-                                        renderItem={this._renderItemNo}
-                                        keyExtractor={this._keyExtractorNo}
-                                        onRefresh={this._onRefreshNo}
-                                        ListFooterComponent={this.renderFooter}
-                                    />
-                                </View>
-                                <View style={styles.ButtonView}>
-                                    <View style={styles.ButtonOne}>
-                                        <Text style={{color: '#4A4A4A'}}>共{this.state.dataSourceNo.length}人</Text>
-                                    </View>
-                                    <TouchableOpacity onPress={this._submitStaffs.bind(this)} style={styles.ButtonTwo}>
-                                        <Text style={{color: '#fff'}}>确认</Text>
-                                    </TouchableOpacity>
+
+                    <View style={{justifyContent:'space-between'}}>
+
+                        <View>
+                           <View style={styles.PageMyStaffHeaderView}>
+                                <TouchableOpacity style={styles.PageMyStaffTwoStateView}
+                                                  onPress={this.changeWaitingItem.bind(this)}>
+                                    <View></View>
+                                    <Text>未加入</Text>
+                                    <View style={[styles.PageMyStaffLine, {backgroundColor: backGroundColorLeft}]}></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.PageMyStaffTwoStateView} onPress={this.changeJoinedItem.bind(this)}>
+                                    <View></View>
+                                    <Text>已加入</Text>
+                                    <View style={[styles.PageMyStaffLine, {backgroundColor: backGroundColorRight}]}></View>
+                                </TouchableOpacity>
+                           </View>
+                            <View style={styles.PageMyStaffTitleViewMax}>
+                                <View style={styles.PageMyStaffTitleViewName}>
+                                    <Text>姓名</Text></View>
+                                <View style={styles.PageMyStaffTitleViewID}>
+                                    <Text>身份证号</Text>
                                 </View>
                             </View>
-                            :
-                            <ScrollView
-                                refreshControl={
-                                    <RefreshControl
-                                        refreshing={this.state.isRefreshing}
-                                        onRefresh={this._onRefreshLoadingNo.bind(this)}
-                                        tintColor="#000000"      //loading 转圈圈的颜色
-                                        title="Loading..."       //标题
-                                        titleColor="#000000"     //Loading 颜色
-                                        colors={['#000000']}
-                                        progressBackgroundColor="#1296db"
-                                    />
-                                }>
-                                <View style={styles.noredmoney}>
-                                    <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
-                                           style={{width: width * 0.3, height: width * 0.3, marginTop: -height * 0.40}}/>
-                                    <Text style={{color: '#a4a4a4', marginTop: 10}}>暂无员工加入!</Text>
-                                </View>
-                            </ScrollView>
-                        }
+                        </View>
+
+
+
+                        <View style={{height:150,flex:1}}>
+                            <FlatList
+                                    ref="listview"
+                                    data={this.state.dataSourceNo}
+                                    refreshing={this.state.refreshingNo}
+                                    renderItem={this._renderItemNo}
+                                    keyExtractor={this._keyExtractorNo}
+                                    onRefresh={this._onRefreshNo}
+                                    ListFooterComponent={this.renderFooter}/>
+                        </View>
+
+                        <View style={styles.ButtonView}>
+                            <View style={styles.ButtonOne}>
+                                <Text style={{color: '#4A4A4A'}}>共{this.state.dataSourceNo.length}人</Text>
+                            </View>
+                            <TouchableOpacity onPress={this._submitStaffs.bind(this)} style={styles.ButtonTwo}>
+                                <Text style={{color: '#fff'}}>确认</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    :
-                    <View>
-                        {!!this.state.haveDataOrNoData2 ?
-                            <View style={{height: height - 115}}>
-                                <View style={styles.PageMyStaffTitleViewMax}>
-                                    <View style={styles.PageMyStaffTitleView}>
-                                        <Text>姓名</Text></View>
-                                    <View style={[styles.PageMyStaffTitleView, {width: width * 0.5}]}>
-                                        <Text>身份证号</Text>
-                                    </View>
-                                    <View style={styles.PageMyStaffTitleView}>
-                                        <Text>等待期</Text>
-                                    </View>
-                                </View>
-                                <View style={{height: 200, flex: 1}}>
-                                    <FlatList
-                                        ref="listview"
-                                        data={this.state.dataSourceYes}
-                                        refreshing={this.state.refreshingYes}
-                                        renderItem={this._renderItemYes}
-                                        keyExtractor={this._keyExtractorYes}
-                                        onRefresh={this._onRefreshYes}
-                                        ListFooterComponent={this.renderFooter}
-                                    />
-                                </View>
-                                <View style={styles.ButtonView}>
-                                    <View style={styles.ButtonOne}>
-                                        <Text style={{color: '#4A4A4A'}}>共{this.state.dataSourceYes.length}人</Text>
-                                    </View>
-                                    <TouchableOpacity onPress={this.goPayForStaff.bind(this)} style={styles.ButtonTwo}>
-                                        <Text style={{color: '#fff'}}>充值</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                            :
-                            <ScrollView
-                                refreshControl={
-                                    <RefreshControl
-                                        refreshing={this.state.isRefreshing}
-                                        onRefresh={this._onRefreshLoadingYes.bind(this)}
-                                        tintColor="#000000"      //loading 转圈圈的颜色
-                                        title="Loading..."       //标题
-                                        titleColor="#000000"     //Loading 颜色
-                                        colors={['#000000']}
-                                        progressBackgroundColor="#1296db"
-                                    />
-                                }>
-                            <View style={styles.noredmoney}>
-                                <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
-                                       style={{width: width * 0.3, height: width * 0.3, marginTop: -height * 0.40}}/>
-                                <Text style={{color: '#a4a4a4', marginTop: 10}}>暂无员工加入!</Text>
-                            </View>
-                            </ScrollView>
-                        }
-                    </View>
-                }
 
                 <LoadingInPage modalVisible={this.state.loading}/>
             </View>
@@ -584,7 +521,8 @@ let styles = StyleSheet.create({
         width: width,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height:50
     },
     PageMyStaffTwoStateView: {
         width: width / 2,
@@ -643,7 +581,8 @@ let styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#FAFAFA',
         width: width * 0.4,
-        height: 50
+        height: 50,
+
     },
     ButtonTwo: {
         flexDirection: 'row',
@@ -651,7 +590,8 @@ let styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#008BE6',
         width: width * 0.6,
-        height: 50
+        height: 50,
+
 
     }
 });

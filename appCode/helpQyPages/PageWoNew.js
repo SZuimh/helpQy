@@ -175,32 +175,6 @@ export default class PageWo extends Component {
 
     goShiming() {
         if (this.state.isLogin) {
-            // if (this.state.usertype == 2) {
-            //     return Alert.alert(
-            //         '您已认证过了!',
-            //         '无需重复认证',
-            //         [
-            //             {text: '好的'}
-            //
-            //         ]
-            //     );
-            // }
-            // else if (this.state.usertype == 3) {
-            //     return Alert.alert(
-            //         '您的资料正在审核中!',
-            //         '请耐心等待',
-            //         [
-            //             {text: '好的'}
-            //
-            //         ]
-            //     );
-            // } else {
-            //     this.props.navigation.navigate('PageQiyeShimingShowData', {
-            //         useruuid: this.state.useruuid,
-            //         token: this.state.token
-            //     })
-            //
-            // }
             let formData = new FormData();
             formData.append("token", this.state.token);
             formData.append("useruuid", this.state.useruuid);
@@ -210,7 +184,7 @@ export default class PageWo extends Component {
             };
             let responseR = UploadFile(option);
             responseR.then(resp => {
-                // console.log(resp)
+                console.log(resp)
                 if (resp.retcode == 2001) {
                     //未查到数据 说明没有进行审核信息的提交
                     this.props.navigation.navigate('PageQiyeShiming', {
@@ -220,8 +194,9 @@ export default class PageWo extends Component {
                     })
                 }
                 else if (resp.retcode == 2000) {
-                    if (resp.result.confirmif == 'unhandle') {
+                    if (resp.result.confirmif == "unhandle") {
                         //还在审核中
+                        console.log("推啊哦转")
                         this.props.navigation.navigate('PageQiyeShimingShowData', {
                             useruuid: this.state.useruuid,
                             token: this.state.token,
@@ -285,16 +260,9 @@ export default class PageWo extends Component {
                         </View>
                         <View style={styles.PageWoNewTongzhi}>
                             <View style={styles.PageWoNewUserNameAndTongzhiView}>
-                                <TouchableOpacity style={{
-                                    alignSelf: 'flex-end',
-                                    width: 30,
-                                    height: 20,
-                                    flexDirection: 'column',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}
+                                <TouchableOpacity style={{alignSelf: 'flex-end', width: 30, height: 30, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}
                                                   onPress={this.goNotificationList.bind(this)}>
-                                    <Image source={require('./img/message.png')} style={styles.PageWoNewTongzhiImage}/>
+                                    <Image source={require('./img/message.png')} style={styles.PageWoNewTongzhiImage} resizeMode={'contain'}/>
                                 </TouchableOpacity>
                                 {this.state.isLogin ?
                                     <Text style={styles.PageWoNewUserName}>{this.state.usernickname}</Text> :

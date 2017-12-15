@@ -21,7 +21,7 @@ import PageJoinInItem from './PageJoinInItem';
 
 import {NativeModules} from 'react-native';
 
-var Alipay = NativeModules.Alipay;
+import Alipay from 'react-native-nova-alipay';
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 let ratio = PixelRatio.get();
@@ -38,13 +38,23 @@ export default class PageJoin extends Component {
             useruuid:'',
             dataSource: [{number: 0, nickName: '', IDCard: '', moneyNumber: ''}],
             tipsModal:false, //控制弹出框
+            tipsModalOne:false, //控制弹出框
             failSucessTips:null , //对不起，充值失败 或恭喜你，充值成功
             failSucessImage:require('./img/joinFail.png'),
             respMessage:null,
             retcode:2001, //只有支付宝充值返回成功后，才执行回调
         };
     }
-
+    static navigationOptions = {
+        title: '添加家人',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     componentDidMount() {
         AsyncStorage.multiGet(["token","useruuid" ], (errros, result) => {
             if(result[0][1]==null){
@@ -85,6 +95,7 @@ export default class PageJoin extends Component {
     }
 
     changeUserName_callBack = (number, nickName) => {
+        console.log(nickName)
         //  更改某一个子组件的家人名称的  回调函数
         let tempData = this.state.dataSource;
         for (let i = 0; i < tempData.length; i++) {
@@ -131,31 +142,31 @@ export default class PageJoin extends Component {
 
         for (var i = 0; i < dataSource.length; i++) {
             if (dataSource[i].nickName == null || dataSource[i].nickName == '') {
-                return Alert.alert(
-                    '格式错误',
-                    '请检查所有家人的姓名',
-                    [{
-                        text: '好的'
-                    }]
-                )
+                this.setState({
+                    tipsModalOne:true,
+                    failSucessTips:null,
+                    failSucessImage:require('./img/joinFail.png'),
+                    respMessage:"请检查所有家人的姓名格式",
+                })
+                return
             }
             if (dataSource[i].IDCard == null || dataSource[i].IDCard.length != 18) {
-                return Alert.alert(
-                    '格式错误',
-                    '请检查所有家人的身份证号',
-                    [{
-                        text: '好的'
-                    }]
-                )
+                this.setState({
+                    tipsModalOne:true,
+                    failSucessTips:null,
+                    failSucessImage:require('./img/joinFail.png'),
+                    respMessage:"请检查所有家人的身份证号(18位)",
+                })
+                return
             }
             if (dataSource[i].moneyNumber == null || dataSource[i].moneyNumber == '') {
-                return Alert.alert(
-                    '格式错误',
-                    '请检查所有家人的充值金额',
-                    [{
-                        text: '好的'
-                    }]
-                )
+                this.setState({
+                    tipsModalOne:true,
+                    failSucessTips:null,
+                    failSucessImage:require('./img/joinFail.png'),
+                    respMessage:"请检查所有家人的充值金额",
+                })
+                return
             }
         }    //发送请求之前，需要添加验证
         //发送请求的时候，添加loading动画
@@ -192,36 +203,43 @@ export default class PageJoin extends Component {
                     tipsModal:true,
                     failSucessTips:"对不起，充值失败",
                     failSucessImage:require('./img/joinFail.png'),
-                    respMessage:"服务返回异常，十大打死阿萨德",
+                    respMessage:"服务器返回异常",
                     retcode:2003
                 })
                 return ;
             }
-
+            console.log(resp)
             if (resp.retcode===2000) {
-                let oderStr=resp.oderStr; //这个是返回的加密的字符串
+                let oderStr = resp.oderStr; //这个是返回的加密的字符串
+                console.log(Alipay)
 
-                Alipay.signedString(oderStr,(err,data)=>{
-
-                    if (err.resultStatus=="9000"){
+                Alipay.pay(oderStr).then((data)=>{
+                    if (data == 'success') {
                         this.setState({
-                            tipsModal:true,
-                            failSucessTips:"恭喜你，充值成功",
-                            failSucessImage:require('./img/joinSuccess.png'),
-                            respMessage:null,
-                            retcode:9000
+                            tipsModal: true,
+                            failSucessTips: "恭喜你，充值成功",
+                            failSucessImage: require('./img/joinSuccess.png'),
+                            respMessage: null,
+                            retcode: 9000
                         })
                     }
                     else {
                         this.setState({
-                            tipsModal:true,
-                            failSucessTips:"对不起，充值失败",
-                            failSucessImage:require('./img/joinFail.png'),
-                            respMessage:null,
-                            retcode:9001
+                            tipsModal: true,
+                            failSucessTips: "对不起，充值失败",
+                            failSucessImage: require('./img/joinFail.png'),
+                            respMessage: null,
+                            retcode: 9001
                         })
                     }
-
+                }, (err)=> {
+                    this.setState({
+                        tipsModal: true,
+                        failSucessTips: "对不起，充值失败",
+                        failSucessImage: require('./img/joinFail.png'),
+                        respMessage: null,
+                        retcode: 9001
+                    })
                 });
 
             }else{//弹出提示框
@@ -268,6 +286,11 @@ export default class PageJoin extends Component {
     hideTips(){
         this.setState({
             tipsModal:false
+        })
+    }
+    hideTipsOne(){
+        this.setState({
+            tipsModalOne:false
         })
     }
     goToParentPage(){
@@ -324,6 +347,26 @@ export default class PageJoin extends Component {
                                 <TouchableOpacity onPress={this.hideTips.bind(this)}
                                                   style={[styles.DownButton, {width: 115, backgroundColor: '#1296db'}]}>
                                     <Text style={{color: 'white'}}>继续充值</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                    :
+                    <View/>
+                }
+                {this.state.tipsModalOne ?
+                    <View style={styles.ModalView}>
+                        <View style={styles.AlertView}>
+                            <Image source={this.state.failSucessImage} resizeMode={'contain'}   style={{width: 120, height: 90, marginTop: 10}}/>
+                            <View style={{marginTop: 10}}>
+                                <Text style={{fontSize: 10}}>{this.state.respMessage}</Text>
+                            </View>
+
+                            <View style={styles.DownButtonView}>
+
+                                <TouchableOpacity onPress={this.hideTipsOne.bind(this)}
+                                                  style={[styles.DownButton, {width: 230, backgroundColor: '#ffffff'}]}>
+                                    <Text style={{color: '#018be6'}}>确定</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

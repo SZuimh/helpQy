@@ -3,6 +3,7 @@ package com.helpqy;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cn.idealsense.reactnative.alipay.AlipayPackage;
 import com.heng.wechat.WeChatPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.facebook.react.ReactNativeHost;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new AlipayPackage(),
             new WeChatPackage(),
             new QQSDKPackage(),
             new ImagePickerPackage()

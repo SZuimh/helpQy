@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import React, {Component} from 'react';
 
+
 let width = Dimensions.get('window').width;
 export default class MyHomerItem extends Component {
     constructor(props) {

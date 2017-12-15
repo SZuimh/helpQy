@@ -1,7 +1,7 @@
 /**
  *我的计划-为家人充值
  */
-import{
+import {
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -12,49 +12,63 @@ import{
     Image,
     Alert
 } from 'react-native';
-import React,{Component} from 'react';
-import { NativeModules } from 'react-native';
-var Alipay=NativeModules.Alipay;
+import React, {Component} from 'react';
 
-let width=Dimensions.get('window').width;
-let height=Dimensions.get('window').height;
+
+import Alipay from 'react-native-nova-alipay';
+
+let width = Dimensions.get('window').width;
+let height = Dimensions.get('window').height;
 let ratio = PixelRatio.get();
 import fetchTool from '../utils/fetchTool';
 import {UrlalipayOrder} from '../utils/url';
 import LoadingInPage from "../loading/LoadingInPage";
-export default class PagePayForStaff extends  Component{
-    constructor(props){
+
+export default class PagePayForStaff extends Component {
+    constructor(props) {
         super(props);
         this.state = {
-            token:'',
-            amount:0,
-            useruuid:'',
-            userName:'',
-            helptype:'',
-            accountUUID:'',
-            checked:0,     //选中
-            moneyNumber:0,
-            aveNumber:0,
-            loading:false,
-            tipsModal:false, //控制弹出框
-            failSucessTips:null , //对不起，充值失败 或恭喜你，充值成功
-            failSucessImage:require('./img/joinFail.png'),
-            respMessage:null,
-            retcode:2001, //只有支付宝充值返回成功后，才执行回调
+            token: '',
+            amount: 0,
+            useruuid: '',
+            userName: '',
+            helptype: '',
+            accountUUID: '',
+            checked: 0,     //选中
+            moneyNumber: 0,
+            aveNumber: 0,
+            loading: false,
+            tipsModal: false, //控制弹出框
+            failSucessTips: null, //对不起，充值失败 或恭喜你，充值成功
+            failSucessImage: require('./img/joinFail.png'),
+            respMessage: null,
+            retcode: 2001, //只有支付宝充值返回成功后，才执行回调
         };
     }
-    componentDidMount(){
+
+    static navigationOptions = {
+        title: '为家人支付',
+        headerRight: (
+            <View></View>
+        ),
+        headerTitleStyle: {
+            fontSize: 18,
+            alignSelf: 'center'
+        }
+    };
+
+    componentDidMount() {
         //这里要获取已经加入的人数
-        const {params} =this.props.navigation.state;
+        const {params} = this.props.navigation.state;
         this.setState({
-            useruuid:params.HelpTypeMessage.useruuid,
-            helptype:params.HelpTypeMessage.categorytype,
-            accountUUID:params.HelpTypeMessage.accountuuid,
-            username:params.HelpTypeMessage.username
+            useruuid: params.HelpTypeMessage.useruuid,
+            helptype: params.HelpTypeMessage.categorytype,
+            accountUUID: params.HelpTypeMessage.accountuuid,
+            username: params.HelpTypeMessage.username
         })
 
         AsyncStorage.multiGet(["token"], (erros, result) => {
-            if(result[0][1]==null){
+            if (result[0][1] == null) {
                 return
             }
             this.setState({
@@ -62,36 +76,36 @@ export default class PagePayForStaff extends  Component{
             })
         })
     }
-    changeMoney(moneyNumber){
+
+    changeMoney(moneyNumber) {
         this.setState({
-            amount:moneyNumber,
-            checked:moneyNumber
+            amount: moneyNumber,
+            checked: moneyNumber
         })
     }
-    goforPay(){ //调用支付宝支付
+
+    goforPay() { //调用支付宝支付
         if (this.state.amount == 0) {
-            return Alert.alert(
-                '请检查所选金额',
-                '充值金额必须大于0元',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsModal: true,
+                failSucessTips: null,
+                failSucessImage: require('./img/joinFail.png'),
+                respMessage: "充值金额必须大于0元",
+            })
+            return
         }
-        let params={
-            "token":this.state.token,
-            // "amount":0.01,
+        let params = {
+            "token": this.state.token,
+            // "amount": 0.01,
             "amount":this.state.amount,    //  PayTest
-            "userUUID":this.state.useruuid, //对于公司充值来说是固定值company
-            "categoryType":this.state.helptype,
-            "userName":this.state.username, //公司充值用不到此字段，
-            "accountUUID":this.state.accountUUID,
-            "payType":'person',
+            "userUUID": this.state.useruuid, //对于公司充值来说是固定值company
+            "categoryType": this.state.helptype,
+            "userName": this.state.username, //公司充值用不到此字段，
+            "accountUUID": this.state.accountUUID,
+            "payType": 'person',
         }
-        if(this.state.amount==0 ||this.state.amount=='0'){
-            return ;
+        if (this.state.amount == 0 || this.state.amount == '0') {
+            return;
         }
 
         let options = {
@@ -105,148 +119,174 @@ export default class PagePayForStaff extends  Component{
                 loading: false
             });
 
-            if(typeof(resp)=="undefined"){
+            if (typeof(resp) == "undefined") {
                 //弹出框
                 this.setState({
-                    tipsModal:true,
-                    failSucessTips:"对不起，充值失败",
-                    failSucessImage:require('./img/joinFail.png'),
-                    respMessage:"服务返回异常，你联网了吗",
-                    retcode:2003
+                    tipsModal: true,
+                    failSucessTips: "对不起，充值失败",
+                    failSucessImage: require('./img/joinFail.png'),
+                    respMessage: "服务返回异常，你联网了吗",
+                    retcode: 2003
                 })
-                return ;
+                return;
             }
-            if (resp.retcode===2000) {
+            if (resp.retcode === 2000) {
 
 
-                let oderStr=resp.oderStr; //这个是返回的加密的字符串
+                let oderStr = resp.oderStr; //这个是返回的加密的字符串
 
-                Alipay.signedString(oderStr,(err,data)=>{
-
-                    if (err.resultStatus=="9000"){
+                Alipay.pay(oderStr).then((data)=>{
+                    if (data == 'success') {
                         this.setState({
-                            tipsModal:true,
-                            failSucessTips:"恭喜你，充值成功",
-                            failSucessImage:require('./img/joinSuccess.png'),
-                            respMessage:null,
-                            retcode:9000
+                            tipsModal: true,
+                            failSucessTips: "恭喜你，充值成功",
+                            failSucessImage: require('./img/joinSuccess.png'),
+                            respMessage: null,
+                            retcode: 9000
                         })
                         const {getNewHomerListCallBack} = this.props.navigation.state.params;
                         getNewHomerListCallBack();  // 给家人成功充值之后的 重新拉取数据的回调
                     }
                     else {
                         this.setState({
-                            tipsModal:true,
-                            failSucessTips:"对不起，充值失败",
-                            failSucessImage:require('./img/joinFail.png'),
-                            respMessage:null,
-                            retcode:9001
+                            tipsModal: true,
+                            failSucessTips: "对不起，充值失败",
+                            failSucessImage: require('./img/joinFail.png'),
+                            respMessage: null,
+                            retcode: 9001
                         })
                     }
-
+                }, (err)=> {
+                    this.setState({
+                        tipsModal: true,
+                        failSucessTips: "对不起，充值失败",
+                        failSucessImage: require('./img/joinFail.png'),
+                        respMessage: null,
+                        retcode: 9001
+                    })
                 });
 
-            }else{//弹出提示框
+
+            } else {//弹出提示框
                 this.setState({
-                    tipsModal:true,
-                    failSucessTips:"对不起，充值失败",
-                    failSucessImage:require('./img/joinFail.png'),
-                    respMessage:null,
-                    retcode:9001
+                    tipsModal: true,
+                    failSucessTips: "对不起，充值失败",
+                    failSucessImage: require('./img/joinFail.png'),
+                    respMessage: null,
+                    retcode: 9001
                 })
             }
 
         }).catch(err => {
             this.setState({
                 loading: false,
-                tipsModal:true,
-                failSucessTips:"对不起，充值失败",
-                failSucessImage:require('./img/joinFail.png'),
-                respMessage:null,
-                retcode:2003
+                tipsModal: true,
+                failSucessTips: "对不起，充值失败",
+                failSucessImage: require('./img/joinFail.png'),
+                respMessage: null,
+                retcode: 2003
             })
         });
     }
-    getPlans(plans){
-        if('little'==plans)
+
+    getPlans(plans) {
+        if ('little' == plans)
             return '少儿互助计划'
-        else if('young'==plans)
+        else if ('young' == plans)
             return '中青年互助计划'
-        else if('old'==plans)
+        else if ('old' == plans)
             return '中老年互助计划'
-        else if('zonghe'==plans)
+        else if ('zonghe' == plans)
             return '综合意外互助计划'
-        else if('staff'==plans)
+        else if ('staff' == plans)
             return '企业员工大病互助'
-        else if('employee'==plans)
+        else if ('employee' == plans)
             return '企业员工综合意外互助'
     }
-    hideTips(){
+
+    hideTips() {
         this.setState({
-            tipsModal:false
+            tipsModal: false
         })
     }
-    goToParentPage(){
+
+    goToParentPage() {
         //直接返回就行
         this.props.navigation.goBack();
     }
-    render(){
-        const {params} =this.props.navigation.state;
-        let backgroundColor1=this.state.checked==10?'#1296db':'white';
-        let backgroundColor2=this.state.checked==30?'#1296db':'white';
-        let backgroundColor3=this.state.checked==50?'#1296db':'white';
-        let backgroundColor4=this.state.checked==100?'#1296db':'white';
-        let backgroundColor5=this.state.checked==150?'#1296db':'white';
-        let backgroundColor6=this.state.checked==180?'#1296db':'white';
-        let color1=this.state.checked==10?'#ffffff':'#1296db';
-        let color2=this.state.checked==30?'#ffffff':'#1296db';
-        let color3=this.state.checked==50?'#ffffff':'#1296db';
-        let color4=this.state.checked==100?'#ffffff':'#1296db';
-        let color5=this.state.checked==150?'#ffffff':'#1296db';
-        let color6=this.state.checked==180?'#ffffff':'#1296db';
-        return(
+
+    render() {
+        const {params} = this.props.navigation.state;
+        let backgroundColor1 = this.state.checked == 10 ? '#1296db' : 'white';
+        let backgroundColor2 = this.state.checked == 30 ? '#1296db' : 'white';
+        let backgroundColor3 = this.state.checked == 50 ? '#1296db' : 'white';
+        let backgroundColor4 = this.state.checked == 100 ? '#1296db' : 'white';
+        let backgroundColor5 = this.state.checked == 150 ? '#1296db' : 'white';
+        let backgroundColor6 = this.state.checked == 180 ? '#1296db' : 'white';
+        let color1 = this.state.checked == 10 ? '#ffffff' : '#1296db';
+        let color2 = this.state.checked == 30 ? '#ffffff' : '#1296db';
+        let color3 = this.state.checked == 50 ? '#ffffff' : '#1296db';
+        let color4 = this.state.checked == 100 ? '#ffffff' : '#1296db';
+        let color5 = this.state.checked == 150 ? '#ffffff' : '#1296db';
+        let color6 = this.state.checked == 180 ? '#ffffff' : '#1296db';
+        return (
             <View style={styles.PagePayForStaffMaxView}>
                 <View style={styles.PagePayForStaffView}>
                     <View style={styles.PagePayForStaffTitleView}>
-                        <Text style={{fontSize:15,color:'#4a4a4a',fontWeight:'bold'}}></Text>
+                        <Text style={{fontSize: 15, color: '#4a4a4a', fontWeight: 'bold'}}></Text>
                     </View>
                     <View style={styles.PagePayForStaffContentView}>
-                        <Text style={{fontSize:13,color:'#4a4a4a'}}>{params.HelpTypeMessage.username}</Text>
+                        <Text style={{fontSize: 13, color: '#4a4a4a'}}>{params.HelpTypeMessage.username}</Text>
                     </View>
                     <View style={styles.PagePayForStaffContentView}>
-                        <Text style={{fontSize:13,color:'#4a4a4a'}}>{this.getPlans(params.HelpTypeMessage.categorytype)}</Text>
+                        <Text style={{
+                            fontSize: 13,
+                            color: '#4a4a4a'
+                        }}>{this.getPlans(params.HelpTypeMessage.categorytype)}</Text>
                     </View>
                     <View style={styles.PagePayForStaffEmptyView}></View>
                     <View style={styles.PagePayForStaffContentView}>
-                        <Text style={{fontSize:15,color:'#4a4a4a',fontWeight:'bold'}}>选择人均充值金额</Text>
+                        <Text style={{fontSize: 15, color: '#4a4a4a', fontWeight: 'bold'}}>选择人均充值金额</Text>
                     </View>
                     <View style={styles.PagePayForStaffEmptyLine}></View>
                     <View style={styles.PagePayForStaffChongzhiView}>
-                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi,{backgroundColor:backgroundColor1}]}
-                                          onPress={()=>{this.changeMoney(10,this)}}>
-                            <Text style={{color:color1}}>10元</Text>
+                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor1}]}
+                                          onPress={() => {
+                                              this.changeMoney(10, this)
+                                          }}>
+                            <Text style={{color: color1}}>10元</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi,{backgroundColor:backgroundColor2}]}
-                                          onPress={()=>{this.changeMoney(30,this)}}>
-                            <Text style={{color:color2}}>30元</Text>
+                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor2}]}
+                                          onPress={() => {
+                                              this.changeMoney(30, this)
+                                          }}>
+                            <Text style={{color: color2}}>30元</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi,{backgroundColor:backgroundColor3}]}
-                                          onPress={()=>{this.changeMoney(50,this)}}>
-                            <Text style={{color:color3}}>50元</Text>
+                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor3}]}
+                                          onPress={() => {
+                                              this.changeMoney(50, this)
+                                          }}>
+                            <Text style={{color: color3}}>50元</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.PagePayForStaffChongzhiView}>
-                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi,{backgroundColor:backgroundColor4}]}
-                                          onPress={()=>{this.changeMoney(100,this)}}>
-                            <Text style={{color:color4}}>100元</Text>
+                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor4}]}
+                                          onPress={() => {
+                                              this.changeMoney(100, this)
+                                          }}>
+                            <Text style={{color: color4}}>100元</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi,{backgroundColor:backgroundColor5}]}
-                                          onPress={()=>{this.changeMoney(150,this)}}>
-                            <Text style={{color:color5}}>150元</Text>
+                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor5}]}
+                                          onPress={() => {
+                                              this.changeMoney(150, this)
+                                          }}>
+                            <Text style={{color: color5}}>150元</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi,{backgroundColor:backgroundColor6}]}
-                                          onPress={()=>{this.changeMoney(180,this)}}>
-                            <Text style={{color:color6}}>180元</Text>
+                        <TouchableOpacity style={[styles.PagePayForStaffChongzhi, {backgroundColor: backgroundColor6}]}
+                                          onPress={() => {
+                                              this.changeMoney(180, this)
+                                          }}>
+                            <Text style={{color: color6}}>180元</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -254,7 +294,9 @@ export default class PagePayForStaff extends  Component{
                     <TouchableOpacity style={styles.DabingChongzhiButtonOne}>
                         <Text style={{color: '#4A4A4A'}}>共计{this.state.amount}元</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.DabingChongzhiButtonTwo} onPress={()=>{this.goforPay(this)}}>
+                    <TouchableOpacity style={styles.DabingChongzhiButtonTwo} onPress={() => {
+                        this.goforPay(this)
+                    }}>
                         <Text style={{color: 'white'}}>支付</Text>
                     </TouchableOpacity>
                 </View>
@@ -266,7 +308,8 @@ export default class PagePayForStaff extends  Component{
                             <View style={{marginTop: 15}}>
                                 <Text style={{fontSize: 16, fontWeight: 'bold'}}>{this.state.failSucessTips}</Text>
                             </View>
-                            <Image source={this.state.failSucessImage} resizeMode={'contain'}   style={{width: 120, height: 90, marginTop: 10}}/>
+                            <Image source={this.state.failSucessImage} resizeMode={'contain'}
+                                   style={{width: 120, height: 90, marginTop: 10}}/>
                             <View style={{marginTop: 10}}>
                                 <Text style={{fontSize: 10}}>{this.state.respMessage}</Text>
                             </View>
@@ -293,60 +336,60 @@ export default class PagePayForStaff extends  Component{
     }//render
 }
 
-let styles=StyleSheet.create({
-    PagePayForStaffMaxView:{
-        width:width,
-        height:height,
-        flex:1,
-        flexDirection:'row',
-        justifyContent:'center',
-        backgroundColor:'#ffffff'
+let styles = StyleSheet.create({
+    PagePayForStaffMaxView: {
+        width: width,
+        height: height,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: '#ffffff'
     },
-    PagePayForStaffView:{
-        width:width*0.85,
-        flexDirection:'column',
-        alignItems:'center',
+    PagePayForStaffView: {
+        width: width * 0.85,
+        flexDirection: 'column',
+        alignItems: 'center',
     },
-    PagePayForStaffTitleView:{
-        width:width*0.9,
-        height:70,
-        flexDirection:'row',
-        alignItems:'center'
+    PagePayForStaffTitleView: {
+        width: width * 0.9,
+        height: 70,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
-    PagePayForStaffContentView:{
-        width:width*0.9,
-        height:45,
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center'
+    PagePayForStaffContentView: {
+        width: width * 0.9,
+        height: 45,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    PagePayForStaffEmptyView:{
-        width:width,
-        height:10,
-        backgroundColor:'#faf9f9'
+    PagePayForStaffEmptyView: {
+        width: width,
+        height: 10,
+        backgroundColor: '#faf9f9'
     },
-    PagePayForStaffEmptyLine:{
-        width:width,
-        height:1/ratio,
-        backgroundColor:'grey'
+    PagePayForStaffEmptyLine: {
+        width: width,
+        height: 1 / ratio,
+        backgroundColor: 'grey'
     },
-    PagePayForStaffChongzhi:{
-        width:width*0.25,
-        height:60,
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center',
-        borderWidth:1/ratio,
-        borderColor:'#1296db',
-        borderRadius:3
+    PagePayForStaffChongzhi: {
+        width: width * 0.25,
+        height: 60,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1 / ratio,
+        borderColor: '#1296db',
+        borderRadius: 3
     },
-    PagePayForStaffChongzhiView:{
-        width:width*0.85,
-        height:60,
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-        marginTop:15
+    PagePayForStaffChongzhiView: {
+        width: width * 0.85,
+        height: 60,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 15
     },
     PagePayForStaffButtonView: {
         position: 'absolute',
@@ -382,31 +425,31 @@ let styles=StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width:230,
-        height:40,
-        marginTop:10
+        width: 230,
+        height: 40,
+        marginTop: 10
     },
-    DownButton:{
-        height:40,
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center'
+    DownButton: {
+        height: 40,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     ModalView: {
         position: 'absolute',
-        width:width,
-        height:height-50,
-        left:0,
-        top:0,
-        flexDirection:'column',
-        alignItems:'center',
-        justifyContent:'center',
+        width: width,
+        height: height - 50,
+        left: 0,
+        top: 0,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: 'rgba(0,0,0,0.2)'
     },
     AlertView: {
         width: 230,
         zIndex: 5,
-        marginTop:-64,
+        marginTop: -64,
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: 'white'

@@ -30,6 +30,13 @@ export default class PageOld extends Component {
     }
     static navigationOptions = {
         title: '中老年抗癌互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
     };
     componentDidMount(){
         this.timergo = setTimeout(() => {

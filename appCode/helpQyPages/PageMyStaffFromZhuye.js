@@ -8,10 +8,12 @@ import {
     Image,
     ScrollView,
     RefreshControl,
+    PixelRatio
 } from 'react-native';
 
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
+let ratio = PixelRatio.get();
 import React, {Component,} from 'react';
 import MyStaffWaitingItem from './MyStaffWaitingItem';
 import MyStaffJoinedItem from './MyStaffJoinedItem';
@@ -49,7 +51,16 @@ export default class PageMyStaffFromZhuye extends Component {
         this.makeRemoteRequestNo();
 
     }
-
+    static navigationOptions = {
+        title: '企业员工大病互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     // 获取数据，适用于已加入员工
     makeRemoteRequestYes = () => {
 
@@ -448,7 +459,7 @@ export default class PageMyStaffFromZhuye extends Component {
                 {this.state.joinState == 1 ?
                     <View>
                         {!!this.state.haveDataOrNoData1 ?
-                            <View style={{height: height - 115}}>
+                            <View style={{justifyContent:'space-between'}}>
                                 <View style={styles.PageMyStaffTitleViewMax}>
                                     <View style={styles.PageMyStaffTitleViewName}>
                                         <Text>姓名</Text></View>

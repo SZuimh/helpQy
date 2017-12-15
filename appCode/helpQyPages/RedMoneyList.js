@@ -32,7 +32,16 @@ export default class RedMoneyList extends Component {
             isRefreshing:false,
         };
     }
-
+    static navigationOptions = {
+        title: '我的红包',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     componentDidMount() {
         this.makeRemoteRequest();
 

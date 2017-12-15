@@ -26,7 +26,7 @@ var WeChat = NativeModules.WeChat;  //iOS平台微信，王后涛封装
 const {QQSDK} = NativeModules;   //iOS平台QQ，复制自qqsdk，与qqsdk同，复制了其代码
 
 
-import  PageFindAndroid from  './AndroidStyle/PageFindAndroid';
+import  PageFindAndroid from './AndroidStyle/PageFindAndroidStyle';
 import  PageFindiOS  from  './iOSStyle/PageFindiOS';
 let styles=null;
 if (Platform.OS==='android') {

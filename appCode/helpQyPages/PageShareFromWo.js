@@ -19,9 +19,7 @@ let lineHeight = Platform.OS === 'ios' ? 14 : 16;
 let statusBarHeight = Platform.OS === 'ios' ? 16 : 0;
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
-
-import {NativeModules} from 'react-native';
-var WeChat = NativeModules.WeChat;  //iOS平台微信，王后涛封装
+import WeChat from 'react-native-wechat-android';  //android 平台微信
 let appId = 'wxbdcf30c9232401a4';   // 微信的appid，
 export default class PageShare extends Component {
     constructor(props) {
@@ -32,7 +30,16 @@ export default class PageShare extends Component {
             companyname:null,
         }
     }
-
+    static navigationOptions = {
+        title: '分享',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     componentDidMount() {
         AsyncStorage.multiGet(["token", "useruuid","companyname"], (errros, result) => {
             if (result[0][1] == null) {
@@ -45,9 +52,6 @@ export default class PageShare extends Component {
             })
         })
         //这里要获取已经加入的人数
-        WeChat.registerApp(appId, (err, registerOK) => {
-            //iOS版本注册到微信
-        });
     }
     getPlansName(helptype){
         if(helptype=='employee'){

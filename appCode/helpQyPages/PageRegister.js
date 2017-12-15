@@ -175,6 +175,13 @@ export default class PageRegister extends Component {
 
     static navigationOptions = {
         title: '注册',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
     };
 
     handlePasswordChange(event) {
@@ -269,6 +276,7 @@ export default class PageRegister extends Component {
                                     style={styles.passwordinput}
                                     placeholder='输入您注册的手机号'
                                     keyboardType='numeric'
+                                    underlineColorAndroid={'transparent'}
                                     maxLength={30}
                                     ref='refemail'
                                     autoCapitalize='none'
@@ -287,6 +295,7 @@ export default class PageRegister extends Component {
                                     keyboardType='numeric'
                                     maxLength={18}
                                     placeholder={'请输入验证码'}
+                                    underlineColorAndroid={'transparent'}
                                     autoCapitalize='none'
                                     clearButtonMode='always'
                                     autoCorrect={false}
@@ -322,6 +331,7 @@ export default class PageRegister extends Component {
                                     ref='refemail'
                                     autoCapitalize='none'
                                     clearButtonMode='always'
+                                    underlineColorAndroid={'transparent'}
                                     clearTextOnFocus={false}
                                     autoCorrect={false}
                                     password={true}
@@ -339,7 +349,10 @@ export default class PageRegister extends Component {
                         <Modal
                             animationType={"fade"}
                             transparent={true}
-                            visible={this.state.loading}>
+                            visible={this.state.loading}
+                            onRequestClose={() => {
+                                alert("Modal has been closed.")
+                            }}>
                             <View style={styles.modalviewOut}>
                                 <View style={styles.modalviewOIn}>
                                     <ActivityIndicator

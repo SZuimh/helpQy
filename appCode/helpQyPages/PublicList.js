@@ -37,7 +37,16 @@ export  default  class PublicList extends React.PureComponent{
     shouldComponentUpdate(){
         return true
     }
-
+    static navigationOptions = {
+        title: '公示名单',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     componentDidMount(){
 
         let  response=fetchToolget(UrlgetPublicList);

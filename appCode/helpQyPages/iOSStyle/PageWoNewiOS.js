@@ -37,7 +37,7 @@ const PageWoNewiOS = StyleSheet.create({
             backgroundColor: 'white',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'flex-end'
+            alignItems: 'flex-end',
         },
         PageWoNewUserPhotoView: {
             width: 80,

@@ -14,21 +14,21 @@ import {
 } from 'react-native';
 import React, {Component,} from 'react';
 import LoadingInPage from '../loading/LoadingInPage';
-import {NativeModules} from 'react-native';
 import {UrlLoginByPhone} from '../utils/url';
 import UserPhoto from '../components/userPhoto';
+import UploadFile from '../utils/uploadFile';
+import {UrlWechatLogin} from '../utils/url';
 
+import resolveAssetSource from 'resolveAssetSource';
+import WeChat from 'react-native-wechat-android';  //android 平台微信
 let Platform = require('react-native').Platform;
 let {width, height} = Dimensions.get('window');
 let ratio = PixelRatio.get();
 let regx = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 let regP = /^[0-9|a-z|A-Z]\w{5,17}$/; //6-18w位数字和字母组成的密码
-import UploadFile from '../utils/uploadFile';
 
 var subscription = {};
-var WeChat = NativeModules.WeChat;
 let appId = 'wxbdcf30c9232401a4';
-import {UrlWechatLogin} from '../utils/url';
 
 
 let loginEmitterEvent;
@@ -41,6 +41,7 @@ export default class PageLogin extends Component {
             password: null,
             userPassword: null,
             modalVisible: false,
+
             tipsModal:false,
             failSucessTips:'' , //对不起，充值失败 或恭喜你，充值成功
             failSucessImage:require('./img/joinFail.png'),
@@ -119,10 +120,6 @@ export default class PageLogin extends Component {
                 })
             });
         });
-
-        WeChat.registerApp(appId, (err, registerOK) => {
-            //iOS版本注册到微信
-        });
     }
 
 
@@ -133,8 +130,25 @@ export default class PageLogin extends Component {
 
     static navigationOptions = {
         title: '登录',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
     };
 
+    _wechatLogin(){
+        WeChat.sendAuthReq(null,null,(err,authReqOK) => {
+             console.log(authReqOK)
+        });
+    }
+    // _wechatLogin() {
+    //     WeChat.sendAuthRequest("snsapi_userinfo", "123", (err) => {
+    //         // console.log(err)
+    //     });
+    // }
     verify() { //检验邮箱密码是不是符合要求
         //输入完密码，点击return时，校验邮箱和密码是否合法
         //设置3个布尔变量，校验通过为true，否则false
@@ -254,11 +268,7 @@ export default class PageLogin extends Component {
         this.props.navigation.navigate('PageFindPasswd');
     }
 
-    _wechatLogin() {
-        WeChat.sendAuthRequest("snsapi_userinfo", "123", (err) => {
-            // console.log(err)
-        });
-    }
+
     hideTips(){
         this.setState({
             tipsModal:false
@@ -281,6 +291,7 @@ export default class PageLogin extends Component {
                             placeholder='输入您注册的手机号'
                             keyboardType='numeric'
                             maxLength={30}
+                            underlineColorAndroid={'transparent'}
                             ref='refemail'
                             autoCapitalize='none'
                             clearButtonMode='always'
@@ -298,6 +309,7 @@ export default class PageLogin extends Component {
                             placeholder='请输入6-18位密码'
                             keyboardType='email-address'
                             maxLength={30}
+                            underlineColorAndroid={'transparent'}
                             ref='refemail'
                             autoCapitalize='none'
                             clearButtonMode='always'
@@ -395,7 +407,7 @@ let styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: width,
-        height: 40
+        height: 50
     },
     userPhoto: {
         justifyContent: 'flex-start',
@@ -481,6 +493,7 @@ let styles = StyleSheet.create({
         width: width * 0.8,
         fontSize: 12,
         paddingLeft: 10,
+        borderWidth:0,
     },
     err: {
         flexDirection: 'row',

@@ -32,7 +32,7 @@ import PageRulesQiyeZonghe from '../helpQyPages/webView/PageRulesQiyeZonghe';
 import PageQiyeZonghe from '../helpQyPages/webView/PageQiyeZonghe';
 import MyHomerList from '../helpQyPages/MyHomerList';
 import QiyeRenZheng from '../helpQyPages/QiyeRenZheng';
-import PageFind from '../helpQyPages/PageFind';
+//import PageFind from '../helpQyPages/PageFind';
 import PageZixun from '../helpQyPages/PageZixun';
 import PageMyStaff from '../helpQyPages/PageMyStaff';
 import PageMyStaffHarm from '../helpQyPages/PageMyStaffHarm';
@@ -45,13 +45,12 @@ import PageShare from '../helpQyPages/PageShare'
 import PageShareFromWo from '../helpQyPages/PageShareFromWo'
 import PageRulesofPlans from '../helpQyPages/PageRulesofPlans'
 import PageQiyeShimingShowData from '../helpQyPages/PageQiyeShimingShowData'
-import PageQiyeShimingFromZhuye from '../helpQyPages/PageQiyeShimingFromZhuye'
 import PageWoMyEmployeeFromZhuye from '../helpQyPages/PageWoMyEmployeeFromZhuye'
 import PageMyStaffFromZhuye from '../helpQyPages/PageMyStaffFromZhuye'
 import PageMyStaffHarmFromZhuye from '../helpQyPages/PageMyStaffHarmFromZhuye'
 import PagePayForStaffFromZhuye from '../helpQyPages/PagePayForStaffFromZhuye'
 import PagePayForStaffInZhuye from '../helpQyPages/PagePayForStaffInZhuye'
-//import  PageFind from '../helpQyPages/PageFindAndroid'; //
+import PageFind from '../helpQyPages/PageFindAndroid'; //
 import RedMoneyList from "../helpQyPages/RedMoneyList";
 import PageDescriptionOfGongshi from '../helpQyPages/PageDescriptionOfGongshi';
 import PageUseRedMoney from "../helpQyPages/PageUseRedMoney";
@@ -72,19 +71,19 @@ const TabNav = TabNavigator(
             tabBarVisible: true,
             navigationOptions: {
                 title: Platform.OS === 'ios' ? '主页' : '',
-                 tabBarLabel: '',
+                tabBarLabel: '',
                 tabBarIcon: ({tintColor}) => (
                     <Image
                         source={require('./img/main@3x.png')}
-                        style={[styles.icon, ]}
+                        style={[styles.icon,]}
                         resizeMode={'contain'}
                     >
-                        <View style={{width:10,height:10,backgroundColor:tintColor,marginTop:5}}></View>
+                        <View style={{width: 10, height: 10, backgroundColor: tintColor, marginTop: 5}}></View>
                     </Image>
                 ),
                 headerStyle: {//StackNavigator下面的Screen Navigation Options找到的文档
                     backgroundColor: '#fff',
-                    height: 10,
+                    height: 0,
                 }
             },
         },
@@ -98,15 +97,22 @@ const TabNav = TabNavigator(
                 tabBarIcon: ({tintColor}) => (
                     <Image
                         source={require('./img/faxian.png')}
-                        style={[styles.icon, ]}
+                        style={[styles.icon,]}
                         resizeMode={'contain'}
                     >
-                        <View style={{width:10,height:10,borderRadius:5,backgroundColor:tintColor}}></View>
+                        <View style={{width: 10, height: 10, borderRadius: 5, backgroundColor: tintColor}}></View>
                     </Image>
+                ),
+                header: (
+                    <View style={{height:50,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                        <Text style={{fontSize:16,fontWeight:'normal',color:'#000000',textAlign:'center'}}>邀请</Text>
+                    </View>
                 ),
                 // headerStyle: {//StackNavigator下面的Screen Navigation Options找到的文档
                 //     backgroundColor: '#fff',
-                //     height: 10
+                //     // alignItems:'center',
+                //     // justifyContent:'center'
+                //     // fontSize: 10
                 // }
             },
         },
@@ -119,16 +125,21 @@ const TabNav = TabNavigator(
 
                 tabBarLabel: '发现',
                 tabBarVisible: true,
-                style: {
-                    backgroundColor: '#000'
-                },
+                // style: {
+                //     backgroundColor: '#000'
+                // },
+                header: (
+                    <View style={{height:50,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                        <Text style={{fontSize:16,fontWeight:'normal',color:'#000000',textAlign:'center'}}>发现</Text>
+                    </View>
+                ),
                 tabBarIcon: ({tintColor}) => (
                     <Image
                         source={require('./img/zixunButton.png')}
                         style={[styles.icon,]}
                         resizeMode={'contain'}
                     >
-                        <View style={{width:10,height:10,borderRadius:5,backgroundColor:tintColor,}}></View>
+                        <View style={{width: 10, height: 10, borderRadius: 5, backgroundColor: tintColor,}}></View>
                     </Image>
                 ),
                 // headerRight: (
@@ -158,16 +169,16 @@ const TabNav = TabNavigator(
                 tabBarIcon: ({tintColor}) => (
                     <Image
                         source={require('./img/wo.png')}
-                        style={[styles.icon, ]}
+                        style={[styles.icon,]}
                         resizeMode={'contain'}
                     >
-                       <View style={{width:10,height:10,borderRadius:5,backgroundColor:tintColor,marginTop:16}}></View>
+                        <View style={{width: 10, height: 10, borderRadius: 5, backgroundColor: tintColor, marginTop: 16}}></View>
                     </Image>
                 ),
 
                 headerStyle: {//StackNavigator下面的Screen Navigation Options找到的文档
                     backgroundColor: '#fff',
-                    height: 10,
+                    height: 0,
                 }
 
             },
@@ -190,13 +201,14 @@ const TabNav = TabNavigator(
             labelStyle: {
                 // fontSize: 12,
                 // margin: 0,
-                display:'none'    //文字是否显示
+                display: 'none'    //文字是否显示
             },
             style: {
                 backgroundColor: '#f4f4f4',
 
             },
             tabStyle: {
+                height:40,
                 justifyContent: 'flex-end'
             }
         },
@@ -205,11 +217,11 @@ const TabNav = TabNavigator(
 
 const styles = StyleSheet.create({
     icon: {
-        width: 26,
-        height: 26,
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center'
+        width: 24,
+        height: 24,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 });
 
@@ -309,74 +321,71 @@ const HomeScreen = StackNavigator({
         screen: PagePlansQiyeDabing
     },
 
-    PageQiyeShiming:{
-        screen:PageQiyeShiming
+    PageQiyeShiming: {
+        screen: PageQiyeShiming
     },
-    PageWoNew:{
-        screen:PageWoNew,
+    PageWoNew: {
+        screen: PageWoNew,
     },
-    PageMyStaff:{
-        screen:PageMyStaff
+    PageMyStaff: {
+        screen: PageMyStaff
     },
-    PageMyStaffHarm:{
-        screen:PageMyStaffHarm
+    PageMyStaffHarm: {
+        screen: PageMyStaffHarm
     },
-    PageMessage:{
-        screen:PageMessage,
+    PageMessage: {
+        screen: PageMessage,
     },
-    PageWoMyEmployee:{
-        screen:PageWoMyEmployee,
+    PageWoMyEmployee: {
+        screen: PageWoMyEmployee,
     },
-    PageSystemNotificationList:{
-        screen:PageSystemNotificationList,
+    PageSystemNotificationList: {
+        screen: PageSystemNotificationList,
     },
-    PagePayForStaff:{
-        screen:PagePayForStaff,
+    PagePayForStaff: {
+        screen: PagePayForStaff,
     },
-    PagePayForHomer:{
-        screen:PagePayForHomer,
+    PagePayForHomer: {
+        screen: PagePayForHomer,
     },
-    PageWechatBindPhone:{
-        screen:PageWechatBindPhone,
+    PageWechatBindPhone: {
+        screen: PageWechatBindPhone,
     },
-    PageShare:{
-        screen:PageShare,
+    PageShare: {
+        screen: PageShare,
     },
-    PageShareFromWo:{
-        screen:PageShareFromWo,
+    PageShareFromWo: {
+        screen: PageShareFromWo,
     },
-    NewsContent:{
-        screen:NewsContent
+    NewsContent: {
+        screen: NewsContent
     },
-    PageFindPasswordFromSetting:{
-        screen:PageFindPasswordFromSetting
+    PageFindPasswordFromSetting: {
+        screen: PageFindPasswordFromSetting
     },
-    PageRulesofPlans:{
-        screen:PageRulesofPlans
+    PageRulesofPlans: {
+        screen: PageRulesofPlans
     },
-    PageQiyeShimingShowData:{
-        screen:PageQiyeShimingShowData
+    PageQiyeShimingShowData: {
+        screen: PageQiyeShimingShowData
     },
-    PageQiyeShimingFromZhuye:{
-        screen:PageQiyeShimingFromZhuye
+    PageWoMyEmployeeFromZhuye: {
+        screen: PageWoMyEmployeeFromZhuye
     },
-    PageWoMyEmployeeFromZhuye:{
-        screen:PageWoMyEmployeeFromZhuye
+    PageMyStaffFromZhuye: {
+        screen: PageMyStaffFromZhuye
     },
-    PageMyStaffFromZhuye:{
-        screen:PageMyStaffFromZhuye
+    PageMyStaffHarmFromZhuye: {
+        screen: PageMyStaffHarmFromZhuye
     },
-    PageMyStaffHarmFromZhuye:{
-        screen:PageMyStaffHarmFromZhuye
+    PagePayForStaffFromZhuye: {
+        screen: PagePayForStaffFromZhuye
     },
-    PagePayForStaffFromZhuye:{
-        screen:PagePayForStaffFromZhuye
+    EmployeePlansFromZhuyeItem: {
+        screen: EmployeePlansFromZhuyeItem
     },
-    EmployeePlansFromZhuyeItem:{
-        screen:EmployeePlansFromZhuyeItem
-    },
-    PagePayForStaffInZhuye:{
-        screen:PagePayForStaffInZhuye
+    PagePayForStaffInZhuye: {
+        screen: PagePayForStaffInZhuye
     },
 }, {
     headerMode: 'screen',

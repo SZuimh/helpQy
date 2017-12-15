@@ -91,7 +91,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.helpqy"
@@ -143,6 +143,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-nova-alipay')
     compile project(':react-native-wechat-android')
     compile project(':react-native-image-picker')
     compile fileTree(dir: "libs", include: ["*.jar"])

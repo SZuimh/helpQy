@@ -48,7 +48,16 @@ export default class PageWechatBindPhone extends Component {
             retcode: 2001,
         };
     }
-
+    static navigationOptions = {
+        title: '绑定手机号',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     componentWillUnmount() {
         this.timer && clearInterval(this.timer);
         this.timergo && clearTimeout(this.timer)
@@ -277,6 +286,7 @@ export default class PageWechatBindPhone extends Component {
                                     placeholder='输入正确的11位手机号'
                                     keyboardType='numeric'
                                     maxLength={30}
+                                    underlineColorAndroid={'transparent'}
                                     ref='refemail'
                                     autoCapitalize='none'
                                     clearButtonMode='always'
@@ -293,6 +303,7 @@ export default class PageWechatBindPhone extends Component {
                                     ref='refpass'
                                     keyboardType='numeric'
                                     maxLength={18}
+                                    underlineColorAndroid={'transparent'}
                                     placeholder={'请输入验证码'}
                                     autoCapitalize='none'
                                     clearButtonMode='always'
@@ -326,6 +337,7 @@ export default class PageWechatBindPhone extends Component {
                                     placeholder='请输入6-18位的密码'
                                     keyboardType='email-address'
                                     maxLength={30}
+                                    underlineColorAndroid={'transparent'}
                                     ref='refemail'
                                     autoCapitalize='none'
                                     clearButtonMode='always'

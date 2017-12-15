@@ -54,6 +54,17 @@ export default class PageQiyeShiming extends Component {
         };
     }
 
+    static navigationOptions = {
+        title: '企业实名认证',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
+
     componentDidMount() {
         if (this.props.navigation.state.params.Status == 'refused') {
             this.setState({
@@ -141,104 +152,77 @@ export default class PageQiyeShiming extends Component {
     goRenzheng() {
         //添加所有的数据
         if (this.state.companyName == null || this.state.companyName == '') {
-            return Alert.alert(
-                '请检查输入',
-                '公司名称不能为空',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tips:'公司名称不能为空',
+                tipsText: '对不起，提交失败',
+                tipsModal: true
+            })
+            return
         }
         if (this.state.Zhengxindaima == null) {
-            return Alert.alert(
-                '请检查输入',
-                '公司征信代码名称不能为空',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tips:'公司征信代码不能为空',
+                tipsText: '对不起，提交失败',
+                tipsModal: true
+            })
+            return
         }
         if (this.state.Faren == null) {
-            return Alert.alert(
-                '请检查输入',
-                '公司法人不能为空',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsText: '对不起，提交失败',
+                tips:'公司法人不能为空',
+                tipsModal: true
+            })
+            return
         }
         if (this.state.verCode == null) {
-            return Alert.alert(
-                '请检查输入',
-                '公司验证码名称不能为空',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsText: '对不起，提交失败',
+                tips:'验证码不能为空',
+                tipsModal: true
+            })
+            return
         }
         if (this.state.phone == null) {
-            return Alert.alert(
-                '请检查输入',
-                '联系人手机号不能为空',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsText: '对不起，提交失败',
+                tips:'手机号码不能为空',
+                tipsModal: true
+            })
+            return
         }
         if (this.state.companyEmail == null) {
-            return Alert.alert(
-                '请检查输入',
-                '公司邮箱不能为空',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsText: '对不起，提交失败',
+                tips:'公司邮箱不能为空',
+                tipsModal: true
+            })
+            return
         }
         if (this.state.phone.length != 11) {
-            return Alert.alert(
-                '请检查输入',
-                '请检查手机号码格式(11位)',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsText: '对不起，提交失败',
+                tips:'请检查手机号码的格式(11位数字)',
+                tipsModal: true
+            })
+            return
         }
         if (this.state.verCode.length != 4) {
-            return Alert.alert(
-                '请检查输入',
-                '请检查验证码格式(4位)',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsText: '对不起，提交失败',
+                tips:'请检查验证码格式(4位数字)',
+                tipsModal: true
+            })
+            return
         }
 
         if (!regx.test(this.state.companyEmail)) {
-            return Alert.alert(
-                '请检查输入',
-                '请输入正确的邮箱格式',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsText: '对不起，提交失败',
+                tips:'请输入正确的邮箱格式',
+                tipsModal: true
+            })
+            return
         }
 
         this.setState({
@@ -303,15 +287,12 @@ export default class PageQiyeShiming extends Component {
 
     getCode() {
         if (this.state.phone == null || this.state.phone == '' || this.state.phone.length != 11)
-            return Alert.alert(
-                '请检查输入',
-                '请输入正确的手机号格式',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsText: '请检查您的手机号码',
+                tips:'请输入正确的手机号码(11位数字)',
+                tipsModal: true
+            })
+        return
         //调用倒计时方法
         this.timeDown();
 
@@ -416,6 +397,7 @@ export default class PageQiyeShiming extends Component {
                                             placeholder='企业名称'
                                             keyboardType='email-address'
                                             maxLength={30}
+                                            underlineColorAndroid={'transparent'}
                                             ref='refemail'
                                             autoCapitalize='none'
                                             clearButtonMode='always'
@@ -436,6 +418,7 @@ export default class PageQiyeShiming extends Component {
                                             placeholder='统一社会征信代码'
                                             keyboardType='email-address'
                                             maxLength={30}
+                                            underlineColorAndroid={'transparent'}
                                             ref='refemail'
                                             autoCapitalize='none'
                                             clearButtonMode='always'
@@ -456,6 +439,7 @@ export default class PageQiyeShiming extends Component {
                                             placeholder='法定代表人'
                                             keyboardType='email-address'
                                             maxLength={30}
+                                            underlineColorAndroid={'transparent'}
                                             ref='refemail'
                                             autoCapitalize='none'
                                             clearButtonMode='always'
@@ -476,6 +460,7 @@ export default class PageQiyeShiming extends Component {
                                             placeholder='联系人手机号'
                                             keyboardType='email-address'
                                             maxLength={30}
+                                            underlineColorAndroid={'transparent'}
                                             ref='refemail'
                                             autoCapitalize='none'
                                             clearButtonMode='always'
@@ -496,6 +481,7 @@ export default class PageQiyeShiming extends Component {
                                                 style={[styles.passwordinput, {width: width * 0.35}]}
                                                 ref='refpass'
                                                 maxLength={18}
+                                                underlineColorAndroid={'transparent'}
                                                 placeholder={'输入验证码'}
                                                 autoCapitalize='none'
                                                 clearButtonMode='always'
@@ -533,6 +519,7 @@ export default class PageQiyeShiming extends Component {
                                             placeholder='公司邮箱'
                                             keyboardType='email-address'
                                             maxLength={30}
+                                            underlineColorAndroid={'transparent'}
                                             ref='refemail'
                                             autoCapitalize='none'
                                             clearButtonMode='always'
@@ -576,7 +563,7 @@ export default class PageQiyeShiming extends Component {
                                     <View style={styles.ShiMingTips}>
                                         <Text style={styles.ShiMingTipsText}>请根据提示，务必上传真实资料,以上选项皆为必填项</Text>
                                     </View>
-                                    <View style={{width: width, height: 250}}></View>
+                                    <View style={{width: width, height: 50}}></View>
                                 </View>
                                 :        //上面的view是提交信息被拒绝   下面的是  还未提交过审核信息
                                 <View style={styles.QiyeShimingMaxView}>
@@ -589,6 +576,7 @@ export default class PageQiyeShiming extends Component {
                                             placeholder='企业名称'
                                             keyboardType='email-address'
                                             maxLength={30}
+                                            underlineColorAndroid={'transparent'}
                                             ref='refemail'
                                             autoCapitalize='none'
                                             clearButtonMode='always'
@@ -605,6 +593,7 @@ export default class PageQiyeShiming extends Component {
                                             placeholder='统一社会征信代码'
                                             keyboardType='email-address'
                                             maxLength={30}
+                                            underlineColorAndroid={'transparent'}
                                             ref='refemail'
                                             autoCapitalize='none'
                                             clearButtonMode='always'
@@ -621,6 +610,7 @@ export default class PageQiyeShiming extends Component {
                                             placeholder='法定代表人'
                                             keyboardType='email-address'
                                             maxLength={30}
+                                            underlineColorAndroid={'transparent'}
                                             ref='refemail'
                                             autoCapitalize='none'
                                             clearButtonMode='always'
@@ -637,6 +627,7 @@ export default class PageQiyeShiming extends Component {
                                             placeholder='联系人手机号'
                                             keyboardType='email-address'
                                             maxLength={30}
+                                            underlineColorAndroid={'transparent'}
                                             ref='refemail'
                                             autoCapitalize='none'
                                             clearButtonMode='always'
@@ -653,6 +644,7 @@ export default class PageQiyeShiming extends Component {
                                                 style={[styles.passwordinput, {width: width * 0.55}]}
                                                 ref='refpass'
                                                 maxLength={18}
+                                                underlineColorAndroid={'transparent'}
                                                 placeholder={'输入验证码'}
                                                 autoCapitalize='none'
                                                 clearButtonMode='always'
@@ -687,6 +679,7 @@ export default class PageQiyeShiming extends Component {
                                             placeholder='公司邮箱'
                                             keyboardType='email-address'
                                             maxLength={30}
+                                            underlineColorAndroid={'transparent'}
                                             ref='refemail'
                                             autoCapitalize='none'
                                             clearButtonMode='always'
@@ -729,7 +722,7 @@ export default class PageQiyeShiming extends Component {
                                     <View style={styles.ShiMingTips}>
                                         <Text style={styles.ShiMingTipsText}>请根据提示，务必上传真实资料,以上选项皆为必填项</Text>
                                     </View>
-                                    <View style={{width: width, height: 250}}></View>
+                                    <View style={{width: width, height: 50}}></View>
                                 </View>
                             }
                             {this.state.tipsModal ?
@@ -739,7 +732,7 @@ export default class PageQiyeShiming extends Component {
                                             <Text
                                                 style={{fontSize: 18, fontWeight: 'bold'}}>{this.state.tipsText}</Text>
                                         </View>
-                                        <View style={{width: 200, height: 90, marginTop: 30}}>
+                                        <View style={{width: 200, height: 90, marginTop: 30,flexDirection:'column',alignItems:'center'}}>
                                             <Text style={{fontSize: 15, color: '#4a4a4a'}}>{this.state.tips}</Text>
                                         </View>
 
@@ -830,19 +823,20 @@ let styles = StyleSheet.create({
         zIndex: 5,
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        marginTop:-height*0.2
     },
     PageSettingChanegNameModal: {
         position: 'absolute',
         left: 0,
-        bottom: 0,
+        top: 0,
         width: width,
         height: height,
         backgroundColor: 'rgba(0,0,0,0.8)',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 5
+        zIndex: 50
     },
     PageSettingChanegNameView: {
         width: 160,
@@ -933,7 +927,7 @@ let styles = StyleSheet.create({
         alignItems: 'center'
     },
     TextinputView: {
-        marginTop: 15,
+        marginTop: 5,
         flexDirection: 'row',
         alignItems: 'center'
     },

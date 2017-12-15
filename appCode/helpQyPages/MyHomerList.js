@@ -29,7 +29,7 @@ export default class MyHomerList extends Component {
             hasLoad: false,
             animating: false,  //loading动画的显示与否
             haveDataOrNoData: false,
-            isRefreshing:false
+            isRefreshing: false
         };
     }
 
@@ -38,6 +38,16 @@ export default class MyHomerList extends Component {
 
     }
 
+    static navigationOptions = {
+        title: '我的家人',
+        headerRight: (
+            <View></View>
+        ),
+        headerTitleStyle: {
+            fontSize: 18,
+            alignSelf: 'center'
+        }
+    };
     // 获取数据
     makeRemoteRequest = () => {
 
@@ -138,7 +148,7 @@ export default class MyHomerList extends Component {
     }
 
     _onRefreshLoading = () => {
-       this.makeRemoteRequest();
+        this.makeRemoteRequest();
 
     }
     static navigationOptions = {
@@ -201,42 +211,45 @@ export default class MyHomerList extends Component {
 
     render() {
         return (
-            <ScrollView
-                refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.isRefreshing}
-                        onRefresh={this._onRefreshLoading.bind(this)}
-                        tintColor="#000000"      //loading 转圈圈的颜色
-                        title="Loading..."       //标题
-                        titleColor="#000000"     //Loading 颜色
-                        colors={['#000000']}
-                        progressBackgroundColor="#1296db"
-                    />
-                }>
-                <View style={styles.PageWoMyEmployeeMaxView}>
-                    {
-                        !!this.state.haveDataOrNoData ?
-                            <FlatList
-                                ref="listview"
-                                data={this.state.dataSource}
-                                refreshing={this.state.refreshing}
-                                renderItem={this._renderItem}
-                                keyExtractor={this._keyExtractor}
-                                onRefresh={this._onRefresh}
-                                ListHeaderComponent={this.renderHeader}
-                                ListFooterComponent={this.renderFooter}
-                                ItemSeparatorComponent={this.renderSeparator}
 
-                            /> :
+            <View style={styles.PageWoMyEmployeeMaxView}>
+                {
+                    !!this.state.haveDataOrNoData ?
+                        <FlatList
+                            ref="listview"
+                            data={this.state.dataSource}
+                            refreshing={this.state.refreshing}
+                            renderItem={this._renderItem}
+                            keyExtractor={this._keyExtractor}
+                            onRefresh={this._onRefresh}
+                            ListHeaderComponent={this.renderHeader}
+                            ListFooterComponent={this.renderFooter}
+                            ItemSeparatorComponent={this.renderSeparator}
+
+                        /> :
+                        <ScrollView
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={this.state.isRefreshing}
+                                    onRefresh={this._onRefreshLoading.bind(this)}
+                                    tintColor="#000000"      //loading 转圈圈的颜色
+                                    title="Loading..."       //标题
+                                    titleColor="#000000"     //Loading 颜色
+                                    colors={['#000000']}
+                                    progressBackgroundColor="#1296db"
+                                />
+                            }>
                             <View style={styles.noredmoney}>
                                 <Image source={require('./img/NotHappy.png')} resizeMode={'contain'}
                                        style={{width: 80, height: 80}}/>
                                 <Text style={{color: '#a4a4a4'}}>您还没有家人加入葡萄互助!</Text>
                             </View>
-                    }
-                </View>
+                        </ScrollView>
+                }
                 <LoadingInPage modalVisible={this.state.loading}/>
-            </ScrollView>
+
+            </View>
+
         );
     }
 }

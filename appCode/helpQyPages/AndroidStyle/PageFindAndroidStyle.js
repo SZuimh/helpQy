@@ -18,7 +18,7 @@ if(pixelRatio>2){
     heightPixel=4;
 }
 
-const PageFindAndroid= StyleSheet.create({
+const PageFindAndroidStyle= StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F0F0F0',
@@ -39,7 +39,7 @@ const PageFindAndroid= StyleSheet.create({
     },
     MingdanGongshi: {
         color: '#ffffff',
-        fontSize: 14+addPixel
+        fontSize: 12+addPixel
     },
     MyRedMoney: {
         fontSize: 12+addPixel,
@@ -89,6 +89,7 @@ const PageFindAndroid= StyleSheet.create({
         marginRight: 12,
         height: 30+heightPixel,
         width: 70,
+        borderRadius:5,
         backgroundColor: '#0093EC',
     },
     inviteFriendContain: {
@@ -206,4 +207,4 @@ const PageFindAndroid= StyleSheet.create({
         flexWrap: 'wrap'
     }
 });
-export  default  PageFindAndroid;
+export  default  PageFindAndroidStyle;

@@ -40,7 +40,16 @@ export default class PageFindPasswd extends Component {
             respMessage: null,
         };
     }
-
+    static navigationOptions = {
+        title: '找回密码',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     componentWillUnmount() {
         this.timer && clearInterval(this.timer);
 
@@ -165,9 +174,7 @@ export default class PageFindPasswd extends Component {
         this.props.navigation.goBack()
     }
 
-    static navigationOptions = {
-        title: '找回密码',
-    };
+
 
     handlePhoneChange(event) {
         this.setState({
@@ -254,6 +261,7 @@ export default class PageFindPasswd extends Component {
                                     placeholder='输入您注册的手机号'
                                     keyboardType='numeric'
                                     maxLength={30}
+                                    underlineColorAndroid={'transparent'}
                                     ref='refemail'
                                     autoCapitalize='none'
                                     clearButtonMode='always'
@@ -269,6 +277,7 @@ export default class PageFindPasswd extends Component {
                                     ref='refpass'
                                     keyboardType='numeric'
                                     maxLength={18}
+                                    underlineColorAndroid={'transparent'}
                                     placeholder={'输入验证码'}
                                     autoCapitalize='none'
                                     clearButtonMode='always'
@@ -302,6 +311,7 @@ export default class PageFindPasswd extends Component {
                                     placeholder='输入您的新密码'
                                     keyboardType='email-address'
                                     maxLength={30}
+                                    underlineColorAndroid={'transparent'}
                                     ref='refemail'
                                     autoCapitalize='none'
                                     clearButtonMode='always'

@@ -22,7 +22,16 @@ export default class PageRulesQiyeZonghe extends Component {
         };
     }
 
-
+    static navigationOptions = {
+        title: '互助公约',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     goJoin() {
         if (this.state.isLogin) {
             let formData = new FormData();

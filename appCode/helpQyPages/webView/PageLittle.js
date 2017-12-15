@@ -30,6 +30,13 @@ export default class PageLittle extends Component {
 
     static navigationOptions = {
         title: '少儿大病互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
     };
 
     componentDidMount(){

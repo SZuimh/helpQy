@@ -15,7 +15,8 @@ import {
     NativeAppEventEmitter,
     AsyncStorage,
     Modal,
-    AlertIOS
+    AlertIOS,
+    Keyboard
 } from 'react-native';
 import React, {Component} from 'react';
 import UploadFile from '../utils/uploadFile';
@@ -24,7 +25,6 @@ let ratio = PixelRatio.get();
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 import {UrlModifyUserName} from '../utils/url';
-
 
 export default class PageSetting extends Component {
     constructor(props) {
@@ -35,14 +35,43 @@ export default class PageSetting extends Component {
             modalVisible: false,
             userName: "",
             respmsg: null,
-            errMsg: ''
+            errMsg: '',
+            tipsModal:false,
+            failSucessTips:'' , //对不起，充值失败 或恭喜你，充值成功
+            failSucessImage:require('./img/joinFail.png'),
+            respMessage:null,
+            retcode:2001,
         }
     }
+    static navigationOptions = {
+        title: '设置',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
+    componentWillMount(){
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
 
+    }
     componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
         this.timer && clearTimeout(this.timer);
     }
-
+    _keyboardDidShow=()=>{
+        this.setState({
+            modalAlignItem:'flex-end'
+        })
+    }
+    hideTips(){
+        this.setState({
+            tipsModal:false
+        })
+        this.props.navigation.goBack()
+    }
     goResetPassword() {
         this.props.navigation.navigate('PageFindPasswordFromSetting', {PageWoKey: this.props.navigation.state.key,})
     }
@@ -50,14 +79,13 @@ export default class PageSetting extends Component {
     logOut() {
 
         logOutEmitterEvent = NativeAppEventEmitter.emit('loginOutEmitter', {});
-        Alert.alert(
-            '退出成功',
-            '',
-            [
-                {text: '好的', onPress: () => this.goBack()}
-
-            ]
-        );
+        this.setState({
+            tipsModal:true,
+            failSucessTips:"",
+            failSucessImage:require('./img/joinFail.png'),
+            respMessage:'退出成功',
+            modalAlignItem:'center'
+        })
 
     }
 
@@ -67,6 +95,7 @@ export default class PageSetting extends Component {
 
 
     changeUserName() {
+
         if (this.state.userName == null) {
 
             this.setState({
@@ -96,7 +125,8 @@ export default class PageSetting extends Component {
 
             if (typeof(resp) == "undefined") {
                 this.setState({
-                    errMsg: "服务出现异常"
+                    errMsg: "服务出现异常",
+                    modalAlignItem:'center'
                 })
             }
             if (resp.retcode == 2000) {
@@ -107,23 +137,25 @@ export default class PageSetting extends Component {
                     ['usernickname', this.state.userName],
                 ], (errors) => {
                 });
-                Alert.alert(
-                    '修改成功',
-                    "",
-                    [
-                        {text: '好的'},
-                    ]
-                )
+                this.setState({
+                    tipsModal:true,
+                    failSucessTips:"",
+                    failSucessImage:require('./img/joinSuccess.png'),
+                    respMessage:'恭喜您，修改成功',
+                    modalAlignItem:'center'
+                })
 
             } else {
                 this.setState({
-                    errMsg: '请输入正确的用户名'
+                    errMsg: '请输入正确的用户名',
+                    modalAlignItem:'center'
                 })
             }
 
         }).catch(err => {
             this.setState({
-                errMsg: '请输入正确的用户名'
+                errMsg: '请输入正确的用户名',
+                modalAlignItem:'center'
             })
         });
     }
@@ -131,7 +163,8 @@ export default class PageSetting extends Component {
     changeModalVisible(modalVisible) {
         this.setState({
             modalVisible: modalVisible,
-            errMsg:''
+            errMsg:'',
+            modalAlignItem:'center'
         })
 
     }
@@ -166,7 +199,7 @@ export default class PageSetting extends Component {
 
                 {this.state.modalVisible ?
                     <View style={styles.PageSettingChanegNameModal}>
-                        <View style={styles.PageSettingChanegNameView}>
+                        <View style={[styles.PageSettingChanegNameView,{alignSelf:this.state.modalAlignItem}]}>
                             <View style={styles.PageSettingChanegNameButtonView}>
                                 <Text style={styles.UserName}>用户名</Text>
                             </View>
@@ -177,6 +210,7 @@ export default class PageSetting extends Component {
                                     placeholder='输入昵称'
                                     keyboardType='email-address'
                                     maxLength={30}
+                                    underlineColorAndroid={'transparent'}
                                     ref='refemail'
                                     autoCapitalize='none'
                                     clearButtonMode='always'
@@ -196,6 +230,26 @@ export default class PageSetting extends Component {
                                     style={[styles.PageSettingChanegNameButton, {borderLeftWidth: 1 / ratio,}]}
                                     onPress={this.changeUserName.bind(this)}>
                                     <Text style={{color: '#0071ff'}}>确定</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                    :
+                    <View/>
+                }
+                {this.state.tipsModal ?
+                    <View style={styles.ModalView}>
+                        <View style={styles.AlertView}>
+                            <Image source={this.state.failSucessImage} resizeMode={'contain'}   style={{width: 120, height: 90, marginTop: 10}}/>
+                            <View style={{marginTop: 10}}>
+                                <Text style={{fontSize: 10}}>{this.state.respMessage}</Text>
+                            </View>
+
+                            <View style={styles.DownButtonView}>
+
+                                <TouchableOpacity onPress={this.hideTips.bind(this)}
+                                                  style={[styles.DownButton, {width: 230, backgroundColor: '#ffffff'}]}>
+                                    <Text style={{color: '#018be6'}}>确定</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -303,7 +357,7 @@ let styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.8)',
         width: width,
 
-        flexDirection: 'column',
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 30,
@@ -317,7 +371,7 @@ let styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#e8e8e8',
         borderRadius: 10,
-        marginTop: -50
+        marginTop: -50,
     },
     PageSettingInput: {
         height: 30,
@@ -346,5 +400,44 @@ let styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    DownButtonView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width:230,
+        height:40,
+        marginTop:10,
+        borderTopWidth:1/ratio,
+        borderTopColor:'#4c4c4c'
+
+    },
+    DownButton:{
+        height:40,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        borderBottomRightRadius:5,
+        borderBottomLeftRadius:5
+    },
+    ModalView: {
+        position: 'absolute',
+        width:width,
+        height:height,
+        left:0,
+        top:0,
+        flexDirection:'column',
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor: 'rgba(0,0,0,0.2)'
+    },
+    AlertView: {
+        width: 230,
+        zIndex: 5,
+        marginTop:-64,
+        flexDirection: 'column',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius:5
     },
 });

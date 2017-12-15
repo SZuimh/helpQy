@@ -16,7 +16,16 @@ export default class PageDescriptionOfGongshi extends Component {
     constructor(props) {
         super(props);
     }
-
+    static navigationOptions = {
+        title: '公示详情',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     getPublicTime(publictime){
         let date = new Date(publictime);
         let Y = date.getFullYear() + '-';

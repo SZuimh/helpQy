@@ -13,9 +13,7 @@ import {
     Alert
 } from 'react-native';
 import React, {Component} from 'react';
-import {NativeModules} from 'react-native';
-
-var Alipay = NativeModules.Alipay;
+import Alipay from 'react-native-nova-alipay';
 
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
@@ -43,7 +41,16 @@ export default class PagePayForStaffInEmployeePlans extends Component {
             retcode: 2001, //只有支付宝充值返回成功后，才执行回调
         };
     }
-
+    static navigationOptions = {
+        title: '员工充值',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     componentDidMount() {
         // console.log(this.props)
         //这里要获取已经加入的人数
@@ -81,15 +88,13 @@ export default class PagePayForStaffInEmployeePlans extends Component {
 
     goforPay() { //调用支付宝支付
         if (this.state.amount == 0) {
-            return Alert.alert(
-                '请检查所选金额',
-                '充值金额必须大于0元',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsModal:true,
+                failSucessTips:"",
+                failSucessImage:require('./img/joinFail.png'),
+                respMessage:"充值金额必须大于0",
+            })
+            return
         }
 
         let params = {
@@ -128,9 +133,8 @@ export default class PagePayForStaffInEmployeePlans extends Component {
 
                 let oderStr = resp.oderStr; //这个是返回的加密的字符串
 
-                Alipay.signedString(oderStr, (err, data) => {
-
-                    if (err.resultStatus == "9000") {
+                Alipay.pay(oderStr).then((data)=>{
+                    if (data == 'success') {
                         this.setState({
                             tipsModal: true,
                             failSucessTips: "恭喜你，充值成功",
@@ -150,9 +154,15 @@ export default class PagePayForStaffInEmployeePlans extends Component {
                             retcode: 9001
                         })
                     }
-
+                }, (err)=> {
+                    this.setState({
+                        tipsModal: true,
+                        failSucessTips: "对不起，充值失败",
+                        failSucessImage: require('./img/joinFail.png'),
+                        respMessage: null,
+                        retcode: 9001
+                    })
                 });
-
 
             } else {//弹出提示框
                 this.setState({

@@ -43,7 +43,14 @@ export default class PageMyStaffHarm extends Component {
         };
     }
     static navigationOptions = {
-        title: '员工综合意外',
+        title: '企业员工综合意外互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
     };
     componentDidMount() {
 
@@ -440,7 +447,7 @@ export default class PageMyStaffHarm extends Component {
                 {this.state.joinState == 1 ?
                     <View>
                         {!!this.state.haveDataOrNoData1 ?
-                            <View style={{height:height-115}}>
+                            <View>
                                 <View style={styles.PageMyStaffTitleViewMax}>
                                     <View style={styles.PageMyStaffTitleViewName}>
                                         <Text>姓名</Text></View>
@@ -449,7 +456,7 @@ export default class PageMyStaffHarm extends Component {
                                     </View>
                                 </View>
 
-                                <View style={{height:200 ,flex:1}}>
+                                <View style={{height:150 ,flex:1}}>
                                     <FlatList
                                         ref="listview"
                                         data={this.state.dataSourceNo}

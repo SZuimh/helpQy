@@ -5,9 +5,11 @@ import {
     StyleSheet,
     Image,
     Text,
+    PixelRatio
 } from 'react-native';
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
+let ratio = PixelRatio.get();
 import React, {Component,} from 'react';
 import {UrlGetCompanyHelp} from '../utils/url';
 import UploadFile from '../utils/uploadFile';
@@ -27,6 +29,16 @@ export default class PageWoMyEmployeeFromZhuye extends Component {
             haveDataOrNoData: true,
         };
     }
+    static navigationOptions = {
+        title: '员工管理',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
 
     componentDidMount() {
         this.makeRemoteRequest();
@@ -129,9 +141,6 @@ export default class PageWoMyEmployeeFromZhuye extends Component {
         })
         this.makeRemoteRequest();
     }
-    static navigationOptions = {
-        title: '员工管理',
-    };
     uuid() {  //为keyExtractor产生一个uuid  用来标识id、
 
         var s = [];

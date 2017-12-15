@@ -32,6 +32,13 @@ export default class PageQiyeDabing extends Component {
     }
     static navigationOptions = {
         title: '员工大病互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
     };
     componentDidMount(){
         this.timergo = setTimeout(() => {

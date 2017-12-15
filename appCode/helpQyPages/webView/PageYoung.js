@@ -28,7 +28,14 @@ export default class PageYoung extends Component {
         };
     }
     static navigationOptions = {
-        title: '中青年抗癌计划',
+        title: '中青年抗癌互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
     };
 
     componentDidMount(){

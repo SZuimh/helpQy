@@ -5,11 +5,13 @@ import {
     Dimensions,
     Image,
     TouchableOpacity,
-    Alert
+    Alert,
+    PixelRatio
 } from 'react-native';
 import React, {Component} from 'react';
 
 let {width, height} = Dimensions.get('window');
+let ratio = PixelRatio.get();
 import {UrlDelAStaff} from '../utils/url';
 import UploadFile from '../utils/uploadFile';
 export default class MyStaffJoinedItem extends Component {
@@ -17,6 +19,11 @@ export default class MyStaffJoinedItem extends Component {
         super(props);
         this.state = {
             waitingTime:180-this.getLagTime(this.props.row.joindate),
+            tipsModal:false,
+            failSucessTips:'' , //对不起，充值失败 或恭喜你，充值成功
+            failSucessImage:require('./img/joinFail.png'),
+            respMessage:null,
+            retcode:2001,
         }
 
     }
@@ -62,15 +69,12 @@ export default class MyStaffJoinedItem extends Component {
             }
         }).catch(err => {
             changeLoading_calBack(false)
-            Alert.alert(
-                    '删除失败',
-                    '',
-                    [
-                        {
-                            text: '好的'
-                        }
-                    ]
-            );
+            this.setState({
+                tipsModal:true,
+                failSucessTips:"",
+                failSucessImage:require('./img/joinFail.png'),
+                respMessage:"删除失败",
+            })
         });
     }
 
@@ -91,6 +95,26 @@ export default class MyStaffJoinedItem extends Component {
                         <Image source={require('./img/deleteIcon.png')} style={{width: 15, height: 20}}/>
                     </TouchableOpacity>
                 </View>
+                {this.state.tipsModal ?
+                    <View style={styles.ModalView}>
+                        <View style={styles.AlertView}>
+                            <Image source={this.state.failSucessImage} resizeMode={'contain'}   style={{width: 120, height: 90, marginTop: 10}}/>
+                            <View style={{marginTop: 10}}>
+                                <Text style={{fontSize: 10}}>{this.state.respMessage}</Text>
+                            </View>
+
+                            <View style={styles.DownButtonView}>
+
+                                <TouchableOpacity onPress={this.hideTips.bind(this)}
+                                                  style={[styles.DownButton, {width: 230, backgroundColor: '#ffffff'}]}>
+                                    <Text style={{color: '#018be6'}}>确定</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                    :
+                    <View/>
+                }
             </View>
         );
     }
@@ -109,5 +133,43 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: width * 0.2,
         height: 40
+    },
+    DownButtonView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width:230,
+        height:40,
+        marginTop:10,
+        borderTopWidth:1/ratio,
+        borderTopColor:'#4c4c4c'
+    },
+    DownButton:{
+        height:40,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        borderBottomRightRadius:5,
+        borderBottomLeftRadius:5
+    },
+    ModalView: {
+        position: 'absolute',
+        width:width,
+        height:height,
+        left:0,
+        top:0,
+        flexDirection:'column',
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor: 'rgba(0,0,0,0.2)'
+    },
+    AlertView: {
+        width: 230,
+        zIndex: 5,
+        marginTop:-64,
+        flexDirection: 'column',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius:5
     },
 })

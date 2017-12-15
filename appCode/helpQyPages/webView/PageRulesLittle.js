@@ -30,7 +30,16 @@ export default class PageRulesLittle extends Component {
             this.props.navigation.navigate('PageLogin')
         }
     }
-
+    static navigationOptions = {
+        title: '互助公约',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     componentWillUnmount() {
         loginEmitterEvent.remove();
 

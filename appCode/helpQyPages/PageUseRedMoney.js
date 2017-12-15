@@ -12,9 +12,8 @@ import {
     Alert
 } from 'react-native';
 import React, {Component} from 'react';
-import {NativeModules} from 'react-native';
 
-var Alipay = NativeModules.Alipay;
+import Alipay from 'react-native-nova-alipay';
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 let ratio = PixelRatio.get();
@@ -46,7 +45,16 @@ export default class PageUseRedMoney extends Component {
             plansName:'请选择计划'
         };
     }
-
+    static navigationOptions = {
+        title: '使用红包',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     componentDidMount() {
         const {changeMoneyStatusCallBack} = this.props.navigation.state.params;
         this.setState({
@@ -104,49 +112,41 @@ export default class PageUseRedMoney extends Component {
 
     goPay() {
         if (this.state.accountUUID == null || this.state.accountUUID == '' || this.state.accountUUID.length != 18) {
-            return Alert.alert(
-                '格式错误',
-                '请检查身份证格式',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsModal:true,
+                failSucessTips:"",
+                failSucessImage:require('./img/joinFail.png'),
+                respMessage:"请检查身份证格式",
+            })
+            return
         }
         if (this.state.name == null || this.state.name == '') {
-            return Alert.alert(
-                '格式错误',
-                '请检查姓名格式',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsModal:true,
+                failSucessTips:"",
+                failSucessImage:require('./img/joinFail.png'),
+                respMessage:"请检查姓名格式",
+            })
+            return
         }
         if (this.state.helptype == null || this.state.helptype == '') {
-            return Alert.alert(
-                '格式错误',
-                '请检查您选择的计划',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsModal:true,
+                failSucessTips:"",
+                failSucessImage:require('./img/joinFail.png'),
+                respMessage:"请检查所选的互助计划",
+            })
+            return
         }
 
         if (this.state.checked == null || this.state.checked == '') {
-            return Alert.alert(
-                '格式错误',
-                '请检查您选择的金额',
-                [
-                    {
-                        text: '好的'
-                    }
-                ]
-            );
+            this.setState({
+                tipsModal:true,
+                failSucessTips:"",
+                failSucessImage:require('./img/joinFail.png'),
+                respMessage:"请检查您的充值金额",
+            })
+            return
         }
 
              let params = {
@@ -190,9 +190,8 @@ export default class PageUseRedMoney extends Component {
                 if (resp.retcode === 2000) {
                     let oderStr = resp.oderStr; //这个是返回的加密的字符串
 
-                    Alipay.signedString(oderStr, (err, data) => {
-
-                        if (err.resultStatus == "9000") {
+                    Alipay.pay(oderStr).then((data)=>{
+                        if (data == 'success') {
                             this.setState({
                                 tipsModal: true,
                                 failSucessTips: "恭喜你，充值成功",
@@ -210,8 +209,16 @@ export default class PageUseRedMoney extends Component {
                                 retcode: 9001
                             })
                         }
-
+                    }, (err)=> {
+                        this.setState({
+                            tipsModal: true,
+                            failSucessTips: "对不起，充值失败",
+                            failSucessImage: require('./img/joinFail.png'),
+                            respMessage: null,
+                            retcode: 9001
+                        })
                     });
+
 
                 } else {//弹出提示框
                     this.setState({
@@ -281,6 +288,7 @@ export default class PageUseRedMoney extends Component {
                             placeholder='输入被保障人的姓名'
                             keyboardType='email-address'
                             maxLength={30}
+                            underlineColorAndroid={'transparent'}
                             ref='default'
                             autoCapitalize='none'
                             clearButtonMode='always'
@@ -296,6 +304,7 @@ export default class PageUseRedMoney extends Component {
                             placeholder='输入被保障人的身份证号'
                             keyboardType='email-address'
                             maxLength={30}
+                            underlineColorAndroid={'transparent'}
                             ref='refemail'
                             autoCapitalize='none'
                             clearButtonMode='always'

@@ -1,4 +1,6 @@
 rootProject.name = 'helpQy'
+include ':react-native-nova-alipay'
+project(':react-native-nova-alipay').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-nova-alipay/android')
 include ':react-native-wechat-android'
 project(':react-native-wechat-android').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-wechat-android/android')
 include ':react-native-image-picker'

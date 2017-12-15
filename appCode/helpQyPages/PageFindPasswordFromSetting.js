@@ -158,6 +158,13 @@ export default class PageFindPasswordFromSetting extends Component {
 
     static navigationOptions = {
         title: '找回密码',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
     };
 
     handlePhoneChange(event) {
@@ -248,6 +255,7 @@ export default class PageFindPasswordFromSetting extends Component {
                                     placeholder='输入您注册的手机号'
                                     keyboardType='email-address'
                                     maxLength={30}
+                                    underlineColorAndroid={'transparent'}
                                     ref='refemail'
                                     autoCapitalize='none'
                                     clearButtonMode='always'
@@ -262,6 +270,7 @@ export default class PageFindPasswordFromSetting extends Component {
                                     style={[styles.passwordinput, {width: width * 0.55,}]}
                                     ref='refpass'
                                     maxLength={18}
+                                    underlineColorAndroid={'transparent'}
                                     placeholder={'输入验证码'}
                                     autoCapitalize='none'
                                     clearButtonMode='always'
@@ -294,6 +303,7 @@ export default class PageFindPasswordFromSetting extends Component {
                                     placeholder='输入您的新密码'
                                     keyboardType='email-address'
                                     maxLength={30}
+                                    underlineColorAndroid={'transparent'}
                                     ref='refemail'
                                     autoCapitalize='none'
                                     clearButtonMode='always'

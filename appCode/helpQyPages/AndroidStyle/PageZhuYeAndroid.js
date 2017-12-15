@@ -125,7 +125,8 @@ const PageZhuYeAndroid = StyleSheet.create({
         height: 30+heightPixel,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius:5
     }
 });
 export  default PageZhuYeAndroid;

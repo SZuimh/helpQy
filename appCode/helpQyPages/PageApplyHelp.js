@@ -27,7 +27,16 @@ export default class PageApplyHelp extends Component {
     componentDidMount() {
         //这里要获取已经加入的人数
     }
-
+    static navigationOptions = {
+        title: '申请互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     render() {
 
         return (

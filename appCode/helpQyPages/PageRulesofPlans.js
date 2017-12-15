@@ -26,7 +26,16 @@ export default class PageRulesofPlans extends Component {
         this.state = {
         }
     }
-
+    static navigationOptions = {
+        title: '规则说明',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
 
     render() {
         return (

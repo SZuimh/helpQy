@@ -45,7 +45,14 @@ export default class PageMyStaffHarmFromZhuye extends Component {
     }
 
     static navigationOptions = {
-        title: '员工综合意外',
+        title: '企业员工综合意外互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
     };
 
     componentDidMount() {

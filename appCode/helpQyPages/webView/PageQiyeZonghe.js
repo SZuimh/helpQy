@@ -29,7 +29,14 @@ export default class PageQiyeZonghe extends Component {
         };
     }
     static navigationOptions = {
-        title: '员工意外互助',
+        title: '企业员工综合意外互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
     };
     componentDidMount(){
         this.timergo = setTimeout(() => {

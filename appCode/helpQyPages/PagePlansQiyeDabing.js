@@ -44,6 +44,16 @@ export default class PagePlansQiyeDabing extends Component {
             token:this.props.navigation.state.params.token,
         })
     }
+    static navigationOptions = {
+        title: '企业员工大病互助',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     changeDisplay() {
         if (this.state.display == 'none') {
             this.setState({

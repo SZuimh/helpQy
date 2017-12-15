@@ -36,7 +36,16 @@ export default class PageSystemNotificationList extends Component {
         this.makeRemoteRequest();
 
     }
-
+    static navigationOptions = {
+        title: '消息通知',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     // 获取数据
     makeRemoteRequest = () => {
         this.setState({

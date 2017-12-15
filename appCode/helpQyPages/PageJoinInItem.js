@@ -24,7 +24,8 @@ export default class PageJoinInItem extends Component {
             nickName: '',
             IDCard: '',
             userUUID: "",
-            testValue: ''
+            testValue: '',
+            aaa:""
         }
 
     }
@@ -35,6 +36,7 @@ export default class PageJoinInItem extends Component {
             IDCard: this.props.row.IDCard,
             moneyNumber: this.props.row.moneyNumber
         })
+       // console.log(this.props)
     }
 
 
@@ -53,15 +55,32 @@ export default class PageJoinInItem extends Component {
 
     handleIDCardChange(event) {
 
+        console.log(event)
         let {changeIDCardCallBack} = this.props;
-        changeIDCardCallBack(this.props.row.number, event.nativeEvent.text);
+        if ( event.length!=18){
+            return
+        }else {
+            changeIDCardCallBack(this.props.row.number, event);
+        }
+
     }
 
     handleNickNameChange(event) {
+        //console.log(event)
+        this.setState({
+            aaa:event
+        })
 
+       // event if (event.length<2){
+       //      return
+       //  }else {
+       //      let {changeNickNameCallBack} = this.props;
+       //      changeNickNameCallBack(this.props.row.number, event)
+       //  }
+    }
+    onBlurEvent(){
         let {changeNickNameCallBack} = this.props;
-        changeNickNameCallBack(this.props.row.number, event.nativeEvent.text)
-
+        changeNickNameCallBack(this.props.row.number, this.state.aaa)
     }
 
     _addEmployee(param) {
@@ -103,14 +122,16 @@ export default class PageJoinInItem extends Component {
                                     placeholder='请输入被保障人的真实姓名'
                                     keyboardType='default'
                                     maxLength={30}
+                                    underlineColorAndroid={'transparent'}
                                     ref='refemail'
                                     autoCapitalize='none'
                                     clearButtonMode='always'
                                     clearTextOnFocus={false}
                                     keyboardAppearance='dark'
                                     autoCorrect={false}
-                                    defaultValue={this.state.nickName}
-                                    onBlur={this.handleNickNameChange.bind(this)}/>
+                                    defaultValue={this.props.row.nickName+""}
+                                    onBlur={this.onBlurEvent.bind(this)}
+                                    onChangeText={this.handleNickNameChange.bind(this)}/>
                             </View>
                         </View>
                     </View>
@@ -125,14 +146,15 @@ export default class PageJoinInItem extends Component {
                                     placeholder='被保障人的身份证号'
                                     keyboardType='email-address'
                                     maxLength={30}
+                                    underlineColorAndroid={'transparent'}
                                     ref='refemail2'
                                     autoCapitalize='none'
                                     clearButtonMode='always'
                                     clearTextOnFocus={false}
                                     keyboardAppearance='dark'
                                     autoCorrect={false}
-                                    defaultValue={this.state.IDCard}
-                                    onBlur={this.handleIDCardChange.bind(this)}/>
+                                    defaultValue={this.state.IDCard+""}
+                                    onChangeText={this.handleIDCardChange.bind(this)}/>
                             </View>
                         </View>
                     </View>
@@ -179,7 +201,10 @@ export default class PageJoinInItem extends Component {
                 <Modal
                     animationType={this.state.animationType}
                     transparent={this.state.transparent}
-                    visible={this.state.modalVisible}>
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {
+                        alert("Modal has been closed.")
+                    }}>
                     <View style={styles.modalMaxView}>
                         <View style={styles.selectPayMoneyWrapper}>
                             <View style={styles.selectPayMoney}>

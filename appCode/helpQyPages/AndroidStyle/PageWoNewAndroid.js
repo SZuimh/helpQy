@@ -37,7 +37,7 @@ const PageWoNewAndroid = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
     },
     PageWoNewUserPhotoView: {
         width: 80,
@@ -66,7 +66,7 @@ const PageWoNewAndroid = StyleSheet.create({
     PageWoNewUserNameView: {
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
     },
     PageWoNewTongzhi: {
         flexDirection: 'column',
@@ -82,8 +82,9 @@ const PageWoNewAndroid = StyleSheet.create({
     PageWoNewTongzhiImage: {},
     PageWoNewUserName: {
         alignSelf: 'flex-start',
-        fontSize: 20+addPixel,
-        fontWeight: 'bold'
+        fontSize: 18+addPixel,
+        fontWeight: 'bold',
+        color:'black'
     },
     PageWoNewMyAccount: {
         height: 20,
@@ -97,7 +98,8 @@ const PageWoNewAndroid = StyleSheet.create({
         marginRight: 20
     },
     PageWoNewMyAccountFont: {
-        fontSize: 12+addPixel,
+        fontSize: 10+addPixel,
+        color:'black'
     },
     PageWoNewMyChoice: {
         width: width,
@@ -125,8 +127,9 @@ const PageWoNewAndroid = StyleSheet.create({
         backgroundColor: '#E0DCDC'
     },
     PageWoNewChoiceFont: {
-        fontSize: 16+addPixel,
-        fontWeight: 'bold'
+        fontSize: 12+addPixel,
+        fontWeight: 'bold',
+        color:'black'
     },
     PageWoNewTiShi: {
         position: 'absolute',

@@ -143,15 +143,15 @@ export default class PageZhuYe extends Component {
     render() {
         return (
             <View>
-                <View style={styles.LunBoView}>
-                    <FocusImage/>
-                </View>
+                {/*<View style={styles.LunBoView}>*/}
+                    {/*<FocusImage/>*/}
+                {/*</View>*/}
                 <StatusBar
                     animated={true}
                     hidden={false}
-                    backgroundColor={'blue'}
+                    backgroundColor={'black'}
                     translucent={false}
-                    barStyle={'dark-content'}
+                    barStyle={'default'}
                     networkActivityIndicatorVisible={false}
                     showHideTransition={'fade'}/>
                 <View style={{backgroundColor: '#fff',}}>
@@ -169,7 +169,7 @@ export default class PageZhuYe extends Component {
                         progressBackgroundColor="#ffff00"
                     />
                 }>
-                    <View style={{height:200,width:width}}></View>
+                  
                     {/*加入互助，200万人已经加入*/}
                     <View style={styles.joinHuzhu}>
                         <Text style={{color: '#414141'}}>加入企业互助</Text>

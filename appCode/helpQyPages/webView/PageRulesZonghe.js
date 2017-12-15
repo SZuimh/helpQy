@@ -17,6 +17,16 @@ export default class PageRulesZonghe extends Component {
             isLogin: false,
         };
     }
+    static navigationOptions = {
+        title: '互助公约',
+        headerRight:(
+            <View></View>
+        ),
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center'
+        }
+    };
     goJoin() {
         if (this.state.isLogin) {
             this.props.navigation.navigate('PageJoin', {
