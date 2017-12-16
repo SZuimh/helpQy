@@ -184,7 +184,7 @@ export default class PageWo extends Component {
             };
             let responseR = UploadFile(option);
             responseR.then(resp => {
-                console.log(resp)
+
                 if (resp.retcode == 2001) {
                     //未查到数据 说明没有进行审核信息的提交
                     this.props.navigation.navigate('PageQiyeShiming', {
