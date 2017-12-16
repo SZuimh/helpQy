@@ -47,10 +47,13 @@ export default class PageMyStaffFromZhuye extends Component {
     }
 
     componentDidMount() {
-
         this.makeRemoteRequestNo();
-
     }
+
+    componentWillUnmount(){
+        this.timergo && clearTimeout(this.timergo);
+    }
+
     static navigationOptions = {
         title: '企业员工大病互助',
         headerRight:(
@@ -287,7 +290,7 @@ export default class PageMyStaffFromZhuye extends Component {
         let responseR = UploadFile(option);
         responseR.then(resp => {
             // console.log(this.props)
-            setTimeout(()=>{
+            this.timergo=setTimeout(()=>{
                 let FirstPay= resp.retcode==2000?true:false;
                 this.props.navigation.navigate('PagePayForStaffInZhuye',{HelpTypeMessage:this.props.navigation.state.params.HelpTypeMessage,
                     payMoneyCallBack:this.props.navigation.state.params.payMoneyCallBack,PageZhuYeKey:this.props.navigation.state.params.PageZhuYeKey,

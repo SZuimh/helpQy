@@ -60,7 +60,9 @@ export default class PageMyStaffHarmFromZhuye extends Component {
         this.makeRemoteRequestNo();
 
     }
-
+    // componentWillUnmount(){
+    //     this.timergo && clearTimeout(this.timergo);
+    // }
     // 获取数据，适用于已加入员工
     makeRemoteRequestYes = () => {
 
@@ -273,7 +275,6 @@ export default class PageMyStaffHarmFromZhuye extends Component {
     }
 
     goPayForStaff() {
-
 
         let formDataTemp = new FormData();
         formDataTemp.append("useruuid", this.props.navigation.state.params.useruuid);

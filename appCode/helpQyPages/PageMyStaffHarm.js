@@ -57,6 +57,9 @@ export default class PageMyStaffHarm extends Component {
         this.makeRemoteRequestNo();
 
     }
+    componentWillUnmount(){
+        this.timergo && clearTimeout(this.timergo);
+    }
 
     // 获取数据，适用于已加入员工
     makeRemoteRequestYes = () => {
@@ -280,7 +283,7 @@ export default class PageMyStaffHarm extends Component {
         let responseR = UploadFile(option);
         responseR.then(resp => {
             // console.log(this.props)
-            setTimeout(()=>{
+           this.timergo= setTimeout(()=>{
                 let FirstPay= resp.retcode==2000?true:false;
                 this.props.navigation.navigate('PagePayForStaff',{HelpTypeMessage:this.props.navigation.state.params.HelpTypeMessage,
                     payMoneyCallBack:this.props.navigation.state.params.payMoneyCallBack,PageMyEmployeeKey:this.props.navigation.state.key,
