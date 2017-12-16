@@ -35,9 +35,16 @@ const PageWoNewAndroid = StyleSheet.create({
         width: width,
         height: 90+heightPixel,
         backgroundColor: 'white',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    messageTouch: {
+        width: 30,
+        height: 30,
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start'
     },
     PageWoNewUserPhotoView: {
         width: 80,
@@ -47,7 +54,7 @@ const PageWoNewAndroid = StyleSheet.create({
         alignItems: 'center'
     },
     PageWoNewHeader: {
-        width: width - 15,
+        width: 200,
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'white',

@@ -16,16 +16,9 @@ import React, {Component} from 'react';
 import {UrlGetShimingInfo} from '../utils/url';
 import UploadFile from '../utils/uploadFile';
 
-import  PageWoNewiOS from  './iOSStyle/PageWoNewiOS';
+
 import  PageWoNewAndroid  from  './AndroidStyle/PageWoNewAndroid';
-let styles=null;
-if (Platform.OS==='android') {
-    styles=PageWoNewAndroid;
-
-}else{
-    styles=PageWoNewiOS;
-}
-
+let styles=PageWoNewAndroid;
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 let ratio = PixelRatio.get();
@@ -254,16 +247,15 @@ export default class PageWo extends Component {
         return (
             <View style={styles.PageWoNewMaxView}>
                 <View style={styles.PageWoNewMaxHeader}>
+                    {/*头像昵称要靠左边*/}
                     <View style={styles.PageWoNewHeader}>
+                        {/*用户头像*/}
                         <View style={styles.PageWoNewUserPhotoView}>
                             <Image source={{uri: this.state.userphoto}} style={styles.userPhoto} resizeMode={'cover'}/>
                         </View>
+                        {/*请登录，公司或者个人账户*/}
                         <View style={styles.PageWoNewTongzhi}>
                             <View style={styles.PageWoNewUserNameAndTongzhiView}>
-                                <TouchableOpacity style={{alignSelf: 'flex-end', width: 30, height: 30, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}
-                                                  onPress={this.goNotificationList.bind(this)}>
-                                    <Image source={require('./img/message.png')} style={styles.PageWoNewTongzhiImage} resizeMode={'contain'}/>
-                                </TouchableOpacity>
                                 {this.state.isLogin ?
                                     <Text style={styles.PageWoNewUserName}>{this.state.usernickname}</Text> :
                                     <TouchableOpacity onPress={this.goLogin.bind(this)}>
@@ -281,7 +273,13 @@ export default class PageWo extends Component {
                             </View>
                         </View>
                     </View>
+
+                    {/*消息通知*/}
+                    <TouchableOpacity onPress={this.goNotificationList.bind(this)} style={styles.messageTouch}>
+                        <Image source={require('./img/message.png')} style={styles.PageWoNewTongzhiImage} resizeMode={'contain'}/>
+                    </TouchableOpacity>
                 </View>
+
                 <View style={styles.PageWoNewMyChoice}>
                     <View style={styles.PageWoNewChoiceView}>
                         <TouchableOpacity style={styles.PageWoNewChoice} onPress={this.goMyHomers.bind(this)}>
