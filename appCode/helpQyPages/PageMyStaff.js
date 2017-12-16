@@ -42,7 +42,6 @@ export default class PageMyStaff extends Component {
             joinState: 1,     //1表示现在显示的是待加入的  2 表示现在显示的是已经加入的
             haveDataOrNoData1: false,
             haveDataOrNoData2: false,
-            changeToyesTag: true,
             isRefreshing:false
         };
     }
@@ -363,19 +362,15 @@ export default class PageMyStaff extends Component {
         this.setState({
             joinState: 1,
         })
+        this.makeRemoteRequestNo();
     }
 
     changeJoinedItem() {//点击切换到加入员工
-        let changeTag = this.state.changeToyesTag;
         this.setState({
             joinState: 2,
-            changeToyesTag: false
         })
         // 将 我的员工界面显示的列表变为 已经加入的员工
-        if (changeTag) {
-            this.makeRemoteRequestYes();
-        }
-
+        this.makeRemoteRequestYes();
     }
 
     static navigationOptions = {
