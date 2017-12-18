@@ -126,6 +126,22 @@ const PageZhuYeAndroid = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius:5
+    },
+    backgroundImage: {
+        width,
+        height
+    },
+    foregroundTextContainer: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "transparent"
+    },
+    foregroundText: {
+        fontSize: 34,
+        fontWeight: "700",
+        letterSpacing: 0.41,
+        color: "white"
     }
 });
 export  default PageZhuYeAndroid;

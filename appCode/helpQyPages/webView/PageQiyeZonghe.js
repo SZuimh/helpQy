@@ -41,7 +41,7 @@ export default class PageQiyeZonghe extends Component {
     componentDidMount(){
         this.timergo = setTimeout(() => {
             this.getSumInfo();
-        }, 500)
+        }, 10)
     }
     componentWillUnmount(){
         this.timergo && clearTimeout(this.timergo);

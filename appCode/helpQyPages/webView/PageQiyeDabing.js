@@ -43,7 +43,7 @@ export default class PageQiyeDabing extends Component {
     componentDidMount(){
         this.timergo = setTimeout(() => {
             this.getSumInfo();
-        }, 500)
+        }, 100)
     }
     componentWillUnmount(){
         this.timergo && clearTimeout(this.timergo);

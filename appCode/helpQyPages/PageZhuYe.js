@@ -34,13 +34,24 @@ export default class PageZhuYe extends Component {
             sumQiye: 0,  //
             sumStaff: 0,  //
             sumMan: 0,  //
-            isRefreshing:false
-
+            isRefreshing:false,
+            image1: require('./img/LunboFri.png'),
+            image2:require('./img/LunboSec.png'),
+            image3:require('./img/LunboThr.png')
         };
     }
 
     componentDidMount() {
         this.getMainSumInfo();
+    }
+
+
+    timeDown() {
+        let source=require('./img/LunboFri.png');
+
+        this.timer = setInterval(() => {
+
+        }, 1000);
     }
     _onRefresh(){
         //页面刷新方法
@@ -136,7 +147,6 @@ export default class PageZhuYe extends Component {
     render() {
         return (
             <View>
-
                 <StatusBar
                     animated={true}
                     hidden={false}
@@ -145,6 +155,8 @@ export default class PageZhuYe extends Component {
                     barStyle={'default'}
                     networkActivityIndicatorVisible={false}
                     showHideTransition={'fade'}/>
+
+
                 <ScrollView
                     refreshControl={
                     <RefreshControl

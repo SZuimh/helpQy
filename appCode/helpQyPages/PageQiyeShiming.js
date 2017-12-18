@@ -508,13 +508,12 @@ export default class PageQiyeShiming extends Component {
                             <View style={styles.emptyViewForLine}></View>
                             <View style={styles.uploadImgView}>
                                 <View style={styles.uploadImageOneView}>
-                                    <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 1)}
-                                                      style={styles.imgButton}>
+                                    <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 1)}>
                                         <Image key={1} source={this.state.imgOneUrl}
                                                style={{width: 60, height: 60}}
                                                resizeMode={'cover'}/>
-                                        <Text style={styles.uploadText}>公司执照</Text>
                                     </TouchableOpacity>
+                                    <Text style={styles.uploadText}>公司执照</Text>
                                 </View>
                                 <View style={styles.uploadImageOneView}>
                                     <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 2)}>
@@ -602,9 +601,10 @@ let styles = StyleSheet.create({
         textAlign: 'center'
     },
     uploadImageOneView: {
-        width: width * 0.22,
+        width: 70,
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent:'center'
     },
     uploadText: {
         marginTop: 10,
