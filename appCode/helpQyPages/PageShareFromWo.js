@@ -63,10 +63,23 @@ export default class PageShare extends Component {
     }
     _shareToWechatSession() { // 分享到微信会话
         // console.log(this.state.companyname)
-        WeChat.webShareWeXinWithScene(0, '葡萄互助', '【'+this.state.companyname+'】邀请您加入葡萄互助【'+this.getPlansName(this.props.navigation.state.params.helptype)+'】', 'http://oztdsemro.bkt.clouddn.com/putaohuzhu/grapelogo.png',
-            'http://www.putaohuzhu.cn/glove/grape/staffjoin.do?useruuid='+this.state.useruuid+'&helptype='+this.props.navigation.state.params.helptype, (err, sendOK) => {
-                this.props.navigation.goBack();
-            })
+        // WeChat.webShareWeXinWithScene(0, '葡萄互助', '【'+this.state.companyname+'】邀请您加入葡萄互助【'+this.getPlansName(this.props.navigation.state.params.helptype)+'】', 'http://oztdsemro.bkt.clouddn.com/putaohuzhu/grapelogo.png',
+        //     'http://www.putaohuzhu.cn/glove/grape/staffjoin.do?useruuid='+this.state.useruuid+'&helptype='+this.props.navigation.state.params.helptype, (err, sendOK) => {
+        //         this.props.navigation.goBack();
+        //     })
+
+        let webpageOptions = {
+            title: '葡萄互助',
+            desc: '【'+this.state.companyname+'】邀请您加入葡萄互助【'+this.getPlansName(this.props.navigation.state.params.helptype)+'】',
+            thumbSize: 150,
+            scene: 0,
+            type: 3,
+            webpageUrl: 'http://www.putaohuzhu.cn/glove/grape/staffjoin.do?useruuid='+this.state.useruuid+'&helptype='+this.props.navigation.state.params.helptype,
+            thumbImage: 'http://oztdsemro.bkt.clouddn.com/putaoLogo@2x.png',
+        };
+        WeChat.sendReq(webpageOptions,(err,sendOK) => {
+            this.props.navigation.goBack();
+        });
     }
 
     render() {

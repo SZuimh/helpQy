@@ -71,7 +71,7 @@ export default class PageRulesQiyeDabing extends Component {
                     }
                     else if (resp.result.confirmif == 'refused') {
                         //审核信息有误，被拒绝
-                        this.props.navigation.navigate('PageQiyeShiming',{
+                        this.props.navigation.navigate('PageQyShimingRefused',{
                             useruuid: this.state.useruuid,
                             token: this.state.token,
                             ShimingInfo:resp.result,

@@ -72,7 +72,7 @@ export default class PageRulesQiyeZonghe extends Component {
                     else if (resp.result.confirmif == 'refused') {
                         // console.log("ssss")
                         //审核信息有误，被拒绝
-                        this.props.navigation.navigate('PageQiyeShiming',{
+                        this.props.navigation.navigate('PageQyShimingRefused',{
                             useruuid: this.state.useruuid,
                             token: this.state.token,
                             ShimingInfo:resp.result,

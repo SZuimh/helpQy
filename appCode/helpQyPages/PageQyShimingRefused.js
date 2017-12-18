@@ -27,7 +27,7 @@ let formData = new FormData();
 let ImagePicker = require('react-native-image-picker');
 let imgUrl = require('./img/uploadImg.png');
 let maxTime = 60;
-export default class PageQiyeShiming extends Component {
+export default class PageQyShimingRefused extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -116,7 +116,7 @@ export default class PageQiyeShiming extends Component {
 
             } else {
                 console.log(response)
-               // let uri = response.uri; // 适用于iOS
+                // let uri = response.uri; // 适用于iOS
                 let uri=response.path; //适用于android
                 if (uri.indexOf('file://') < 0) {
                     uri = 'file://' + uri;
@@ -286,15 +286,15 @@ export default class PageQiyeShiming extends Component {
     }
 
     getCode() {
+
         if (this.state.phone == null || this.state.phone == '' || this.state.phone.length != 11){
             this.setState({
                 tipsText: '请检查您的手机号码',
                 tips:'请输入正确的手机号码(11位数字)',
                 tipsModal: true
             })
-            return
+          return
         }
-
 
         //调用倒计时方法
         this.timeDown();
@@ -379,166 +379,194 @@ export default class PageQiyeShiming extends Component {
         return (
             <View style={{width: width, flex: 1}}>
                 <ScrollView>
-                    <View>
-                        <View style={styles.QiyeShimingMaxView}>
-                            <View style={styles.QiyeShimingTitleView}>
-                                <Text style={{fontSize: 16, color: '#4a4a4a'}}>填写企业信息</Text>
+                    <View style={styles.QiyeShimingMaxView}>
+                        <View style={styles.QiyeShimingStatus}>
+                            <Text style={{height: 20, color: 'red', fontSize: 15, marginTop: 10}}>审核未通过</Text>
+                            <Text style={{height:20,fontSize:15,marginTop:10,marginBottom:10}}>原因:{params.comment}</Text>
+                        </View>
+                        <View style={{width: width, height: 5, backgroundColor: '#fafafa'}}></View>
+                        <View style={styles.QiyeShimingTitleView}>
+                            <Text style={{fontSize: 16, color: '#4a4a4a'}}>重新填写企业信息</Text>
+                        </View>
+                        <View style={styles.TextinputView}>
+                            <View style={styles.passwordinputTitle}>
+                                <Text style={styles.inputName}>公司</Text>
                             </View>
-                            <View style={styles.TextinputView}>
+                            <TextInput
+                                style={styles.passwordinputAndTitle}
+                                placeholder='企业名称'
+                                keyboardType='email-address'
+                                maxLength={30}
+                                underlineColorAndroid={'transparent'}
+                                ref='refemail'
+                                autoCapitalize='none'
+                                clearButtonMode='always'
+                                clearTextOnFocus={false}
+                                keyboardAppearance='dark'
+                                autoCorrect={false}
+                                defaultValue={params.ShimingInfo.name}
+                                onChange={this.handleCompanyNameChange.bind(this)}
+                            />
+                        </View>
+                        <View style={styles.emptyViewForLine}></View>
+                        <View style={styles.TextinputView}>
+                            <View style={styles.passwordinputTitle}>
+                                <Text  style={styles.inputName}>统一征信码</Text>
+                            </View>
+                            <TextInput
+                                style={styles.passwordinputAndTitle}
+                                placeholder='统一社会征信代码'
+                                keyboardType='email-address'
+                                maxLength={30}
+                                underlineColorAndroid={'transparent'}
+                                ref='refemail'
+                                autoCapitalize='none'
+                                clearButtonMode='always'
+                                clearTextOnFocus={false}
+                                keyboardAppearance='dark'
+                                autoCorrect={false}
+                                defaultValue={params.ShimingInfo.numberid}
+                                onChange={this.handleZhengxindaimaChange.bind(this)}
+                            />
+                        </View>
+                        <View style={styles.emptyViewForLine}></View>
+                        <View style={styles.TextinputView}>
+                            <View style={styles.passwordinputTitle}>
+                                <Text style={styles.inputName}>法人</Text>
+                            </View>
+                            <TextInput
+                                style={styles.passwordinputAndTitle}
+                                placeholder='法定代表人'
+                                keyboardType='email-address'
+                                maxLength={30}
+                                underlineColorAndroid={'transparent'}
+                                ref='refemail'
+                                autoCapitalize='none'
+                                clearButtonMode='always'
+                                clearTextOnFocus={false}
+                                keyboardAppearance='dark'
+                                autoCorrect={false}
+                                defaultValue={params.ShimingInfo.legalperson}
+                                onChange={this.handleFarenChange.bind(this)}
+                            />
+                        </View>
+                        <View style={styles.emptyViewForLine}></View>
+                        <View style={styles.TextinputView}>
+                            <View style={styles.passwordinputTitle}>
+                                <Text  style={styles.inputName}>手机</Text>
+                            </View>
+                            <TextInput
+                                style={styles.passwordinputAndTitle}
+                                placeholder='联系人手机号'
+                                keyboardType='email-address'
+                                maxLength={30}
+                                underlineColorAndroid={'transparent'}
+                                ref='refemail'
+                                autoCapitalize='none'
+                                clearButtonMode='always'
+                                clearTextOnFocus={false}
+                                keyboardAppearance='dark'
+                                autoCorrect={false}
+                                defaultValue={params.ShimingInfo.phone}
+                                onChange={this.handlePhoneChange.bind(this)}
+                            />
+                        </View>
+                        <View style={styles.emptyViewForLine}></View>
+                        <View style={styles.password}>
+                            <View style={styles.inputWrap}>
+                                <View style={styles.passwordinputTitle}>
+                                    <Text style={styles.inputName}>验证码</Text>
+                                </View>
                                 <TextInput
-                                    style={styles.passwordinput}
-                                    placeholder='企业名称'
-                                    keyboardType='email-address'
-                                    maxLength={30}
+                                    style={[styles.passwordinput, {width: width * 0.35}]}
+                                    ref='refpass'
+                                    maxLength={18}
                                     underlineColorAndroid={'transparent'}
-                                    ref='refemail'
+                                    placeholder={'输入验证码'}
                                     autoCapitalize='none'
                                     clearButtonMode='always'
-                                    clearTextOnFocus={false}
                                     keyboardAppearance='dark'
                                     autoCorrect={false}
-                                    onChange={this.handleCompanyNameChange.bind(this)}
-                                />
-                            </View>
-                            <View style={styles.emptyViewForLine}></View>
-                            <View style={styles.TextinputView}>
-                                <TextInput
-                                    style={styles.passwordinput}
-                                    placeholder='统一社会征信代码'
-                                    keyboardType='email-address'
-                                    maxLength={30}
-                                    underlineColorAndroid={'transparent'}
-                                    ref='refemail'
-                                    autoCapitalize='none'
-                                    clearButtonMode='always'
-                                    clearTextOnFocus={false}
-                                    keyboardAppearance='dark'
-                                    autoCorrect={false}
-                                    onChange={this.handleZhengxindaimaChange.bind(this)}
-                                />
-                            </View>
-                            <View style={styles.emptyViewForLine}></View>
-                            <View style={styles.TextinputView}>
-                                <TextInput
-                                    style={styles.passwordinput}
-                                    placeholder='法定代表人'
-                                    keyboardType='email-address'
-                                    maxLength={30}
-                                    underlineColorAndroid={'transparent'}
-                                    ref='refemail'
-                                    autoCapitalize='none'
-                                    clearButtonMode='always'
-                                    clearTextOnFocus={false}
-                                    keyboardAppearance='dark'
-                                    autoCorrect={false}
-                                    onChange={this.handleFarenChange.bind(this)}
-                                />
-                            </View>
-                            <View style={styles.emptyViewForLine}></View>
-                            <View style={styles.TextinputView}>
-                                <TextInput
-                                    style={styles.passwordinput}
-                                    placeholder='联系人手机号'
-                                    keyboardType='email-address'
-                                    maxLength={30}
-                                    underlineColorAndroid={'transparent'}
-                                    ref='refemail'
-                                    autoCapitalize='none'
-                                    clearButtonMode='always'
-                                    clearTextOnFocus={false}
-                                    keyboardAppearance='dark'
-                                    autoCorrect={false}
-                                    onChange={this.handlePhoneChange.bind(this)}
-                                />
-                            </View>
-                            <View style={styles.emptyViewForLine}></View>
-                            <View style={styles.password}>
-                                <View style={styles.inputWrap}>
-                                    <TextInput
-                                        style={[styles.passwordinput, {width: width * 0.55}]}
-                                        ref='refpass'
-                                        maxLength={18}
-                                        underlineColorAndroid={'transparent'}
-                                        placeholder={'输入验证码'}
-                                        autoCapitalize='none'
-                                        clearButtonMode='always'
-                                        keyboardAppearance='dark'
-                                        autoCorrect={false}
-                                        onChange={this.handleVerCodeChange.bind(this)}/>
+                                    onChange={this.handleVerCodeChange.bind(this)}/>
 
-                                    {
-                                        this.state.controlVerifyCode ?
-                                            <TouchableOpacity onPress={this.getCode.bind(this)}>
-                                                <Text style={{
-                                                    width: width * 0.25,
-                                                    fontSize: 12,
-                                                    color: '#1296db',
-                                                    textAlign: 'center'
-                                                }}>获取验证码</Text>
-                                            </TouchableOpacity> :
-                                            <View onPress={this.getCode.bind(this)}>
-                                                <Text style={{
-                                                    color: 'grey',
-                                                    width: width * 0.25,
-                                                    fontSize: 12,
-                                                }}>{this.state.time}秒后获取</Text>
-                                            </View>
-                                    }
-                                </View>
+                                {
+                                    this.state.controlVerifyCode ?
+                                        <TouchableOpacity onPress={this.getCode.bind(this)}>
+                                            <Text style={{
+                                                width: width * 0.25,
+                                                fontSize: 12,
+                                                color: '#1296db',
+                                                textAlign: 'center'
+                                            }}>获取验证码</Text>
+                                        </TouchableOpacity> :
+                                        <View onPress={this.getCode.bind(this)}>
+                                            <Text style={{
+                                                color: 'grey',
+                                                width: width * 0.25,
+                                                fontSize: 12,
+                                            }}>{this.state.time}秒后获取</Text>
+                                        </View>
+                                }
                             </View>
-                            <View style={styles.emptyViewForLine}></View>
-                            <View style={styles.TextinputView}>
-                                <TextInput
-                                    style={styles.passwordinput}
-                                    placeholder='公司邮箱'
-                                    keyboardType='email-address'
-                                    maxLength={30}
-                                    underlineColorAndroid={'transparent'}
-                                    ref='refemail'
-                                    autoCapitalize='none'
-                                    clearButtonMode='always'
-                                    clearTextOnFocus={false}
-                                    keyboardAppearance='dark'
-                                    autoCorrect={false}
-                                    onChange={this.handleEmailChange.bind(this)}
+                        </View>
+                        <View style={styles.emptyViewForLine}></View>
+                        <View style={styles.TextinputView}>
+                            <View style={styles.passwordinputTitle}>
+                                <Text style={styles.inputName}>邮箱</Text>
+                            </View>
+                            <TextInput
+                                style={styles.passwordinputAndTitle}
+                                placeholder='公司邮箱'
+                                keyboardType='email-address'
+                                maxLength={30}
+                                underlineColorAndroid={'transparent'}
+                                ref='refemail'
+                                autoCapitalize='none'
+                                clearButtonMode='always'
+                                clearTextOnFocus={false}
+                                keyboardAppearance='dark'
+                                autoCorrect={false}
+                                defaultValue={params.ShimingInfo.email}
+                                onChange={this.handleEmailChange.bind(this)}
 
-                                />
-                            </View>
-
-                            <View style={styles.emptyViewForLine}></View>
-                            <View style={styles.uploadImgView}>
-                                <View style={styles.uploadImageOneView}>
-                                    <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 1)}
-                                                      style={styles.imgButton}>
-                                        <Image key={1} source={this.state.imgOneUrl}
-                                               style={{width: 60, height: 60}}
-                                               resizeMode={'cover'}/>
-                                        <Text style={styles.uploadText}>公司执照</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={styles.uploadImageOneView}>
-                                    <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 2)}>
-                                        <Image key={2} source={this.state.imgTwoUrl}
-                                               style={{width: 60, height: 60}}
-                                               resizeMode={'cover'}/>
-                                    </TouchableOpacity>
-                                    <Text style={styles.uploadText}>法人身份证</Text>
-                                </View>
-                                <View style={styles.uploadImageOneView}>
-                                    <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 3)}>
-                                        <Image key={3} source={this.state.imgThreeUrl}
-                                               style={{width: 60, height: 60}}
-                                               resizeMode={'cover'}/>
-                                    </TouchableOpacity>
-                                    <Text style={styles.uploadText}>法人手持身份证</Text>
-                                </View>
-                            </View>
-                            <View style={styles.ShiMingTips}>
-                                <Text style={styles.ShiMingTipsText}>请根据提示，务必上传真实资料,以上选项皆为必填项</Text>
-                            </View>
-                            <View style={{width: width, height: 50}}></View>
+                            />
                         </View>
 
+                        <View style={styles.emptyViewForLine}></View>
+                        <View style={styles.uploadImgView}>
+                            <View style={styles.uploadImageOneView}>
+                                <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 1)}
+                                                  style={styles.imgButton}>
+                                    <Image key={1} source={this.state.imgOneUrl}
+                                           style={{width: 60, height: 60}}
+                                           resizeMode={'cover'}/>
+                                    <Text style={styles.uploadText}>公司执照</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.uploadImageOneView}>
+                                <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 2)}>
+                                    <Image key={2} source={this.state.imgTwoUrl}
+                                           style={{width: 60, height: 60}}
+                                           resizeMode={'cover'}/>
+                                </TouchableOpacity>
+                                <Text style={styles.uploadText}>法人身份证</Text>
+                            </View>
+                            <View style={styles.uploadImageOneView}>
+                                <TouchableOpacity onPress={this.goCompleteProfile.bind(this, 3)}>
+                                    <Image key={3} source={this.state.imgThreeUrl}
+                                           style={{width: 60, height: 60}}
+                                           resizeMode={'cover'}/>
+                                </TouchableOpacity>
+                                <Text style={styles.uploadText}>法人手持身份证</Text>
+                            </View>
+                        </View>
+                        <View style={styles.ShiMingTips}>
+                            <Text style={styles.ShiMingTipsText}>请根据提示，务必上传真实资料,以上选项皆为必填项</Text>
+                        </View>
+                        <View style={{width: width, height: 250}}></View>
+                    </View>
+
+                    <View>
                         {  this.state.tipsModal ?
                             <View style={styles.PageSettingChanegNameModal}>
                                 <View style={styles.AlertView}>
@@ -563,6 +591,7 @@ export default class PageQiyeShiming extends Component {
                         }
                     </View>
                 </ScrollView>
+
                 <TouchableOpacity style={styles.QiyeShimingButton} onPress={this.goRenzheng.bind(this)}>
                     <Text style={{color: 'white'}}>提交申请</Text>
                 </TouchableOpacity>

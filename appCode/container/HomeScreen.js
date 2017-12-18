@@ -56,6 +56,7 @@ import PageDescriptionOfGongshi from '../helpQyPages/PageDescriptionOfGongshi';
 import PageUseRedMoney from "../helpQyPages/PageUseRedMoney";
 import PagePlansQiyeDabing from "../helpQyPages/PagePlansQiyeDabing";
 import PageQiyeShiming from "../helpQyPages/PageQiyeShiming";
+import PageQyShimingRefused from "../helpQyPages/PageQyShimingRefused";
 import PageWoNew from '../helpQyPages/PageWoNew'
 import PagePayForHomer from '../helpQyPages/PagePayForHomer'
 import NewsContent from "../helpQyPages/webView/NewsContent";
@@ -323,6 +324,9 @@ const HomeScreen = StackNavigator({
 
     PageQiyeShiming: {
         screen: PageQiyeShiming
+    },
+    PageQyShimingRefused:{
+        screen:PageQyShimingRefused
     },
     PageWoNew: {
         screen: PageWoNew,

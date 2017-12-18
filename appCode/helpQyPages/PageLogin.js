@@ -149,6 +149,7 @@ export default class PageLogin extends Component {
     //         // console.log(err)
     //     });
     // }
+
     verify() { //检验邮箱密码是不是符合要求
         //输入完密码，点击return时，校验邮箱和密码是否合法
         //设置3个布尔变量，校验通过为true，否则false

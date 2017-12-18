@@ -10,7 +10,6 @@ import {
     Dimensions,
     View,
     PixelRatio,
-    Modal,
     AsyncStorage,
     NativeAppEventEmitter,
     Platform
@@ -35,17 +34,6 @@ let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 let ratio = PixelRatio.get();
 let appId = 'wxbdcf30c9232401a4';   // 微信的appid，
-
-
-var webpageOptions = {
-    title: '分享这个网页给你',
-    desc: '我发现这个网页很有趣，特意分享给你',
-    thumbSize: 150,
-    scene: 1,
-    type: 3,
-    webpageUrl: 'https://github.com/beefe/react-native-wechat-android',
-    thumbImage: 'http://img1.imgtn.bdimg.com/it/u=3924416677,403957246&fm=21&gp=0.jpg',
-};
 
 var loginEmitterEvent;
 var loginOutEmitterEvent;
@@ -148,90 +136,85 @@ export default class PageFind extends Component {
     }
 
     _shareToWechatSession() { // 分享到微信会话
+        if (!!this.state.isLogin) {
+            AsyncStorage.multiGet(["token","useruuid","usernickname"], (errros, result) => {
+                if (result[0][1] == null) {
+                    return
+                }
+                let webpageOptions = {
+                    title: '葡萄互助',
+                    desc: '【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障',
+                    thumbSize: 150,
+                    scene: 0,
+                    type: 3,
+                    webpageUrl:  'http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1],
+                    thumbImage: 'http://oztdsemro.bkt.clouddn.com/putaoLogo@2x.png',
+                };
+                WeChat.sendReq(webpageOptions,(err,sendOK) => {
+                    //console.log(sendOK)
+                });
 
-        WeChat.sendReq(webpageOptions,(err,sendOK) => {
-            //console.log(sendOK)
-        });
-
-        // if (!!this.state.isLogin) {
-        //     AsyncStorage.multiGet(["token","useruuid","usernickname"], (errros, result) => {
-        //         if (result[0][1] == null) {
-        //             return
-        //         }
-        //         // WeChat.webShareWeXinWithScene(0, '葡萄互助', '【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障', 'http://oztdsemro.bkt.clouddn.com/putaoLogo@2x.png',
-        //         //     'http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1], (err, sendOK) => {
-        //         //     });
-        //         WeChat.sendReq(webpageOptions,(err,sendOK) => {
-        //             console.log(sendOK)
-        //         });
-        //     })
-        //
-        // } else {
-        //     this.props.navigation.navigate('PageLogin')
-        // }
+            })
+        }
+        else {
+            this.props.navigation.navigate('PageLogin')
+        }
     }
 
     _shareToWechatPengyouQuan() { //分享到朋友圈
-        webpageOptions.scene=0;
-        WeChat.sendReq(webpageOptions,(err,sendOK) => {
-            console.log(sendOK)
-        });
+        if (!!this.state.isLogin) {
+            AsyncStorage.multiGet(["token","useruuid","usernickname"], (errros, result) => {
+                if (result[0][1] == null) {
+                    return
+                }
+                let webpageOptions = {
+                    title: '葡萄互助',
+                    desc: '【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障',
+                    thumbSize: 150,
+                    scene: 1,
+                    type: 3,
+                    webpageUrl:  'http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1],
+                    thumbImage: 'http://oztdsemro.bkt.clouddn.com/putaoLogo@2x.png',
+                };
+                WeChat.sendReq(webpageOptions,(err,sendOK) => {
+                    //console.log(sendOK)
+                });
 
-        // if (!!this.state.isLogin) {
-        //     AsyncStorage.multiGet(["token","useruuid","usernickname"], (errros, result) => {
-        //         if (result[0][1] == null) {
-        //             return
-        //         }
-        //         // WeChat.webShareWeXinWithScene(1, '葡萄互助', '【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障', 'http://oztdsemro.bkt.clouddn.com/putaoLogo@2x.png', 'http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1], (err, sendOK) => {
-        //         //     // console.log(sendOK)
-        //         // });
-        //         webpageOptions.scene=0;
-        //         WeChat.sendReq(webpageOptions,(err,sendOK) => {
-        //             console.log(sendOK)
-        //         });
-        //     })
-        //
-        //
-        // } else {
-        //     this.props.navigation.navigate('PageLogin')
-        // }
+            })
+        }
+        else {
+            this.props.navigation.navigate('PageLogin')
+        }
     }
 
     _shareToqqSession() { //分享到qq会话
-        QQ.shareNews('https://facebook.github.io/react-native/',resolveAssetSource(require('./img/putaoLogo@2x.png')).uri,'分享新闻标题','分享新闻描述',QQ.shareScene.QQ)
-            .then((result)=>{console.log('result is', result)})
-            .catch((error)=>{console.log('error is', error)});
 
-        // if (!!this.state.isLogin) {
-        //     AsyncStorage.multiGet(["token","useruuid","usernickname"], (errros, result) => {
-        //         if (result[0][1] == null) {
-        //             return
-        //         }
-        //         QQ.shareNews('https://facebook.github.io/react-native/',resolveAssetSource(require('./img/aboutus.png')).uri,'分享新闻标题','分享新闻描述',QQ.shareScene.QQ)
-        //             .then((result)=>{console.log('result is', result)})
-        //             .catch((error)=>{console.log('error is', error)});
-        //     })
-        // } else {
-        //     this.props.navigation.navigate('PageLogin')
-        // }
+        if (!!this.state.isLogin) {
+            AsyncStorage.multiGet(["token","useruuid","usernickname"], (errros, result) => {
+                if (result[0][1] == null) {
+                    return
+                }
+                QQ.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1],resolveAssetSource(require('./img/aboutus.png')).uri,'葡萄互助','【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障',QQ.shareScene.QQ)
+                    .then((result)=>{console.log('result is', result)})
+                    .catch((error)=>{console.log('error is', error)});
+            })
+        } else {
+            this.props.navigation.navigate('PageLogin')
+        }
     }
 
     _shareToqqzone() { //分享到qqzone
-        QQ.shareNews('https://facebook.github.io/react-native/',resolveAssetSource(require('./img/putaoLogo@2x.png')).uri,'分享新闻标题','分享新闻描述',QQ.shareScene.QQZone)
-            .then((result)=>{console.log('result is', result)})
-            .catch((error)=>{console.log('error is', error)});
-
-        // if (!!this.state.isLogin) {
-        //     AsyncStorage.multiGet(["token","useruuid","usernickname"], (errros, result) => {
-        //         if (result[0][1] == null) {
-        //             return
-        //         }
-        //     })
-        //
-        //
-        // } else {
-        //     this.props.navigation.navigate('PageLogin')
-        // }
+        if (!!this.state.isLogin) {
+            QQSDK.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1], resolveAssetSource(require('./img/putaoLogo@3x.png')).uri, '葡萄互助', '【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障', shareScene.QQZone)
+                .then((result) => {
+                    console.log('result is', result)
+                })
+                .catch((error) => {
+                    console.log('error is', error)
+                });
+        } else {
+            this.props.navigation.navigate('PageLogin')
+        }
     }
 
     goRules() {

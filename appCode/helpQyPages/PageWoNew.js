@@ -1,5 +1,4 @@
 import {
-
     StyleSheet,
     Text,
     Image,
@@ -9,14 +8,11 @@ import {
     PixelRatio,
     NativeAppEventEmitter,
     AsyncStorage,
-    Alert,
     Platform
 } from 'react-native';
 import React, {Component} from 'react';
 import {UrlGetShimingInfo} from '../utils/url';
 import UploadFile from '../utils/uploadFile';
-
-
 import  PageWoNewAndroid  from  './AndroidStyle/PageWoNewAndroid';
 let styles=PageWoNewAndroid;
 let width = Dimensions.get('window').width;
@@ -208,7 +204,7 @@ export default class PageWo extends Component {
                     }
                     else if (resp.result.confirmif == 'refused') { //被拒绝的
                         //审核信息有误，被拒绝
-                        this.props.navigation.navigate('PageQiyeShiming',{
+                        this.props.navigation.navigate('PageQyShimingRefused',{
                             useruuid: this.state.useruuid,
                             token: this.state.token,
                             ShimingInfo:resp.result,
