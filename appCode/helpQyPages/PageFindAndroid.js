@@ -194,7 +194,7 @@ export default class PageFind extends Component {
                 if (result[0][1] == null) {
                     return
                 }
-                QQ.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1],resolveAssetSource(require('./img/aboutus.png')).uri,'葡萄互助','【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障',QQ.shareScene.QQ)
+                QQ.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1],resolveAssetSource(require('./img/putaoLogo@3x.png')).uri,'葡萄互助','【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障',QQ.shareScene.QQ)
                     .then((result)=>{console.log('result is', result)})
                     .catch((error)=>{console.log('error is', error)});
             })

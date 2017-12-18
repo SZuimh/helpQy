@@ -32,7 +32,6 @@ const PageZhuYeAndroid = StyleSheet.create({
         left: 0,
         height: 200,
         width: width,
-        zIndex: 5
     },
     selectPayMoney: {
         flexDirection: 'row',

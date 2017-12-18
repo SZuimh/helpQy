@@ -52,76 +52,83 @@ export default class PageLogin extends Component {
     }
 
     componentDidMount() {
-        subscription = NativeAppEventEmitter.addListener("WeChat_Resp", info => {
+        subscription = NativeAppEventEmitter.addListener("finishedAuth", event => {
+         if(event.success) {
+             this.setState({
+                 modalVisible: true
+             })
+             let formData = new FormData();
+             formData.append('code', event.code)
+             let option = {
+                 url: UrlWechatLogin,
+                 body: formData
+             };
+             let responseR = UploadFile(option);
+             responseR.then(resp => {
+                 this.setState({
+                     modalVisible: false
+                 })
+                 if (resp.retcode == 2000) {
+                     //微信成功登陆，需要判断是否 关联过手机号码  关联过，就跳转到我的界面 否则直接跳转到关联界面
+                     if (resp.result.phonebind == 'yes') {
+                         //存数据，触发事件
+                         AsyncStorage.multiSet([
+                             ['useruuid', resp.result.useruuid || ""],
+                             ['token', resp.result.token || ""],
+                             ['usernickname', resp.result.usernickname || ""],
+                             ['userphoto', resp.result.userphoto || ""],
+                             ['usertoken', resp.result.usertoken || ""],
+                             ['unionid', resp.result.unionid || ""],
+                             ['phonebind', resp.result.phonebind || ""],
+                             ['usertype', resp.result.usertype.toString() || ""],
+                             ['userphone', resp.result.userphone || ""],
+                             ['companyname', resp.result.company || ""],
+                         ], (errors) => {
+                         });
 
+                         loginEmitterEvent = NativeAppEventEmitter.emit('loginEmitter', {});
 
-            this.setState({
-                modalVisible: true
-            })
-            let formData = new FormData();
-            formData.append('code', info.code)
-            let option = {
-                url: UrlWechatLogin,
-                body: formData
-            };
-            let responseR = UploadFile(option);
-            responseR.then(resp => {
-                this.setState({
-                    modalVisible: false
-                })
-                if (resp.retcode == 2000) {
-                    //微信成功登陆，需要判断是否 关联过手机号码  关联过，就跳转到我的界面 否则直接跳转到关联界面
-                    if (resp.result.phonebind == 'yes') {
-                        //存数据，触发事件
-                        AsyncStorage.multiSet([
-                            ['useruuid', resp.result.useruuid || ""],
-                            ['token', resp.result.token || ""],
-                            ['usernickname', resp.result.usernickname || ""],
-                            ['userphoto', resp.result.userphoto || ""],
-                            ['usertoken', resp.result.usertoken || ""],
-                            ['unionid', resp.result.unionid || ""],
-                            ['phonebind', resp.result.phonebind || ""],
-                            ['usertype', resp.result.usertype.toString() || ""],
-                            ['userphone', resp.result.userphone || ""],
-                            ['companyname', resp.result.company || ""],
-                        ], (errors) => {
-                        });
+                         this.timer = setTimeout(() => {
+                             this.props.navigation.goBack();
+                         }, 500)
 
-                        loginEmitterEvent = NativeAppEventEmitter.emit('loginEmitter', {});
+                     } else {
+                         this.props.navigation.navigate('PageWechatBindPhone',
+                             {
+                                 userMessage: resp.result,
+                                 PageWoNewKey: this.props.navigation.state.key,
+                             })
+                     }
+                 }
+                 else {
+                     this.setState({
+                         tipsModal: true,
+                         failSucessTips: "",
+                         failSucessImage: require('./img/joinFail.png'),
+                         respMessage: resp.msg,
+                     })
+                 }
 
-                        this.timer = setTimeout(() => {
-                            this.props.navigation.goBack();
-                        }, 500)
-
-                    } else {
-                        this.props.navigation.navigate('PageWechatBindPhone',
-                            {
-                                userMessage: resp.result,
-                                PageWoNewKey: this.props.navigation.state.key,
-                        })
-                    }
-                }
-                else{
-                   this.setState({
-                       tipsModal:true,
-                       failSucessTips:"",
-                       failSucessImage:require('./img/joinFail.png'),
-                       respMessage:resp.msg,
-                   })
-                }
-
-            }).catch(err => {
-                this.setState({
-                    modalVisible: false,
-                    tipsModal:true,
-                    failSucessTips:"",
-                    failSucessImage:require('./img/joinFail.png'),
-                    respMessage:"服务器异常",
-                })
-            });
-        });
-    }
-
+             }).catch(err => {
+                 this.setState({
+                     modalVisible: false,
+                     tipsModal: true,
+                     failSucessTips: "",
+                     failSucessImage: require('./img/joinFail.png'),
+                     respMessage: "服务器异常",
+                 })
+             });
+         }else{
+             this.setState({
+                 modalVisible: false,
+                 tipsModal: true,
+                 failSucessTips: "",
+                 failSucessImage: require('./img/joinFail.png'),
+                 respMessage: "取消授权",
+             })
+         } //if
+        }); //回调
+    } //componentDidMount
 
     componentWillUnmount() {
         subscription.remove();
@@ -140,15 +147,11 @@ export default class PageLogin extends Component {
     };
 
     _wechatLogin(){
-        WeChat.sendAuthReq(null,null,(err,authReqOK) => {
-             console.log(authReqOK)
+        WeChat.sendAuthReq('snsapi_userinfo',null,(err,authReqOK) => {
+             //console.log(authReqOK)
         });
     }
-    // _wechatLogin() {
-    //     WeChat.sendAuthRequest("snsapi_userinfo", "123", (err) => {
-    //         // console.log(err)
-    //     });
-    // }
+
 
     verify() { //检验邮箱密码是不是符合要求
         //输入完密码，点击return时，校验邮箱和密码是否合法

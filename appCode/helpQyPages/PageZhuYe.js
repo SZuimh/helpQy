@@ -19,14 +19,7 @@ import fetchToolget from '../utils/fetchToolget';
 
 import  PageZhuYeAndroid from  './AndroidStyle/PageZhuYeAndroid';
 import  PageZhuYeiOS  from  './iOSStyle/PageZhuYeiOS';
-let styles=null;
-if (Platform.OS==='android') {
-    styles=PageZhuYeAndroid;
-
-}else{
-    styles=PageZhuYeiOS;
-}
-
+let styles=PageZhuYeAndroid;
 let width = Dimensions.get('window').width;
 let height = Dimensions.get('window').height;
 let ratio = PixelRatio.get();
@@ -143,9 +136,7 @@ export default class PageZhuYe extends Component {
     render() {
         return (
             <View>
-                {/*<View style={styles.LunBoView}>*/}
-                    {/*<FocusImage/>*/}
-                {/*</View>*/}
+
                 <StatusBar
                     animated={true}
                     hidden={false}
@@ -154,9 +145,6 @@ export default class PageZhuYe extends Component {
                     barStyle={'default'}
                     networkActivityIndicatorVisible={false}
                     showHideTransition={'fade'}/>
-                <View style={{backgroundColor: '#fff',}}>
-                </View>
-
                 <ScrollView
                     refreshControl={
                     <RefreshControl
@@ -166,10 +154,9 @@ export default class PageZhuYe extends Component {
                         title="Loading..."
                         titleColor="#00ff00"
                         colors={['#ff0000', '#00ff00', '#0000ff']}
-                        progressBackgroundColor="#ffff00"
-                    />
-                }>
-                  
+                        progressBackgroundColor="#ffff00"/>
+                    }>
+
                     {/*加入互助，200万人已经加入*/}
                     <View style={styles.joinHuzhu}>
                         <Text style={{color: '#414141'}}>加入企业互助</Text>
@@ -290,7 +277,6 @@ export default class PageZhuYe extends Component {
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-
                 <LoadingInPage modalVisible={this.state.modalVisible}/>
             </View>
         );
