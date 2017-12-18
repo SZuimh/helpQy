@@ -315,7 +315,8 @@ export default class PageLogin extends Component {
                             clearButtonMode='always'
                             clearTextOnFocus={false}
                             autoCorrect={false}
-                            password={true}
+                            password={false}
+                            secureTextEntry={true}
                             onChange={this.handlePasswordChange.bind(this)}
                         />
                     </View>

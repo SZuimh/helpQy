@@ -180,14 +180,14 @@ export default class PageWo extends Component {
 
                 if (resp.retcode == 2001) {
                     //未查到数据 说明没有进行审核信息的提交
-                    this.props.navigation.navigate('PageQiyeShiming', {
+                    this.props.navigation.navigate('PageQiyeShiming', { // 初次提交
                         useruuid: this.state.useruuid,
                         token: this.state.token,
                         Status:'nostart'
                     })
                 }
                 else if (resp.retcode == 2000) {
-                    if (resp.result.confirmif == "unhandle") {
+                    if (resp.result.confirmif == "unhandle") { //展示信息
                         //还在审核中
                         console.log("推啊哦转")
                         this.props.navigation.navigate('PageQiyeShimingShowData', {
@@ -197,7 +197,7 @@ export default class PageWo extends Component {
                             Status:'unhandle'
                         })
                     }
-                    else if (resp.result.confirmif == 'pass') {
+                    else if (resp.result.confirmif == 'pass') { //展示信息
                         // 审核信息已经通过了
                         this.props.navigation.navigate('PageQiyeShimingShowData', {
                             useruuid: this.state.useruuid,
@@ -206,7 +206,7 @@ export default class PageWo extends Component {
                             Status:'pass'
                         })
                     }
-                    else if (resp.result.confirmif == 'refused') {
+                    else if (resp.result.confirmif == 'refused') { //被拒绝的
                         //审核信息有误，被拒绝
                         this.props.navigation.navigate('PageQiyeShiming',{
                             useruuid: this.state.useruuid,
@@ -250,17 +250,13 @@ export default class PageWo extends Component {
                     {/*头像昵称要靠左边*/}
                     <View style={styles.PageWoNewHeader}>
                         {/*用户头像*/}
-                        <View style={styles.PageWoNewUserPhotoView}>
-                            <Image source={{uri: this.state.userphoto}} style={styles.userPhoto} resizeMode={'cover'}/>
-                        </View>
+                        <Image source={{uri: this.state.userphoto}} style={styles.userPhoto} resizeMode={'cover'}/>
                         {/*请登录，公司或者个人账户*/}
                         <View style={styles.PageWoNewTongzhi}>
                             <View style={styles.PageWoNewUserNameAndTongzhiView}>
                                 {this.state.isLogin ?
                                     <Text style={styles.PageWoNewUserName}>{this.state.usernickname}</Text> :
-                                    <TouchableOpacity onPress={this.goLogin.bind(this)}>
-                                        <Text style={styles.PageWoNewUserName}>{this.state.usernickname}</Text>
-                                    </TouchableOpacity>
+                                    <Text  onPress={this.goLogin.bind(this)}  style={styles.PageWoNewUserName}>{this.state.usernickname}</Text>
                                 }
                             </View>
                             <View style={styles.PageWoNewMyAccount}>
@@ -269,9 +265,9 @@ export default class PageWo extends Component {
                                     :
                                     <Text style={styles.PageWoNewMyAccountFont}>个人账户</Text>
                                 }
-                                <View></View>
                             </View>
                         </View>
+
                     </View>
 
                     {/*消息通知*/}

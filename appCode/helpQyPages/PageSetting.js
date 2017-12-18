@@ -208,9 +208,9 @@ export default class PageSetting extends Component {
                                 <TextInput
                                     style={styles.PageSettingInput}
                                     placeholder='输入昵称'
-                                    keyboardType='email-address'
+                                    keyboardType='default'
                                     maxLength={30}
-                                    underlineColorAndroid={'transparent'}
+                                     underlineColorAndroid={'transparent'}
                                     ref='refemail'
                                     autoCapitalize='none'
                                     clearButtonMode='always'
@@ -374,7 +374,9 @@ let styles = StyleSheet.create({
         marginTop: -50,
     },
     PageSettingInput: {
-        height: 30,
+        justifyContent:'center',
+        alignItems:'center',
+        height: 40,
         width: width*0.6-40,
         fontSize: 10,
         color: '#4a4a4a',
@@ -383,7 +385,7 @@ let styles = StyleSheet.create({
         borderColor: '#c7c7cd',
         backgroundColor: 'white',
         textAlign: 'center',
-        marginTop: 20
+        // marginTop: 20
     },
     PageSettingChanegNameButtonView: {
         width: width*0.6,

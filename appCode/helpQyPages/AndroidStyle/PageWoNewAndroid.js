@@ -32,19 +32,21 @@ const PageWoNewAndroid = StyleSheet.create({
         backgroundColor: 'white'
     },
     PageWoNewMaxHeader: {
-        width: width,
-        height: 90+heightPixel,
+        width: width-35,
+        height: 90,
         backgroundColor: 'white',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginLeft:32
     },
     messageTouch: {
         width: 30,
         height: 30,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        marginTop:-10
     },
     PageWoNewUserPhotoView: {
         width: 80,
@@ -57,12 +59,14 @@ const PageWoNewAndroid = StyleSheet.create({
         width: 200,
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent:'flex-start',
         backgroundColor: 'white',
-        marginTop: 10
+        marginTop: 10,
+        height:60
     },
     userPhoto: {
         width: 60,
-        height: 60+heightPixel,
+        height: 60,
         borderRadius: 30
     },
     PageWoNewImageAndUserName: {
@@ -77,35 +81,30 @@ const PageWoNewAndroid = StyleSheet.create({
     },
     PageWoNewTongzhi: {
         flexDirection: 'column',
-        alignItems: 'center'
+        justifyContent:'space-around',
+        alignItems:'flex-end',
+        height:60
+
     },
     PageWoNewUserNameAndTongzhiView: {
-        height: 40+heightPixel,
-        width: width - 110,
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
+        width: 110,
     },
-    PageWoNewTongzhiImage: {},
+    PageWoNewTongzhiImage: {
+
+    },
     PageWoNewUserName: {
-        alignSelf: 'flex-start',
-        fontSize: 18+addPixel,
+        fontSize: 18,
         fontWeight: 'bold',
         color:'black'
     },
     PageWoNewMyAccount: {
-        height: 20,
-        width: width - 110,
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        width: 110,
     },
     PageWoNewTurnRight: {
         marginRight: 20
     },
     PageWoNewMyAccountFont: {
-        fontSize: 10+addPixel,
+        fontSize: 10,
         color:'black'
     },
     PageWoNewMyChoice: {
