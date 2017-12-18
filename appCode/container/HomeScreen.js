@@ -62,7 +62,6 @@ import PagePayForHomer from '../helpQyPages/PagePayForHomer'
 import NewsContent from "../helpQyPages/webView/NewsContent";
 import PageFindPasswordFromSetting from "../helpQyPages/PageFindPasswordFromSetting";
 import EmployeePlansFromZhuyeItem from "../helpQyPages/EmployeePlansFromZhuyeItem";
-import  FocusImage from '../helpQyPages/FocusImage'
 //import  TestiOS from  '../helpQyPages/TestiOS'
 var height = Dimensions.get('window').height - 70;
 const TabNav = TabNavigator(
@@ -231,9 +230,6 @@ const HomeScreen = StackNavigator({
     Root: {
         screen: TabNav,
 
-    },
-    FocusImage:{
-        screen: FocusImage,
     },
     Profile: {
         screen: ChatScreen,

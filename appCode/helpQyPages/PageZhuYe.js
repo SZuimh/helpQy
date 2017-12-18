@@ -35,23 +35,47 @@ export default class PageZhuYe extends Component {
             sumStaff: 0,  //
             sumMan: 0,  //
             isRefreshing:false,
-            image1: require('./img/LunboFri.png'),
-            image2:require('./img/LunboSec.png'),
-            image3:require('./img/LunboThr.png')
+            source:require('./img/LunboFri.png'),
+            checkedImage:1
+
         };
     }
 
     componentDidMount() {
         this.getMainSumInfo();
+        this.timeDown()
+    }
+    componentWillUnmount(){
+        this.timer && clearInterval(this.timer);
     }
 
-
     timeDown() {
-        let source=require('./img/LunboFri.png');
+
+        let  url='a';
 
         this.timer = setInterval(() => {
+            if (url=='a'){
+                this.setState({
+                    source:require('./img/LunboSec.png'),
+                    checkedImage:2
+                })
+                url='b'
 
-        }, 1000);
+            }else if (url=='b'){
+                this.setState({
+                    source: require('./img/LunboThr.png'),
+                    checkedImage:3
+                })
+                url='c'
+            }else {
+                this.setState({
+                    source: require('./img/LunboFri.png'),
+                    checkedImage:1
+                })
+                url='a'
+            }
+
+        }, 2000);
     }
     _onRefresh(){
         //页面刷新方法
@@ -145,6 +169,9 @@ export default class PageZhuYe extends Component {
     }
 
     render() {
+        let backgroundColor1=this.state.checkedImage==1?'blue':'white';
+        let backgroundColor2=this.state.checkedImage==2?'blue':'white';
+        let backgroundColor3=this.state.checkedImage==3?'blue':'white';
         return (
             <View>
                 <StatusBar
@@ -155,18 +182,26 @@ export default class PageZhuYe extends Component {
                     barStyle={'default'}
                     networkActivityIndicatorVisible={false}
                     showHideTransition={'fade'}/>
-
+                <Image  style={{    height: 200, width: width,flexDirection:'column',alignItems:'center'}} key={1} resizeMode='cover'
+                        source={this.state.source}>
+                    <View style={{width:width*0.1,height:10,flexDirection:'row',justifyContent:'space-between',marginTop:180}}>
+                        <View style={{backgroundColor:backgroundColor1, height:6,width:6,borderRadius:3}} />
+                        <View style={{backgroundColor:backgroundColor2,height:6,width:6,borderRadius:3}} />
+                        <View style={{backgroundColor:backgroundColor3,height:6,width:6,borderRadius:3}} />
+                    </View>
+                </Image>
 
                 <ScrollView
+                    style={{height:height-260}}
                     refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.isRefreshing}
-                        onRefresh={this._onRefresh.bind(this)}
-                        tintColor="#ff0000"
-                        title="Loading..."
-                        titleColor="#00ff00"
-                        colors={['#ff0000', '#00ff00', '#0000ff']}
-                        progressBackgroundColor="#ffff00"/>
+                        <RefreshControl
+                            refreshing={this.state.isRefreshing}
+                            onRefresh={this._onRefresh.bind(this)}
+                            tintColor="#ff0000"
+                            title="Loading..."
+                            titleColor="#00ff00"
+                            colors={['#ff0000', '#00ff00', '#0000ff']}
+                            progressBackgroundColor="#ffff00"/>
                     }>
 
                     {/*加入互助，200万人已经加入*/}

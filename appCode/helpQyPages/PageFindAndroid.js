@@ -204,17 +204,21 @@ export default class PageFind extends Component {
     }
 
     _shareToqqzone() { //分享到qqzone
+
+
         if (!!this.state.isLogin) {
-            QQSDK.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1], resolveAssetSource(require('./img/putaoLogo@3x.png')).uri, '葡萄互助', '【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障', shareScene.QQZone)
-                .then((result) => {
-                    console.log('result is', result)
-                })
-                .catch((error) => {
-                    console.log('error is', error)
-                });
+            AsyncStorage.multiGet(["token","useruuid","usernickname"], (errros, result) => {
+                if (result[0][1] == null) {
+                    return
+                }
+                QQ.shareNews('http://www.putaohuzhu.cn/glove/grape/joinByShare.do?useruuid=' + result[1][1],resolveAssetSource(require('./img/putaoLogo@3x.png')).uri,'葡萄互助','【' + result[2][1] + '】邀请您加入葡萄互助，注册成为会员最高享30万元健康保障',QQ.shareScene.QQZone)
+                    .then((result)=>{console.log('result is', result)})
+                    .catch((error)=>{console.log('error is', error)});
+            })
         } else {
             this.props.navigation.navigate('PageLogin')
         }
+
     }
 
     goRules() {

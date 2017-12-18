@@ -317,13 +317,14 @@ export default class PageFindPasswd extends Component {
                                     clearButtonMode='always'
                                     clearTextOnFocus={false}
                                     autoCorrect={false}
+                                    defaultValue={this.state.passwordJiami}
                                     onChange={this.handlePasswordChange.bind(this)}/>
                             </View>
                         </View>
 
                         <View style={styles.loginwrap}>
                             <TouchableOpacity style={styles.loginTouch} onPress={this.goFindPassword.bind(this)}>
-                                <Text style={{color: '#FFFFFF'}}>找回</Text>
+                                <Text style={{color: '#FFFFFF',fontSize:16}}>找回</Text>
                             </TouchableOpacity>
                         </View>
                         <LoadingInPage modalVisible={this.state.modalVisible}/>

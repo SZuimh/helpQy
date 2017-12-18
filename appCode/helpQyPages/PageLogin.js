@@ -41,7 +41,6 @@ export default class PageLogin extends Component {
             password: null,
             userPassword: null,
             modalVisible: false,
-
             tipsModal:false,
             failSucessTips:'' , //对不起，充值失败 或恭喜你，充值成功
             failSucessImage:require('./img/joinFail.png'),
@@ -198,6 +197,7 @@ export default class PageLogin extends Component {
             })
             return
         }
+        console.log(this.state.password)
 
         let formDataTemp = new FormData();
         formDataTemp.append("phone", this.state.phone);
@@ -262,6 +262,7 @@ export default class PageLogin extends Component {
         this.setState({
             password: event.nativeEvent.text
         });
+
     }
 
     goRegister() {
@@ -321,13 +322,14 @@ export default class PageLogin extends Component {
                             autoCorrect={false}
                             password={false}
                             secureTextEntry={true}
+                            defaultValue={this.state.passwordJiami}
                             onChange={this.handlePasswordChange.bind(this)}
                         />
                     </View>
                 </View>
                 <View style={styles.loginwrap}>
                     <TouchableOpacity style={styles.loginTouch} onPress={this.goLogin.bind(this)}>
-                        <Text style={{color: '#FFFFFF'}}>登录</Text>
+                        <Text style={{color: '#FFFFFF',fontSize:16}}>登录</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.underButton}>

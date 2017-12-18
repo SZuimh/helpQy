@@ -188,6 +188,7 @@ export default class PageRegister extends Component {
         this.setState({
             password: event.nativeEvent.text
         });
+
     }
 
     handleCodeChange(event) {
@@ -335,13 +336,14 @@ export default class PageRegister extends Component {
                                     clearTextOnFocus={false}
                                     autoCorrect={false}
                                     password={true}
+                                    defaultValue={this.state.passwordJiami}
                                     onChange={this.handlePasswordChange.bind(this)}
                                 />
                             </View>
                         </View>
                         <View style={styles.loginwrap}>
                             <TouchableOpacity style={styles.loginTouch} onPress={this.goRegister.bind(this)}>
-                                <Text style={{color: '#ffffff'}}>注册</Text>
+                                <Text style={{color: '#ffffff',fontSize:16}}>注册</Text>
                             </TouchableOpacity>
                         </View>
 

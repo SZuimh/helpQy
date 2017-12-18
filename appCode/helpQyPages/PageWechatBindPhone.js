@@ -343,13 +343,14 @@ export default class PageWechatBindPhone extends Component {
                                     clearButtonMode='always'
                                     clearTextOnFocus={false}
                                     autoCorrect={false}
+                                    defaultValue={this.state.passwordJiami}
                                     onChange={this.handlePasswordChange.bind(this)}
                                 />
                             </View>
                         </View>
                         <View style={styles.loginwrap}>
                             <TouchableOpacity style={styles.loginTouch} onPress={this.goBindPhone.bind(this)}>
-                                <Text style={{color: '#FFFFFF'}}>绑定</Text>
+                                <Text style={{color: '#FFFFFF',fontSize:16}}>绑定</Text>
                             </TouchableOpacity>
                         </View>
 
