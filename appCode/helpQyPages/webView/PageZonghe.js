@@ -21,6 +21,8 @@ export default class PageZonghe extends Component {
             display: 'none',
             display2: 'none',
             display3: 'none',
+            display4: 'none',
+            display5: 'none',
             sumMan:0,
             sumMoney:0,
             average:0,
@@ -120,6 +122,30 @@ export default class PageZonghe extends Component {
         else {
             this.setState({
                 display3: 'none'
+            })
+        }
+    }
+    changeDisplay4() {
+        if (this.state.display4 == 'none') {
+            this.setState({
+                display4: 'flex'
+            })
+        }
+        else {
+            this.setState({
+                display4: 'none'
+            })
+        }
+    }
+    changeDisplay5() {
+        if (this.state.display5 == 'none') {
+            this.setState({
+                display5: 'flex'
+            })
+        }
+        else {
+            this.setState({
+                display5: 'none'
             })
         }
     }
@@ -340,7 +366,7 @@ export default class PageZonghe extends Component {
                             </TouchableOpacity>
                             <View display={this.state.display} style={styles.PagePlansQiyeDabingAnswer}>
                                 <Text style={styles.PagePlansQiyeDabingAnswerContent}>
-                                    这里面用来介绍什么是互助行动，同事要进行显隐的控制显示
+                                    互助行动是一种全新的健康保障机制，加入的互助者只需支付最低保障金额，经过相应的观察期后即可获得相应的健康保障。无病时帮助他人，有病时人人助我。
                                 </Text>
                             </View>
                         </View>
@@ -348,7 +374,7 @@ export default class PageZonghe extends Component {
                         <View style={{width: width - 50}}>
                             <TouchableOpacity style={styles.PagePlansQiyeDabingQuestions}
                                               onPress={this.changeDisplay2.bind(this)}>
-                                <Text style={{fontSize: 14, fontWeight: 'bold', color: '#4a4a4a'}}>2.什么是互助行动</Text>
+                                <Text style={{fontSize: 14, fontWeight: 'bold', color: '#4a4a4a'}}>2.葡萄互助是保险吗？</Text>
                                 {this.state.display2 == 'none' ?
                                     <Image source={require('../img/turnDown.png')}/> :   //显示方式为none的时候 箭头向下
                                     <Image source={require('../img/turnUp.png')}/>    //显示方式为flex的时候 箭头向上
@@ -356,7 +382,7 @@ export default class PageZonghe extends Component {
                             </TouchableOpacity>
                             <View display={this.state.display2} style={styles.PagePlansQiyeDabingAnswer}>
                                 <Text style={styles.PagePlansQiyeDabingAnswerContent}>
-                                    这里面用来介绍什么是互助行动，同事要进行显隐的控制显示
+                                    葡萄互助不是保险，而是会员之间相互帮助的公益行动，无病时帮助他人，有病时人人助我。葡萄互助不承诺任何给付补偿责任，与保险有本质区别。
                                 </Text>
                             </View>
                         </View>
@@ -364,7 +390,7 @@ export default class PageZonghe extends Component {
                         <View style={{width: width - 50}}>
                             <TouchableOpacity style={styles.PagePlansQiyeDabingQuestions}
                                               onPress={this.changeDisplay3.bind(this)}>
-                                <Text style={{fontSize: 14, fontWeight: 'bold', color: '#4a4a4a'}}>3.什么是互助行动</Text>
+                                <Text style={{fontSize: 14, fontWeight: 'bold', color: '#4a4a4a'}}>3.发生互助保障事件如何扣款</Text>
                                 {this.state.display3 == 'none' ?
                                     <Image source={require('../img/turnDown.png')}/> :   //显示方式为none的时候 箭头向下
                                     <Image source={require('../img/turnUp.png')}/>    //显示方式为flex的时候 箭头向上
@@ -372,7 +398,42 @@ export default class PageZonghe extends Component {
                             </TouchableOpacity>
                             <View display={this.state.display3} style={styles.PagePlansQiyeDabingAnswer}>
                                 <Text style={styles.PagePlansQiyeDabingAnswerContent}>
-                                    这里面用来介绍什么是互助行动，同事要进行显隐的控制显示
+                                    当有行动会员在度过观察期后首次确诊符合我们保障条件时，将在您的余额中扣除不超过3元以资助求助者。
+                                    计算公式：
+                                    受助人权利（即受助金额）／行动会员人数；
+                                    行动会员越多每人付出的金额越少，如有100万会员，每人每次只需支付0.3元即可帮助求助者获取30万救助金。
+                                </Text>
+                            </View>
+                        </View>
+                        {/*第四个常见问题*/}
+                        <View style={{width: width - 50}}>
+                            <TouchableOpacity style={styles.PagePlansQiyeDabingQuestions}
+                                              onPress={this.changeDisplay4.bind(this)}>
+                                <Text style={{fontSize: 14, fontWeight: 'bold', color: '#4a4a4a'}}>4.公示期内如何进行质疑？</Text>
+                                {this.state.display4 == 'none' ?
+                                    <Image source={require('../img/turnDown.png')}/> :   //显示方式为none的时候 箭头向下
+                                    <Image source={require('../img/turnUp.png')}/>    //显示方式为flex的时候 箭头向上
+                                }
+                            </TouchableOpacity>
+                            <View display={this.state.display4} style={styles.PagePlansQiyeDabingAnswer}>
+                                <Text style={styles.PagePlansQiyeDabingAnswerContent}>
+                                    通过拨打客服电话0539-5259955，可对公示事件进行合理质疑。
+                                </Text>
+                            </View>
+                        </View>
+
+                        <View style={{width: width - 50}}>
+                            <TouchableOpacity style={styles.PagePlansQiyeDabingQuestions}
+                                              onPress={this.changeDisplay5.bind(this)}>
+                                <Text style={{fontSize: 14, fontWeight: 'bold', color: '#4a4a4a'}}>5.什么是观察期？</Text>
+                                {this.state.display5 == 'none' ?
+                                    <Image source={require('../img/turnDown.png')}/> :   //显示方式为none的时候 箭头向下
+                                    <Image source={require('../img/turnUp.png')}/>    //显示方式为flex的时候 箭头向上
+                                }
+                            </TouchableOpacity>
+                            <View display={this.state.display5} style={styles.PagePlansQiyeDabingAnswer}>
+                                <Text style={styles.PagePlansQiyeDabingAnswerContent}>
+                                    观察期又称等待期或免责期，是为了防止参与行动的会员明知道将发生风险事故，而马上加入以获得利益的行为。
                                 </Text>
                             </View>
                         </View>
